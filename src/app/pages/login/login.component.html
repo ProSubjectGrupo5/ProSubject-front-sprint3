@@ -14,8 +14,8 @@
                     <div class="form-group">
                         <label>Usuario</label>
                         <i class="fas fa-user"></i><input matInput type="text" name="username" formControlName="usuario" 
-                        placeholder="Introduce tu usario..." class="form-control">
-                        <div *ngIf="form.get('usuario').touched && form.get('usuario').hasError('required')">
+                        placeholder="Introduce tu usario..." class="form-control" [ngClass]="{'is-invalid': form.get('usuario').touched && form.get('usuario').invalid}">
+                        <div class="alert alert-danger" *ngIf="form.get('usuario').touched && form.get('usuario').hasError('required')">
                             El nombre de usuario es requerido
                         </div>
                     </div>
@@ -23,8 +23,8 @@
                     <div class="form-group">
                         <label>Contraseña</label>
                         <i class="fas fa-key"></i><input matInput type="password" name="password" formControlName="contraseña" 
-                        placeholder="Introduce tu contraseña..." class="form-control">
-                        <div *ngIf="form.get('contraseña').touched && form.get('contraseña').hasError('required')">
+                        placeholder="Introduce tu contraseña..." class="form-control" [ngClass]="{'is-invalid': form.get('contraseña').touched && form.get('contraseña').invalid}">
+                        <div class="alert alert-danger" *ngIf="form.get('contraseña').touched && form.get('contraseña').hasError('required')">
                             La contaseña es requerida
                         </div>
                     </div>
