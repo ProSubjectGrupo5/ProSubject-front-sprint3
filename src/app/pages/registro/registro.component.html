@@ -6,7 +6,7 @@
             </div>
             <form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Nombre</label>
                             <input matInput type="text" name="nombre" placeholder="Introduzca su nombre" class="form-control" autofocus
@@ -16,13 +16,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>Apellidos</label>
-                            <input matInput type="text" name="apellidos" placeholder="Introduzca sus apellidos" class="form-control"
-                            formControlName="apellidos" [ngClass]="{'is-invalid': form.get('apellidos').touched && form.get('apellidos').invalid}">
-                            <div class="alert alert-danger" *ngIf="form.get('apellidos').touched && form.get('apellidos').hasError('required')">
-                                Los apellidos son requeridos
+                            <label>Primer apellido</label>
+                            <input matInput type="text" name="apellido1" placeholder="Introduzca su primer apellido" class="form-control"
+                            formControlName="apellido1" [ngClass]="{'is-invalid': form.get('apellido1').touched && form.get('apellido1').invalid}">
+                            <div class="alert alert-danger" *ngIf="form.get('apellido1').touched && form.get('apellido1').hasError('required')">
+                                El primer apellido es requerido
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Segundo apellido</label>
+                            <input matInput type="text" name="apellido2" placeholder="Introduzca su segundo apellido" class="form-control"
+                            formControlName="apellido2" [ngClass]="{'is-invalid': form.get('apellido2').touched && form.get('apellido2').invalid}">
+                            <div class="alert alert-danger" *ngIf="form.get('apellido2').touched && form.get('apellido2').hasError('required')">
+                                El segundo apellido es requerido
                             </div>
                         </div>
                     </div>
@@ -62,6 +72,9 @@
                             formControlName="email" [ngClass]="{'is-invalid': form.get('email').touched && form.get('email').invalid}" >
                             <div class="alert alert-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">
                                 El email es requerido
+                            </div>
+                            <div class="alert alert-danger" *ngIf="form.get('email').touched && form.get('email').hasError('email')">
+                                Introduce en email válido
                             </div>
                         </div>
                     </div>
