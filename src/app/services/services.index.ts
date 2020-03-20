@@ -24,6 +24,8 @@ export { ProfesorService } from './profesor/profesor.service';
 
 export { HeaderService } from './shared/header.service';
 
+export { AlumnoService } from "./alumno/alumno.service";
+
 
 
 

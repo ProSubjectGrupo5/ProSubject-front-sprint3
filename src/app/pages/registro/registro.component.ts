@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from "./confirm-password-validator";
+import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
+
 
 @Component({
   selector: 'app-registro',
@@ -18,14 +20,22 @@ export class RegistroComponent implements OnInit {
     dni:'',
     email:'',
     telefono:'',
-    useraccount: {
+
+    //Atributos profesor
+    tarifaPremium:'false',
+    expedienteValidado: 'false',
+    //---Atributos profesor---
+
+    userAccount: {
       username:'',
       password:'',
       autoridad:''
     }
   }
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder,
+    private alumnoService: AlumnoService,
+    private profesorService: ProfesorService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -35,6 +45,7 @@ export class RegistroComponent implements OnInit {
       dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$')]),
       email: new FormControl('', [Validators.required, Validators.email]),
       telefono: new FormControl('', [Validators.required]),
+      file: new FormControl(''),
       useraccount: new FormGroup({
         username: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required]),
@@ -53,11 +64,24 @@ export class RegistroComponent implements OnInit {
     this.usuario.dni = this.form.get('dni').value;
     this.usuario.email = this.form.get('email').value;
     this.usuario.telefono = this.form.get('telefono').value;
-    this.usuario.useraccount.username = this.form.get('useraccount').get('username').value;
-    this.usuario.useraccount.password = this.form.get('useraccount').get('password').value;
-    this.usuario.useraccount.autoridad = this.form.get('useraccount').get('autoridad').value;
+    this.usuario.userAccount.username = this.form.get('useraccount').get('username').value;
+    this.usuario.userAccount.password = this.form.get('useraccount').get('password').value;
+    this.usuario.userAccount.autoridad = this.form.get('useraccount').get('autoridad').value;
+
     
-    console.log(this.usuario);
+    if(this.form.get('useraccount').get('autoridad').value == 'ALUMNO'){
+      this.alumnoService.registrarAlumno(this.usuario).subscribe(
+        res => console.log(this.usuario),
+        error => console.log(error)
+      )
+    }else{
+      this.profesorService.registrarProfesor(this.usuario).subscribe(
+        res => console.log(this.usuario),
+        error => console.log(error)
+      )
+    }
+  
+    
 
   }
 
