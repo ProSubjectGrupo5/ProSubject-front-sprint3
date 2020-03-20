@@ -24,9 +24,13 @@ export class RegistroComponent implements OnInit {
         username: new FormControl(''),
         password: new FormControl(''),
         confirmPassword: new FormControl(''),
-        autoridad: new FormControl('')
+        autoridad: new FormControl('', Validators.required)
       })
     })
+  }
+
+  onSubmit(){
+    console.log(this.form.value)
   }
 
 }
