@@ -1,1 +1,94 @@
-<p>registro works!</p>
+<div class="row">
+    <div class="col-md-8 mx-auto d-block">
+        <div class="card border">
+            <div class="jumbotron text-center h2 text-dark">
+                Registro
+            </div>
+            <form id="form" [formGroup]="form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input matInput type="text" name="nombre" placeholder="Introduzca su nombre" class="form-control" autofocus
+                            formControlName="nombre">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <input matInput type="text" name="apellidos" placeholder="Introduzca sus apellidos" class="form-control"
+                            formControlName="apellidos">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>DNI</label>
+                            <input matInput type="text" name="dni" placeholder="Introduzca su DNI" class="form-control"
+                            formControlName="dni">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input matInput type="text" name="telefono" placeholder="Introduzca su teléfono" class="form-control"
+                            formControlName="telefono">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input matInput type="text" name="email" placeholder="Introduzca su email" class="form-control"
+                            formControlName="apellidos">
+                        </div>
+                    </div>
+                </div>
+
+                <div formGroupName="useraccount">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input matInput type="text" name="username" placeholder="Introduzca su usuario" class="form-control"
+                                formControlName="username">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input matInput type="password" name="password" placeholder="Introduzca su contraseña" class="form-control"
+                                formControlName="password">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm password</label>
+                                <input matInput type="password" name="confirmPassword" placeholder="Repita su contraseña" class="form-control"
+                                formControlName="confirmPassword">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="form-group">
+                                <label>Selecciona como quieres registrarte:</label>
+
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button class="btn btn-primary btn-block col-md-11 mx-auto d-block">
+                        Register
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
