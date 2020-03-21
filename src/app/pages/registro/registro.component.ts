@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from "./confirm-password-validator";
 import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class RegistroComponent implements OnInit {
 
   constructor(private fb:FormBuilder,
     private alumnoService: AlumnoService,
-    private profesorService: ProfesorService) { }
+    private profesorService: ProfesorService,
+    private router: Router) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -71,12 +73,12 @@ export class RegistroComponent implements OnInit {
     
     if(this.form.get('useraccount').get('autoridad').value == 'ALUMNO'){
       this.alumnoService.registrarAlumno(this.usuario).subscribe(
-        res => console.log(this.usuario),
+        res => this.router.navigate(['inicio']),
         error => console.log(error)
       )
     }else{
       this.profesorService.registrarProfesor(this.usuario).subscribe(
-        res => console.log(this.usuario),
+        res => this.router.navigate(['inicio']),
         error => console.log(error)
       )
     }

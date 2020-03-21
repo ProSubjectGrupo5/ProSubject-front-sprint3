@@ -26,7 +26,8 @@ export class CreacionEspacioComponent implements OnInit {
     asignatura:{},
     foro:{},
     profesor:{},
-    precio:''
+    precio:'',
+    draftMode:''
   }
   asignatura: any = {}
   profesor: any = {}
@@ -80,6 +81,7 @@ export class CreacionEspacioComponent implements OnInit {
       curso: new FormControl('', Validators.required),
       asignatura: new FormControl('', Validators.required),
       precio: new FormControl('', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]{1,}(\\.[0-9]{1,2})?$')]),
+      draftMode: new FormControl(''),
       horarios: this.fb.array([
         this.fb.group({
           dia: new FormControl('', Validators.required),
@@ -179,6 +181,7 @@ export class CreacionEspacioComponent implements OnInit {
             this.espacio.precio = this.form.get('precio').value;
             this.espacio.asignatura = this.asignatura;
             this.espacio.profesor = this.profesor;
+            this.espacio.draftMode = this.form.get('draftMode').value;
 
             this.convertirFecha()
             this.form.get('horarios').value.forEach(element =>{
@@ -199,6 +202,7 @@ export class CreacionEspacioComponent implements OnInit {
               }
               
             })
+            
             this.horarioService.guardarHorario(this.json).subscribe(
               res => {
                 console.log(this.json)
