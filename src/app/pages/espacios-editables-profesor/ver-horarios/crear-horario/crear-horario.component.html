@@ -43,6 +43,9 @@
                         <div class="alert alert-danger" *ngIf="form.get('fechaFin').touched && form.get('fechaFin').hasError('pattern')">
                             Introduce una hora de fin valida
                         </div>
+                        <div class="alert alert-danger" *ngIf="form.touched && form.hasError('noValidHour')">
+                            La fecha de fin debe ser mayor que la fecha de inicio
+                        </div>
                     </div>
                 </div>
 
@@ -66,7 +69,7 @@
                 <button class="btn btn-primary btn-block col-md-2" [disabled]="form.invalid">
                     Guardar
                 </button>
-                <button class="btn btn-primary btn-block col-md-2" (click)="verHorarios(espacioId)">
+                <button class="btn btn-primary btn-block col-md-2" type="button" (click)="verHorarios(espacioId)">
                     Cancelar
                 </button>
             </form>

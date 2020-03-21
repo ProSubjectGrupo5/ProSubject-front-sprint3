@@ -24,7 +24,6 @@ export class VerHorariosComponent implements OnInit {
         this.horarioService.getHorariosDeEspacio(parseInt(paramas.get('id'), 10)).subscribe(data=>{
           this.horarios = data;
           this.formatearFecha()
-          console.log(this.horarios);
         });
       }
 

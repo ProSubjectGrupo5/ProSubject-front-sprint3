@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HorarioService } from 'src/app/services/horario/horario.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { validarHoras } from "../../../creacion-espacio/hour-validation";
 
 @Component({
   selector: 'app-editar-horario',
@@ -40,7 +40,7 @@ export class EditarHorarioComponent implements OnInit {
       fechaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       fechaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")])
-    })
+    }, {validators: validarHoras})
 
     this.activatedRoute.paramMap.subscribe(paramas=>{
       this.horarioId = parseInt(paramas.get('id'), 10);

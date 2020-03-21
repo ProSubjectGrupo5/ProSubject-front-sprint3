@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { HorarioService } from 'src/app/services/horario/horario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EspacioService } from 'src/app/services/services.index';
+import { validarHoras } from "../../../creacion-espacio/hour-validation";
 
 @Component({
   selector: 'app-crear-horario',
@@ -34,12 +35,17 @@ export class CrearHorarioComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+
+    this.activatedRoute.paramMap.subscribe(paramas=>{
+      this.espacioId = parseInt(paramas.get('id'), 10);
+    })
+
     this.form = this.fb.group({
       dia: new FormControl('', Validators.required),
       fechaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       fechaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")])
-    })
+    }, {validators: validarHoras})
   }
 
   convertirFecha(){
@@ -57,15 +63,13 @@ export class CrearHorarioComponent implements OnInit {
   }
 
   onSubmit(){
-    this.activatedRoute.paramMap.subscribe(paramas=>{
-      this.espacioId = parseInt(paramas.get('id'), 10);
-
-      this.horario.dia = this.form.get('dia').value;
-      this.convertirFecha()
-      this.horario.capacidad = this.form.get('capacidad').value;
+    
+    this.horario.dia = this.form.get('dia').value;
+    this.convertirFecha()
+    this.horario.capacidad = this.form.get('capacidad').value;
       
-      this.espacioService.getEspaciosPorId(this.espacioId).subscribe(
-        res => {
+    this.espacioService.getEspaciosPorId(this.espacioId).subscribe(
+      res => {
           this.horario.espacio = res;
           console.log(this.horario)
 
@@ -78,7 +82,7 @@ export class CrearHorarioComponent implements OnInit {
         error => console.log(error)
       )
 
-    });
+
 
   }
 
