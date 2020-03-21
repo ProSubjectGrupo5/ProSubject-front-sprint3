@@ -25,7 +25,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EspaciosProfesorComponent } from './espacios-profesor/espacios-profesor.component';
 import { EspaciosAlumnoComponent } from './espacios-alumno/espacios-alumno.component';
 import { HorariosComponent } from './horarios/horarios.component';
+
 import { RegistroComponent } from './registro/registro.component';
+
+import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
 
 
 
@@ -42,6 +45,7 @@ import { RegistroComponent } from './registro/registro.component';
         EspaciosAlumnoComponent,
         HorariosComponent,
         RegistroComponent,
+        NuevoAdminComponent,
     ],
     exports: [
         CommonModule
