@@ -26,6 +26,27 @@ export class HorarioService {
     );
   }
 
+  crearHorario(horario: any){
+    let url:string = `${this.urlEndPoint}/crearUnHorario`;
+
+    return this.http.post(url, horario, {headers: this.httpHeaders}).pipe(
+      res => {return res}
+    );
+  }
+
+  editarHorario(horario: any){
+    let url:string = `${this.urlEndPoint}/modificarUnHorario`;
+
+    return this.http.put(url, horario)
+
+  }
+
+  getHorarioPorId(idHorario: number){
+    return this.http.get(`${this.urlEndPoint}/${idHorario}`).pipe(
+      map(response => response as any)
+    )
+  }
+
   getHorariosDeEspacio(espacioId: number){
     let url:string = `${this.urlEndPoint}/espacio/${espacioId}`;
     return this.http.get(url).pipe(

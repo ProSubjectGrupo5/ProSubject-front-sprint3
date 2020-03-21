@@ -62,6 +62,13 @@ export class EspacioService {
     );
   }
 
+  getEspaciosEditablesPorProfesor(profesorId: number){
+    let url:string = `${this.urlEndPoint}/draftModeProfesor/${profesorId}`;
+    return this.http.get(url).pipe(
+      map(response => response as any[])
+      )
+  }
+
   guardarEspacio(espacio: any){
 
     return this.http.post(this.urlEndPoint, espacio, {headers: this.httpHeaders}).pipe(

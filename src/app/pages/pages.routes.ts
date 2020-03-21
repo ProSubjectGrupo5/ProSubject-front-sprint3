@@ -14,6 +14,10 @@ import { RegistroComponent } from './registro/registro.component';
 
 import { ProfesorGuard, AlumnoGuard, AdministradorGuard } from '../services/services.index';
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
+import { EspaciosEditablesProfesorComponent } from './espacios-editables-profesor/espacios-editables-profesor.component';
+import { VerHorariosComponent } from './espacios-editables-profesor/ver-horarios/ver-horarios.component';
+import { EditarHorarioComponent } from './espacios-editables-profesor/ver-horarios/editar-horario/editar-horario.component';
+import { CrearHorarioComponent } from './espacios-editables-profesor/ver-horarios/crear-horario/crear-horario.component';
 
 
 
@@ -35,6 +39,11 @@ const pagesRoutes: Routes = [
             {path:'creacion-espacio', component: CreacionEspacioComponent, data:{titulo:'Creacion de espacio'}, canActivate: [ProfesorGuard]},
             {path:'detalles-espacio/:id', component: DetallesEspacioComponent, data:{titulo: 'Detalle del espacio'}},
             {path:'espacios-profesor', component: EspaciosProfesorComponent, data:{titulo: 'Mis espacios'}, canActivate: [ProfesorGuard]},
+            {path:'espacios-editable-profesor', component: EspaciosEditablesProfesorComponent, data:{titulo: 'Espacios editables'}, canActivate: [ProfesorGuard]},
+            {path:'ver-horarios/:id', component: VerHorariosComponent, data:{titulo: 'Horarios'}, canActivate: [ProfesorGuard]},
+            {path:'editar-horario/:id', component: EditarHorarioComponent, data:{titulo: 'Editar horario'}, canActivate: [ProfesorGuard]},
+            {path:'crear-horarios/:id', component: CrearHorarioComponent, data:{titulo: 'Crear horario'}, canActivate: [ProfesorGuard]},
+
             {path:'espacios-alumno', component: EspaciosAlumnoComponent, data:{titulo: 'Mis clases'}, canActivate: [AlumnoGuard]},
             {path:'horarios/:id', component: HorariosComponent, data: {titulo: 'Horarios'}},
             {path:'nuevo-admin', component: NuevoAdminComponent, data: {titulo: 'Crear administrador'}, canActivate: [AdministradorGuard]},
