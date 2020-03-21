@@ -29,6 +29,11 @@ export class BreadcrumbsComponent implements OnInit {
           { titulo: 'Creación de espacio', url: '/creacion-espacio'},
           { titulo: 'Mis espacios', url: '/espacios-profesor'},
         ];
+      }else if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ADMIN'){
+        this.breadcrumbsService.menu = [
+          { titulo: 'Login', url: '/login' },
+          { titulo: 'Crear administrador', url: '/nuevo-admin' },
+        ];
       }else{
         this.breadcrumbsService.menu = [
           { titulo: 'Login', url: '/login' },
