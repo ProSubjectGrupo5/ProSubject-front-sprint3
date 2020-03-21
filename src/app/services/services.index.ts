@@ -1,3 +1,7 @@
+export { ValidadoresService } from './validadores/validadores.service';
+
+export { AdminService } from './admin/admin.service';
+
 export { BreadcrumbsService } from './shared/breadcrumbs.service';
 
 export { AdministradorGuard } from './guards/administrador.guard';
@@ -25,6 +29,7 @@ export { ProfesorService } from './profesor/profesor.service';
 export { HeaderService } from './shared/header.service';
 
 export { AlumnoService } from "./alumno/alumno.service";
+
 
 
 

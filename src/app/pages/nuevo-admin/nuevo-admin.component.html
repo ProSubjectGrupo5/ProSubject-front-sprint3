@@ -1,0 +1,139 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+    
+            <form novalidate [formGroup]="form" (ngSubmit)="insertar()">
+
+                <div class="row">
+                    <fieldset class="col-12">
+                        <legend>Datos del perfil</legend>
+    
+                        <div class="form-row">
+    
+                            <div class="col-md-4 mb-4">
+                                <label>Nombre</label>
+                                <input
+                                class="form-control"
+                                formControlName="nombre"
+                                type="text"
+                                
+                                />
+                            </div>
+        
+                            <div class="col-md-4 mb-4">
+                                <label>Primer apellido</label>
+                                <input
+                                class="form-control"
+                                formControlName="apellido1"
+                                type="text"
+                                
+                                />
+                            </div>
+        
+                            <div class="col-md-4 mb-4">
+                                <label>Segundo apellido</label>
+                                <input
+                                class="form-control"
+                                formControlName="apellido2"
+                                type="text"
+                                
+                                />
+                            </div>
+        
+                        </div>
+                        
+                        <div class="form-row">
+        
+                            <div class="col-md-4 mb-4">
+                                <label>DNI</label>
+                                <input
+                                class="form-control"
+                                formControlName="dni"
+                                type="text"
+                                placeholder="12345678X"
+                                
+                                />
+                            </div>
+        
+                            <div class="col-md-4 mb-4">
+                                <label>Email</label>
+                                <input
+                                class="form-control"
+                                formControlName="email"
+                                type="text"
+                                placeholder="ejemplo@gmail.com"
+                                
+                                />
+                            </div>
+        
+                            <div class="col-md-4 mb-4">
+                                <label>Teléfono</label>
+                                <input
+                                class="form-control"
+                                formControlName="telefono"
+                                type="text"
+                                
+                                />
+                            </div>
+                        </div>
+            
+                    </fieldset> 
+                </div>
+
+                <div class="row">
+                    
+                    <fieldset class="col-12">
+                        <legend>Datos de cuenta</legend>
+
+                        <div class="form-row">
+
+                            <div class="col-md-4 mb-4">
+                                <label>Usuario</label>
+                                <input
+                                class="form-control"
+                                formControlName="username"
+                                type="text"
+                                
+                                />
+                            </div>
+        
+                            <div class="col-md-4 mb-4">
+                                <label>Contraseña</label>
+                                <input
+                                class="form-control"
+                                formControlName="password1"
+                                type="password"
+                                
+                                />
+                            </div>
+
+                            <div class="col-md-4 mb-4">
+                                <label>Repetir contraseña</label>
+                                <input
+                                class="form-control"
+                                formControlName="password2"
+                                type="password"
+                                
+                                />
+                            </div>
+
+
+                        </div>
+
+                    </fieldset>
+
+                </div>  
+
+                <div class="row">
+
+                    <button [disabled]= "!form.valid" type="submit" class="btn btn-primary mt-1" >
+                        Crear
+                    </button>
+
+                </div>             
+
+            </form>
+
+        </div>
+    </div>  
+</div>
