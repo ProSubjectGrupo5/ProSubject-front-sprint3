@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6 mx-auto d-block" *ngFor="let horario of horarios">
+    <div class="col-md-6 mx-auto d-block" *ngFor="let horario of horarios; let i=index">
         <div class="card text-center">
             <div class="card-header bg-dark text-white h5 f-flex justify-content-between align-items-center">
                 <strong>{{horario.dia}}</strong>
@@ -12,7 +12,7 @@
                                 <li class="list-group-item"><strong>De:</strong> {{horario.horaInicio}}</li>
                                 <li class="list-group-item"><strong>A:</strong> {{horario.horaFin}}</li>
                                 <li class="list-group-item"><strong>Capacidad:</strong> {{horario.capacidad}}</li>
-                                <li class="list-group-item"><strong>Alumnos inscritos:</strong></li>
+                                <li class="list-group-item"><strong>Alumnos inscritos: {{alumnosInscritos[i]}}</strong></li>
                             </ul>
                         </div>
                 </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HorarioService } from 'src/app/services/horario/horario.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from 'src/app/services/services.index';
+import { LoginService, AlumnoService } from 'src/app/services/services.index';
 
 @Component({
   selector: 'app-horarios',
@@ -11,9 +11,11 @@ import { LoginService } from 'src/app/services/services.index';
 export class HorariosComponent implements OnInit {
 
   horarios: any[]
+  alumnosInscritos: any[]=[];
   espacioId:number
 
   constructor(private horarioService: HorarioService,
+    private alumnoService: AlumnoService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     public loginService: LoginService) { }
@@ -27,6 +29,12 @@ export class HorariosComponent implements OnInit {
             res => {
               this.horarios = res
             this.formatearHora()
+
+            this.horarios.forEach(element => {
+              this.alumnoService.getNumeroAlumnosPorHorario(element.id).subscribe(data =>{
+                this.alumnosInscritos.push(data);
+              })
+            })
           }
         )
       }
