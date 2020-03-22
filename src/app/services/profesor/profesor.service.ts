@@ -26,4 +26,8 @@ export class ProfesorService {
   registrarProfesor(profesor: any){
     return this.http.post(`${this.urlEndPoint}/signUpProfesor`, profesor, {headers: this.httpHeaders})
   }
+
+  editarProfesor(profesor: any, id: string){
+    return this.http.put(`${this.urlEndPoint}/profesores/edit/` + id, profesor, {headers: this.httpHeaders})
+  }
 }

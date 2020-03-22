@@ -14,6 +14,7 @@ import { RegistroComponent } from './registro/registro.component';
 
 import { ProfesorGuard, AlumnoGuard, AdministradorGuard } from '../services/services.index';
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -29,7 +30,7 @@ const pagesRoutes: Routes = [
             { path:'login', component:LoginComponent, data:{titulo:'Inicio sesión'}},
             { path:'registro', component:RegistroComponent, data:{titulo:'Registro'}},
 
-
+            {path:'perfil', component: PerfilComponent, data:{titulo:'Perfil'}},
 
             //----CRISTIAN----
             {path:'creacion-espacio', component: CreacionEspacioComponent, data:{titulo:'Creacion de espacio'}, canActivate: [ProfesorGuard]},
