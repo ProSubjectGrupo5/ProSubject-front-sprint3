@@ -17,4 +17,8 @@ export class AlumnoService {
   registrarAlumno(alumno: any){
     return this.http.post(`${this.urlEndPoint}/signUpAlumno`, alumno, {headers: this.httpHeaders})
   }
+
+  editarAlumno(alumno: any, id: string){
+    return this.http.put(`${this.urlEndPoint}/alumnos/edit/` + id, alumno, {headers: this.httpHeaders})
+  }
 }

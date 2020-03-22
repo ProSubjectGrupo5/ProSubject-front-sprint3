@@ -16,7 +16,7 @@
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-id-card"></i></a>
             <div class="dropdown-menu">
               <div *ngIf="loginService.isLogged()">
-                <a class="dropdown-item">Perfil</a>
+                <a class="dropdown-item" routerLinkActive="active" routerLink="/perfil">Perfil</a>
               </div>
               <div *ngIf="!loginService.isLogged()">
                 <a class="dropdown-item" routerLinkActive="active" routerLink="/login"><i class="fas fa-user"></i>Login</a>

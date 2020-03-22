@@ -19,6 +19,7 @@ import { VerHorariosComponent } from './espacios-editables-profesor/ver-horarios
 import { EditarHorarioComponent } from './espacios-editables-profesor/ver-horarios/editar-horario/editar-horario.component';
 import { CrearHorarioComponent } from './espacios-editables-profesor/ver-horarios/crear-horario/crear-horario.component';
 import { EditarEspaciosComponent } from './espacios-editables-profesor/editar-espacios/editar-espacios.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -34,7 +35,7 @@ const pagesRoutes: Routes = [
             { path:'login', component:LoginComponent, data:{titulo:'Inicio sesión'}},
             { path:'registro', component:RegistroComponent, data:{titulo:'Registro'}},
 
-
+            {path:'perfil', component: PerfilComponent, data:{titulo:'Perfil'}},
 
             //----CRISTIAN----
             {path:'creacion-espacio', component: CreacionEspacioComponent, data:{titulo:'Creacion de espacio'}, canActivate: [ProfesorGuard]},
