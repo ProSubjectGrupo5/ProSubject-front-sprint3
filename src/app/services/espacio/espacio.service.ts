@@ -76,6 +76,10 @@ export class EspacioService {
     );
   }
 
+  editarEspacio(espacio: any){
+    return this.http.put(this.urlEndPoint, espacio)
+  }
+
   getEspaciosPorEstudiante(estudianteId: number){
     let url:string = `${this.urlEndPoint}/espaciosAlumno/${estudianteId}`;
     return this.http.get(url).pipe(

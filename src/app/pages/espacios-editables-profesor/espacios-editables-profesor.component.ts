@@ -27,4 +27,8 @@ export class EspaciosEditablesProfesorComponent implements OnInit {
     this.router.navigate(['ver-horarios', id])
   }
 
+  editarEspacio(id){
+    this.router.navigate(['editar-espacio', id])
+  }
+
 }
