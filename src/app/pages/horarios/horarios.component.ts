@@ -26,20 +26,20 @@ export class HorariosComponent implements OnInit {
           this.horarioService.getHorariosDeEspacio(this.espacioId).subscribe(
             res => {
               this.horarios = res
-            this.formatearFecha()
+            this.formatearHora()
           }
         )
       }
     });
   }
 
-  formatearFecha(){
+  formatearHora(){
     this.horarios.forEach(element => {
-      let horaInicio = element.fechaInicio.split(':');
-      element.fechaInicio = horaInicio[0]+':'+horaInicio[1]
+      let horaInicio = element.horaInicio.split(':');
+      element.horaInicio = horaInicio[0]+':'+horaInicio[1]
 
-      let horaFin = element.fechaFin.split(':');
-      element.fechaFin = horaFin[0]+':'+horaFin[1]
+      let horaFin = element.horaFin.split(':');
+      element.horaFin = horaFin[0]+':'+horaFin[1]
     })
   }
 

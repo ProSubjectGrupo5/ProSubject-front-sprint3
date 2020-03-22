@@ -14,18 +14,11 @@
                     <div class="card rounded mt-3">
                         <ul class="list-group">
                             <li class="list-group-item h4">{{horario.dia}}</li>
-                            <li class="list-group-item"><strong>De:</strong> {{horario.fechaInicio}}</li>
-                            <li class="list-group-item"><strong>A:</strong> {{horario.fechaFin}}</li>
+                            <li class="list-group-item"><strong>De:</strong> {{horario.horaInicio}}</li>
+                            <li class="list-group-item"><strong>A:</strong> {{horario.horaInicio}}</li>
                             <li class="list-group-item"><strong>Capacidad:</strong> {{horario.capacidad}}</li>
                             <li class="list-group-item"><strong>Alumnos inscritos:</strong> 
-                                <div *ngIf="horario.alumnos.length == 0">
-                                    No hay alumnos inscritos.
-                                </div>
-                                <div *ngIf="horario.alumnos.length > 0">
-                                    <div *ngFor="let alumno of horario.alumnos">
-                                        {{alumno.apellido1}} {{alumno.apellido2}}, {{alumno.nombre}} ({{alumno.email}}).
-                                    </div>
-                                </div>
+                                
                             </li>
                         </ul>
                     </div>

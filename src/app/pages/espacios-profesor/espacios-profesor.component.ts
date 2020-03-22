@@ -29,11 +29,11 @@ export class EspaciosProfesorComponent implements OnInit {
 
   formatearFecha(){
     this.horarios.forEach(element => {
-      let horaInicio = element.fechaInicio.split(':');
-      element.fechaInicio = horaInicio[0]+':'+horaInicio[1]
+      let horaInicio = element.horaInicio.split(':');
+      element.horaInicio = horaInicio[0]+':'+horaInicio[1]
 
-      let horaFin = element.fechaFin.split(':');
-      element.fechaFin = horaFin[0]+':'+horaFin[1]
+      let horaFin = element.horaFin.split(':');
+      element.horaFin = horaFin[0]+':'+horaFin[1]
     })
   }
 

@@ -38,11 +38,10 @@ export class CreacionEspacioComponent implements OnInit {
   json: any[] = []
   horario:any = { 
     dia:'',
-    fechaInicio:'',
-    fechaFin:'',
+    horaInicio:'',
+    horaFin:'',
     espacio:'',
     capacidad:'',
-    alumnos: []
   }
   //---Creación de horarios---
 
@@ -63,11 +62,9 @@ export class CreacionEspacioComponent implements OnInit {
 
     this.busquedaAsignaturaService.getUniversidades().subscribe(data=>{
       this.universidades = data;
-      console.log(this.universidades);
 
       this.cursoService.getCursos().subscribe(data=>{
         this.cursos = data;
-        console.log(this.cursos);
       });
     });
   }
@@ -85,8 +82,8 @@ export class CreacionEspacioComponent implements OnInit {
       horarios: this.fb.array([
         this.fb.group({
           dia: new FormControl('', Validators.required),
-          fechaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-          fechaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
+          horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
+          horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
           capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),      
         }, {validators: validarHoras})
       ])
@@ -142,8 +139,8 @@ export class CreacionEspacioComponent implements OnInit {
   addNuevoHorario(){
     this.horarios.push(this.fb.group({
       dia: new FormControl('', Validators.required),
-      fechaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-      fechaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
+      horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
+      horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")])
     }, {validators: validarHoras}))
   }
@@ -156,16 +153,16 @@ export class CreacionEspacioComponent implements OnInit {
     const horario = this.form.get('horarios').value;
 
     horario.forEach(element => {
-      const horaInicio = element.fechaInicio.split(':');
-      const horaFin = element.fechaFin.split(':');
+      const horaInicio = element.horaInicio.split(':');
+      const horaFin = element.horaFin.split(':');
       
       let anyo=0;
       if(horaFin[0] == '00'){
         anyo = 1
       }
 
-      element.fechaInicio = new Date(2050,0,0,parseInt(horaInicio[0])+1, parseInt(horaInicio[1])).toISOString()
-      element.fechaFin = new Date(2050+anyo,0,0, parseInt(horaFin[0])+1, parseInt(horaFin[1])).toISOString()
+      element.horaInicio = new Date(2050,0,0,parseInt(horaInicio[0])+1, parseInt(horaInicio[1])).toISOString()
+      element.horaFin = new Date(2050+anyo,0,0, parseInt(horaFin[0])+1, parseInt(horaFin[1])).toISOString()
 
     });
   }
@@ -186,23 +183,22 @@ export class CreacionEspacioComponent implements OnInit {
             this.convertirFecha()
             this.form.get('horarios').value.forEach(element =>{
               this.horario.dia = element.dia;
-              this.horario.fechaInicio = element.fechaInicio;
-              this.horario.fechaFin = element.fechaFin;
+              this.horario.horaInicio = element.horaInicio;
+              this.horario.horaFin = element.horaFin;
               this.horario.espacio = this.espacio;
               this.horario.capacidad = element.capacidad;
               
               this.json.push(this.horario)
               this.horario = { 
                 dia:'',
-                fechaInicio:'',
-                fechaFin:'',
+                horaInicio:'',
+                horaFin:'',
                 espacio: '',
                 capacidad:'',
                 alumnos: []
               }
               
             })
-            
             this.horarioService.guardarHorario(this.json).subscribe(
               res => {
                 console.log(this.json)

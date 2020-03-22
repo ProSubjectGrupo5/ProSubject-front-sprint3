@@ -1,8 +1,8 @@
 import {AbstractControl} from '@angular/forms'
 
 export function validarHoras(control: AbstractControl): {[key: string]: boolean} | null {
-    const fechaInicio = control.get('fechaInicio').value.split(':');
-    const fechaFin = control.get('fechaFin').value.split(':');
+    const fechaInicio = control.get('horaInicio').value.split(':');
+    const fechaFin = control.get('horaFin').value.split(':');
 
     if(fechaFin[0] == '00'){
         fechaFin[0] = 24;
