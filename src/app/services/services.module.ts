@@ -17,7 +17,11 @@ import {
     BreadcrumbsService,
     AlumnoService,
     AdminService,
-    ValidadoresService
+    ValidadoresService,
+    ForoService,
+    RespuestaService,
+    AlumnoProfesorGuard,
+    WebSocketService
  } from './services.index';
 
 
@@ -45,7 +49,11 @@ import {
     BreadcrumbsService,
     AlumnoService,
     AdminService,
-    ValidadoresService
+    ValidadoresService,
+    ForoService,
+    RespuestaService,
+    AlumnoProfesorGuard,
+    WebSocketService
 
   ],
   declarations: []

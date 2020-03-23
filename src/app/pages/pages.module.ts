@@ -29,6 +29,7 @@ import { HorariosComponent } from './horarios/horarios.component';
 import { RegistroComponent } from './registro/registro.component';
 
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
+import { ForoComponent } from './foro/foro.component';
 
 
 
@@ -46,6 +47,7 @@ import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
         HorariosComponent,
         RegistroComponent,
         NuevoAdminComponent,
+        ForoComponent,
     ],
     exports: [
         CommonModule

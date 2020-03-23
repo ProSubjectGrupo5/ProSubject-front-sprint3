@@ -12,8 +12,9 @@ import { HorariosComponent } from './horarios/horarios.component';
 
 import { RegistroComponent } from './registro/registro.component';
 
-import { ProfesorGuard, AlumnoGuard, AdministradorGuard } from '../services/services.index';
+import { ProfesorGuard, AlumnoGuard, AdministradorGuard, AlumnoProfesorGuard } from '../services/services.index';
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
+import { ForoComponent } from './foro/foro.component';
 
 
 
@@ -38,6 +39,7 @@ const pagesRoutes: Routes = [
             {path:'espacios-alumno', component: EspaciosAlumnoComponent, data:{titulo: 'Mis clases'}, canActivate: [AlumnoGuard]},
             {path:'horarios/:id', component: HorariosComponent, data: {titulo: 'Horarios'}},
             {path:'nuevo-admin', component: NuevoAdminComponent, data: {titulo: 'Crear administrador'}, canActivate: [AdministradorGuard]},
+            {path:'foro/:id', component: ForoComponent, data: {titulo: 'Foro'}, canActivate: [AlumnoProfesorGuard]},
             { path: '', redirectTo: '/inicio', pathMatch: 'full' }
         ]
     }
