@@ -21,7 +21,7 @@ export class EspaciosProfesorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.horarioService.getHorariosPorProfesor(JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
+    this.horarioService.getHorariosNoEditablesPorProfesor(JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
       this.horarios = data;
       this.formatearFecha()
 

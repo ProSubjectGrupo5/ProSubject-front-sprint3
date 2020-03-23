@@ -80,6 +80,13 @@ export class HorarioService {
     )
   }
 
+  getHorariosNoEditablesPorProfesor(idProfesor:number){
+    let url:string = `${this.urlEndPoint}/espaciosNoEditables/profesor/${idProfesor}`;
+    return this.http.get(url).pipe(
+      map(response => response as any[])
+    )
+  }
+
 
 
   insertarAlumno(horarioId:number, alumnoId:number){
