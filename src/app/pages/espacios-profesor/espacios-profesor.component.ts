@@ -24,14 +24,12 @@ export class EspaciosProfesorComponent implements OnInit {
     this.horarioService.getHorariosPorProfesor(JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
       this.horarios = data;
       this.formatearFecha()
-      console.log(this.horarios);
 
       this.horarios.forEach(element => {
         this.alumnoService.getAlumnosPorHorario(element.id).subscribe(data =>{
           this.alumnosIncritos.push(data);
         })
       })
-      console.log(this.alumnosIncritos)
     });
 
     

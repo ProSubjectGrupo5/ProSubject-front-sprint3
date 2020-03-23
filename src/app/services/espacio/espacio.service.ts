@@ -77,7 +77,14 @@ export class EspacioService {
   }
 
   editarEspacio(espacio: any){
-    return this.http.put(this.urlEndPoint, espacio)
+    return this.http.put(this.urlEndPoint, espacio).pipe(
+      map(response => response as any),
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al editar un espacio.', 'No se pueden editar un espacio publicado', 'error');
+        return throwError(e);
+      })
+    );
   }
 
   getEspaciosPorEstudiante(estudianteId: number){

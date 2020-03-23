@@ -147,6 +147,10 @@ export class EditarEspaciosComponent implements OnInit {
 
   }
 
+  volverEspaciosEditables(){
+    this.router.navigate(['espacios-editable-profesor'])
+  }
+
   onSubmit(){
     
 

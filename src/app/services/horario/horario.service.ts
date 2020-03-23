@@ -30,14 +30,26 @@ export class HorarioService {
     let url:string = `${this.urlEndPoint}/crearUnHorario`;
 
     return this.http.post(url, horario, {headers: this.httpHeaders}).pipe(
-      res => {return res}
+      map(response => response as any),
+      catchError(e =>{
+        console.error(e.error.message);
+        swal.fire('Error al crear un horario.', 'No se pueden crear horarios a espacios publicados', 'error');
+        return throwError(e);
+      })
     );
   }
 
   editarHorario(horario: any){
     let url:string = `${this.urlEndPoint}/modificarUnHorario`;
 
-    return this.http.put(url, horario)
+    return this.http.put(url, horario).pipe(
+      map(response => response as any),
+      catchError(e =>{
+        console.error(e.error.error);
+        swal.fire('Error al editar un horario.', 'No se pueden editar el horario porque pertenece a un espacio publicado', 'error');
+        return throwError(e);
+      })
+    );
 
   }
 

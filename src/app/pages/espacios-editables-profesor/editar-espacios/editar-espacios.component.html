@@ -88,8 +88,11 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary btn-block col-md-6 mx-auto d-block" [disabled]="form.invalid">
+                <button class="btn btn-primary btn-block col-md-2" [disabled]="form.invalid">
                     Guardar
+                </button>
+                <button class="btn btn-primary btn-block col-md-2" (click)="volverEspaciosEditables()">
+                    Cancelar
                 </button>
 
             </form>

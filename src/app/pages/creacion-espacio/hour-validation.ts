@@ -12,7 +12,7 @@ export function validarHoras(control: AbstractControl): {[key: string]: boolean}
     const horaFin = new Date(2050,0,0,parseInt(fechaFin[0]), parseInt(fechaFin[1]))
 
 
-    return horaIni >= horaFin 
+    return horaIni.getTime()+ 3600000 > horaFin.getTime() 
     ? {'noValidHour': true} : null;
 }
     
