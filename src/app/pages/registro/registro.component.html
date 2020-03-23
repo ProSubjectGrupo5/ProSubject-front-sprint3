@@ -50,6 +50,9 @@
                             <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('pattern')">
                                 El DNI no es válido. Debe tener 8 números seguido de 1 letra en mayúscula
                             </div>
+                            <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('noValidDni')">
+                                El DNI introducido no es válido.
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">

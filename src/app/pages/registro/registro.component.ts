@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from "./confirm-password-validator";
+import { validDNIValidator } from "./dni-validator";
 import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
 import { Router } from '@angular/router';
 
@@ -44,7 +45,7 @@ export class RegistroComponent implements OnInit {
       nombre: new FormControl('', [Validators.required]),
       apellido1: new FormControl('', [Validators.required]),
       apellido2: new FormControl('', [Validators.required]),
-      dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$')]),
+      dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$'), validDNIValidator]),
       email: new FormControl('', [Validators.required, Validators.email]),
       telefono: new FormControl('', [Validators.required]),
       file: new FormControl(''),
