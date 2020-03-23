@@ -1,3 +1,11 @@
+export { WebSocketService } from './socket/web-socket.service';
+
+export { AlumnoProfesorGuard } from './guards/alumno-profesor.guard';
+
+export { RespuestaService } from './respuesta/respuesta.service';
+
+export { ForoService } from './foro/foro.service';
+
 export { ValidadoresService } from './validadores/validadores.service';
 
 export { AdminService } from './admin/admin.service';
@@ -29,6 +37,12 @@ export { ProfesorService } from './profesor/profesor.service';
 export { HeaderService } from './shared/header.service';
 
 export { AlumnoService } from "./alumno/alumno.service";
+
+
+
+
+
+
 
 
 
