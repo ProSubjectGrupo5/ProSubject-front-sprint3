@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-md-6 mx-auto d-block" *ngFor="let horario of horarios; let i=index">
         <div class="card text-center">
@@ -17,6 +18,8 @@
                         </div>
                 </div>
 
+               
+
                 <button (click) = "inscribirse(horario.id)" class="btn btn-primary">
                     Inscribirse
                 </button>
@@ -30,3 +33,7 @@
     </div>
 </div>
 <button (click)="volverDetallesEspacio(espacioId)" class="btn btn-primary mr-1">Cancelar</button>
+
+<!--
+<div #paypal></div>
+-->

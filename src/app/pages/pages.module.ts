@@ -29,12 +29,16 @@ import { HorariosComponent } from './horarios/horarios.component';
 import { RegistroComponent } from './registro/registro.component';
 
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
+
 import { EspaciosEditablesProfesorComponent } from './espacios-editables-profesor/espacios-editables-profesor.component';
 import { VerHorariosComponent } from './espacios-editables-profesor/ver-horarios/ver-horarios.component';
 import { CrearHorarioComponent } from './espacios-editables-profesor/ver-horarios/crear-horario/crear-horario.component';
 import { EditarHorarioComponent } from './espacios-editables-profesor/ver-horarios/editar-horario/editar-horario.component';
 import { EditarEspaciosComponent } from './espacios-editables-profesor/editar-espacios/editar-espacios.component';
 import { PerfilComponent } from './perfil/perfil.component';
+
+import { ForoComponent } from './foro/foro.component';
+
 
 
 
@@ -52,12 +56,16 @@ import { PerfilComponent } from './perfil/perfil.component';
         HorariosComponent,
         RegistroComponent,
         NuevoAdminComponent,
+
         EspaciosEditablesProfesorComponent,
         VerHorariosComponent,
         CrearHorarioComponent,
         EditarHorarioComponent,
         EditarEspaciosComponent,
         PerfilComponent,
+
+        ForoComponent,
+
     ],
     exports: [
         CommonModule

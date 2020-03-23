@@ -1,0 +1,116 @@
+<div class="container">
+    <div class="row">
+
+        <div class="row">
+            <div class="col-12">
+                <h1>{{foro.titulo}}</h1>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-6" style="overflow-y: scroll; height: 360px;">
+                <div *ngFor="let respuesta of respuestas;"class="col-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                          {{respuesta.user.autoridad}}: {{respuesta.user.username}}
+                        </div>
+                        <div class="card-body">
+                          <blockquote class="blockquote mb-0">
+                            <p>{{respuesta.contenido}}</p>
+                            <footer class="blockquote-footer">Comentario creado el <cite title="Source Title">{{respuesta.creacionRespuesta | date: 'dd/MM/yyyy'}}</cite> a las <cite>{{respuesta.creacionRespuesta | date:'shortTime'}}</cite></footer>
+                          </blockquote>
+                        </div>
+                      </div>
+        
+                </div>
+            </div>
+            <!--
+            <div *ngIf="respuestas.length == 0" class="col-6">
+                No hay contenido para mostrar.
+            </div>
+            -->
+
+            
+
+            <div class="col-6">
+
+                <form novalidate [formGroup]="form" (ngSubmit)="insertar()">
+
+                    <div class="form-row">
+
+                        <div class="col-md-12 mb-12">
+                            <label>Comentario</label>
+                            <textarea 
+                            class="form-control" formControlName="contenido">
+
+                            </textarea>
+                            
+                        </div>
+
+                    </div>
+
+                    <button [disabled]= "!form.valid" type="submit" class="btn btn-primary" >
+                        Añadir
+                    </button>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+        
+
+
+        <!--
+        <div class="col-12 comments-container">
+
+            
+            <div class="row">
+                <div class="col-12">
+                    <h1>{{foro.titulo}}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <ul id="comments-list" class="comments-list">
+                    <li>
+                        <div class="comment-main-level">
+
+                            <div class="comment-avatar"></div>
+
+                            
+                            <div class="comment-box">
+
+                                
+                                <div class="comment-head">
+                                    <h6 class="comment-name by-author" >RAUL</h6>
+                                    <span>hace 20 minutos</span>
+
+                                </div>
+
+                              
+                                <div class="comment-content">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed atque et, natus quibusdam explicabo aspernatur sunt recusandae, eius enim fugit accusantium quos odio temporibus porro quidem, qui debitis aperiam obcaecati?
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+
+            </div>
+            
+
+
+        </div>
+        -->
+    </div>
+</div>

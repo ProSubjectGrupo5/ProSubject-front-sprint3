@@ -12,14 +12,18 @@ import { HorariosComponent } from './horarios/horarios.component';
 
 import { RegistroComponent } from './registro/registro.component';
 
-import { ProfesorGuard, AlumnoGuard, AdministradorGuard } from '../services/services.index';
+import { ProfesorGuard, AlumnoGuard, AdministradorGuard, AlumnoProfesorGuard } from '../services/services.index';
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
+
 import { EspaciosEditablesProfesorComponent } from './espacios-editables-profesor/espacios-editables-profesor.component';
 import { VerHorariosComponent } from './espacios-editables-profesor/ver-horarios/ver-horarios.component';
 import { EditarHorarioComponent } from './espacios-editables-profesor/ver-horarios/editar-horario/editar-horario.component';
 import { CrearHorarioComponent } from './espacios-editables-profesor/ver-horarios/crear-horario/crear-horario.component';
 import { EditarEspaciosComponent } from './espacios-editables-profesor/editar-espacios/editar-espacios.component';
 import { PerfilComponent } from './perfil/perfil.component';
+
+import { ForoComponent } from './foro/foro.component';
+
 
 
 
@@ -50,6 +54,7 @@ const pagesRoutes: Routes = [
             {path:'espacios-alumno', component: EspaciosAlumnoComponent, data:{titulo: 'Mis clases'}, canActivate: [AlumnoGuard]},
             {path:'horarios/:id', component: HorariosComponent, data: {titulo: 'Horarios'}},
             {path:'nuevo-admin', component: NuevoAdminComponent, data: {titulo: 'Crear administrador'}, canActivate: [AdministradorGuard]},
+            {path:'foro/:id', component: ForoComponent, data: {titulo: 'Foro'}, canActivate: [AlumnoProfesorGuard]},
             { path: '', redirectTo: '/inicio', pathMatch: 'full' }
         ]
     }
