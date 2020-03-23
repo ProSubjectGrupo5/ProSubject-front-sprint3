@@ -20,8 +20,8 @@ export class EditarHorarioComponent implements OnInit {
   nuevoHorario:any = { 
     id:'',
     dia:'',
-    fechaInicio:'',
-    fechaFin:'',
+    horaInicio:'',
+    horaFin:'',
     espacio:'',
     capacidad:'',
     alumnos: []
@@ -37,8 +37,8 @@ export class EditarHorarioComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       dia: new FormControl('', Validators.required),
-      fechaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-      fechaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
+      horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
+      horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")])
     }, {validators: validarHoras})
 
@@ -61,25 +61,25 @@ export class EditarHorarioComponent implements OnInit {
 
   formatearFecha(horario){
     
-      let horaInicio = horario.fechaInicio.split(':')
-      this.form.controls['fechaInicio'].setValue(horaInicio[0]+':'+horaInicio[1])
+      let horaInicio = horario.horaInicio.split(':')
+      this.form.controls['horaInicio'].setValue(horaInicio[0]+':'+horaInicio[1])
 
-      let horaFin = horario.fechaFin.split(':')
-      this.form.controls['fechaFin'].setValue(horaFin[0]+':'+horaFin[1])
+      let horaFin = horario.horaFin.split(':')
+      this.form.controls['horaFin'].setValue(horaFin[0]+':'+horaFin[1])
     
   }
 
   convertirFecha(){
-    const horaInicio = this.form.get('fechaInicio').value.split(':');
-    const horaFin = this.form.get('fechaFin').value.split(':');
+    const horaInicio = this.form.get('horaInicio').value.split(':');
+    const horaFin = this.form.get('horaFin').value.split(':');
     
     let anyo=0;
     if(horaFin[0] == '00'){
       anyo = 1
     }
 
-    this.nuevoHorario.fechaInicio = new Date(2050,0,0,parseInt(horaInicio[0]), parseInt(horaInicio[1])).toISOString()
-    this.nuevoHorario.fechaFin = new Date(2050+anyo,0,0, parseInt(horaFin[0]), parseInt(horaFin[1])).toISOString()
+    this.nuevoHorario.horaInicio = new Date(2050,0,0,parseInt(horaInicio[0]), parseInt(horaInicio[1])).toISOString()
+    this.nuevoHorario.horaFin = new Date(2050+anyo,0,0, parseInt(horaFin[0]), parseInt(horaFin[1])).toISOString()
 
 }
 

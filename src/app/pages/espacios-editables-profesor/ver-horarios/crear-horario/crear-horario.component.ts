@@ -18,8 +18,8 @@ export class CrearHorarioComponent implements OnInit {
 
   horario:any = { 
     dia:'',
-    fechaInicio:'',
-    fechaFin:'',
+    horaInicio:'',
+    horaFin:'',
     espacio:'',
     capacidad:'',
     alumnos: []
@@ -42,23 +42,23 @@ export class CrearHorarioComponent implements OnInit {
 
     this.form = this.fb.group({
       dia: new FormControl('', Validators.required),
-      fechaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-      fechaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
+      horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
+      horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")])
     }, {validators: validarHoras})
   }
 
   convertirFecha(){
-      const horaInicio = this.form.get('fechaInicio').value.split(':');
-      const horaFin = this.form.get('fechaFin').value.split(':');
+      const horaInicio = this.form.get('horaInicio').value.split(':');
+      const horaFin = this.form.get('horaFin').value.split(':');
       
       let anyo=0;
       if(horaFin[0] == '00'){
         anyo = 1
       }
 
-      this.horario.fechaInicio = new Date(2050,0,0,parseInt(horaInicio[0]), parseInt(horaInicio[1])).toISOString()
-      this.horario.fechaFin = new Date(2050+anyo,0,0, parseInt(horaFin[0]), parseInt(horaFin[1])).toISOString()
+      this.horario.horaInicio = new Date(2050,0,0,parseInt(horaInicio[0]), parseInt(horaInicio[1])).toISOString()
+      this.horario.horaFin = new Date(2050+anyo,0,0, parseInt(horaFin[0]), parseInt(horaFin[1])).toISOString()
 
   }
 
