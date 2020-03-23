@@ -45,7 +45,7 @@ export class EditarHorarioComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(paramas=>{
       this.horarioId = parseInt(paramas.get('id'), 10);
       if(paramas.has('id')){
-        this.horarioService.getHorarioPorId(parseInt(paramas.get('id'), 10)).subscribe(data=>{
+        this.horarioService.getHorariosDraftMode(parseInt(paramas.get('id'), 10)).subscribe(data=>{
           this.horario = data;
           
           this.form.controls['dia'].setValue(this.horario.dia)

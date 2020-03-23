@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 import swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
@@ -17,7 +18,7 @@ export class HorarioService {
   });
 
   //Inyección de dependencia
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route:Router) { }
 
   guardarHorario(horario: any){
 
@@ -64,6 +65,32 @@ export class HorarioService {
     return this.http.get(url).pipe(
       map(response => response as any[])
     )
+  }
+
+  getHorariosDraftMode(espacioId: number){
+    let url:string = `${this.urlEndPoint}/draftMode/${espacioId}?username=${JSON.parse(localStorage.getItem('usuario')).userAccount.username}`;
+    return this.http.get(url).pipe(
+      map(response => response as any[]),
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al acceder a los horarios de un profesor.', `${e.error.mensaje}`, 'error');
+        this.route.navigate(['/inicio']);
+        return throwError(e);
+      })
+    );
+  }
+
+  getHorariosPorIdDraftMode(espacioId: number){
+    let url:string = `${this.urlEndPoint}/espacioDraftMode/${espacioId}?username=${JSON.parse(localStorage.getItem('usuario')).userAccount.username}`;
+    return this.http.get(url).pipe(
+      map(response => response as any[]),
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al acceder a los horarios de un profesor.', `${e.error.mensaje}`, 'error');
+        this.route.navigate(['/inicio']);
+        return throwError(e);
+      })
+    );
   }
 
   getHorariosPorAlumno(idAlumno: number){

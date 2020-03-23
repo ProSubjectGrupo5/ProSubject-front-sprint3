@@ -21,7 +21,7 @@ export class VerHorariosComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(paramas=>{
       this.espacioId = parseInt(paramas.get('id'), 10);
       if(paramas.has('id')){
-        this.horarioService.getHorariosDeEspacio(parseInt(paramas.get('id'), 10)).subscribe(data=>{
+        this.horarioService.getHorariosPorIdDraftMode(parseInt(paramas.get('id'), 10)).subscribe(data=>{
           this.horarios = data;
           this.formatearFecha()
         });

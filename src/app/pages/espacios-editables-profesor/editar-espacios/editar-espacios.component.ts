@@ -55,7 +55,7 @@ export class EditarEspaciosComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(paramas=>{
       this.espacioId = parseInt(paramas.get('id'), 10);
       if(paramas.has('id')){
-        this.espacioService.getEspaciosPorId(parseInt(paramas.get('id'), 10)).subscribe(
+        this.espacioService.getEspaciosPorIdDraftMode(parseInt(paramas.get('id'), 10)).subscribe(
           data=>{
           this.espacio = data
           console.log(this.espacio)

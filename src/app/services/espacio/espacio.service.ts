@@ -50,6 +50,19 @@ export class EspacioService {
     );
   }
 
+  getEspaciosPorIdDraftMode(id:number){
+    let url:string = `${this.urlEndPoint}/draftMode/${id}?username=${JSON.parse(localStorage.getItem('usuario')).userAccount.username}`;
+    return this.http.get(url).pipe(
+      map(response => response as any[]),
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al acceder a los espacios de un profesor.', `${e.error.mensaje}`, 'error');
+        this.route.navigate(['/inicio']);
+        return throwError(e);
+      })
+    );
+  }
+
   getEspaciosPorProfesor(profesorId: number){
     let url:string = `${this.urlEndPoint}/espaciosProfesor/${profesorId}`;
     return this.http.get(url).pipe(
