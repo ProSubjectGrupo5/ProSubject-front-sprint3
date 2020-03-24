@@ -60,8 +60,8 @@
                             <label>Teléfono</label>
                             <input matInput type="text" name="telefono" placeholder="Introduzca su teléfono" class="form-control"
                             formControlName="telefono" [ngClass]="{'is-invalid': form.get('telefono').touched && form.get('telefono').invalid}">
-                            <div class="alert alert-danger" *ngIf="form.get('telefono').touched && form.get('telefono').hasError('required')">
-                                El teléfono es requerido
+                            <div class="alert alert-danger" *ngIf="form.get('telefono').touched && form.get('telefono').hasError('pattern')">
+                                El telefono introducido no es válido
                             </div>
                         </div>
                     </div>
