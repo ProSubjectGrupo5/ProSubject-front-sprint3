@@ -51,7 +51,7 @@ export class RegistroComponent implements OnInit {
       apellido2: new FormControl('', [Validators.required]),
       dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$'), validDNIValidator]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      telefono: new FormControl('', [Validators.required]),
+      telefono: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
       file: new FormControl(''),
       useraccount: new FormGroup({
         username: new FormControl('', [Validators.required]),
