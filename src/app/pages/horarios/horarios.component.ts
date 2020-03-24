@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterContentInit} from '@angular/core';
 import { HorarioService } from 'src/app/services/horario/horario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService, AlumnoService } from 'src/app/services/services.index';
@@ -10,18 +10,20 @@ import { LoginService, AlumnoService } from 'src/app/services/services.index';
   templateUrl: './horarios.component.html',
   styleUrls: ['./horarios.component.css']
 })
-export class HorariosComponent implements OnInit {
+export class HorariosComponent implements OnInit, AfterContentInit{
+
+  
+  //@ViewChild('paypal', { static: true }) paypalElement: ElementRef;
+
 
   /*
-  @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
-
-
   product = {
     price: 777.77,
     description: 'used couch, decent condition',
     img: 'assets/couch.jpg'
   };
   */
+  
 
   //paidFor = false;
 
@@ -35,34 +37,59 @@ export class HorariosComponent implements OnInit {
     private alumnoService: AlumnoService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    public loginService: LoginService) { }
+    public loginService: LoginService) {
+
+     
+     }
 
   ngOnInit() {
 
-    
     this.activatedRoute.paramMap.subscribe(paramas=>{
       this.espacioId = parseInt(paramas.get('id'), 10);
       if(paramas.has('id')){
           this.horarioService.getHorariosDeEspacio(this.espacioId).subscribe(
             res => {
-              this.horarios = res
-            this.formatearHora()
+            
+              this.horarios = res;
+              this.formatearHora();
+              
 
-            this.horarios.forEach(element => {
+
+            this.horarios.forEach(element => { 
+
               this.alumnoService.getNumeroAlumnosPorHorario(element.id).subscribe(data =>{
+               
                 this.alumnosInscritos.push(data);
-              })
-            })
-          }
-        )
+                //this.paypal();
+
+              });     
+              
+              
+
+            });
+            
+            
+
+          });  
+          
 
       }
+    
+ 
     });
     
-
-    /*
+  
     
-            paypal
+  }
+
+  ngAfterContentInit(){
+
+  }
+
+  /*
+  paypal(){
+
+    paypal
       .Buttons({
         createOrder: (data, actions) => {
           return actions.order.create({
@@ -86,10 +113,12 @@ export class HorariosComponent implements OnInit {
           console.log(err);
         }
       })
-      .render(this.paypalElement.nativeElement);
-      */
-      
+      .render(document.getElementById('paypal'));
+
   }
+  */
+
+  
 
   formatearHora(){
     this.horarios.forEach(element => {
