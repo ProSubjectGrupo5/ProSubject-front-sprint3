@@ -16,11 +16,15 @@ export class EspaciosEditablesProfesorComponent implements OnInit {
 
   ngOnInit() {
 
+    this.getEspacios();
+
+  }
+
+  getEspacios(){
     this.espacioService.getEspaciosEditablesPorProfesor(JSON.parse(localStorage.getItem('usuario')).id)
     .subscribe(
       data => this.espacios = data
     )
-
   }
 
   verHorarios(id){
@@ -29,6 +33,16 @@ export class EspaciosEditablesProfesorComponent implements OnInit {
 
   editarEspacio(id){
     this.router.navigate(['editar-espacio', id])
+  }
+
+  borrarEspacio(id){
+    this.espacioService.deleteEspacio(id).subscribe(
+      res => {
+        console.log('Borrado'),
+        this.getEspacios();
+      },
+      error => console.log(error)
+    )
   }
 
 }

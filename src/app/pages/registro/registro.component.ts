@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from "./confirm-password-validator";
+import { validDNIValidator } from "./dni-validator";
 import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
 import { Router } from '@angular/router';
+import { FileService } from 'src/app/services/file/file.service';
 
 
 @Component({
@@ -13,6 +15,8 @@ import { Router } from '@angular/router';
 export class RegistroComponent implements OnInit {
 
   form:FormGroup;
+
+  selectRadioButton: '';
 
   usuario: any = {
     nombre:'',
@@ -37,6 +41,7 @@ export class RegistroComponent implements OnInit {
   constructor(private fb:FormBuilder,
     private alumnoService: AlumnoService,
     private profesorService: ProfesorService,
+    private fileService: FileService,
     private router: Router) { }
 
   ngOnInit() {
@@ -44,7 +49,7 @@ export class RegistroComponent implements OnInit {
       nombre: new FormControl('', [Validators.required]),
       apellido1: new FormControl('', [Validators.required]),
       apellido2: new FormControl('', [Validators.required]),
-      dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$')]),
+      dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$'), validDNIValidator]),
       email: new FormControl('', [Validators.required, Validators.email]),
       telefono: new FormControl('', [Validators.required]),
       file: new FormControl(''),
@@ -77,14 +82,42 @@ export class RegistroComponent implements OnInit {
         error => console.log(error)
       )
     }else{
-      this.profesorService.registrarProfesor(this.usuario).subscribe(
-        res => this.router.navigate(['inicio']),
+
+      var formData = new FormData();
+      var blob = new Blob([this.form.get('file').value], {type : 'application/pdf'})
+      formData.append('file', blob, this.form.get('file').value.substring(12))
+
+      this.fileService.uploadFile(formData).subscribe(
+        res => {console.log(res),
+
+          this.profesorService.registrarProfesor(this.usuario).subscribe(
+          res => this.router.navigate(['inicio']),
+          error => console.log(error)
+          )
+          
+        },
         error => console.log(error)
       )
+      
+      
+      
+
+      
     }
   
     
 
+  }
+
+  selectRadio(e){
+    this.selectRadioButton = e
+  }
+
+  esProfesor(name){
+    if(name == this.selectRadioButton){
+      return true;
+    }
+    return false;
   }
 
 }

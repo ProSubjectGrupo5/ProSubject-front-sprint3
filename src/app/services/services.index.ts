@@ -38,6 +38,7 @@ export { HeaderService } from './shared/header.service';
 
 export { AlumnoService } from "./alumno/alumno.service";
 
+export { FileService } from './file/file.service'; 
 
 
 
