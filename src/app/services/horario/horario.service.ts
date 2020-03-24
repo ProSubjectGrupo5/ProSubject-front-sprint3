@@ -54,6 +54,17 @@ export class HorarioService {
 
   }
 
+  deleteHorario(horarioId: number){
+    return this.http.delete(`${this.urlEndPoint}/${horarioId}?username=${JSON.parse(localStorage.getItem('usuario')).userAccount.username}`).pipe(
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al intentar eliminar un horario.', `${e.error.mensaje}`, 'error');
+        this.route.navigate(['inicio'])
+        return throwError(e);
+      })
+    );
+  }
+
   getHorarioPorId(idHorario: number){
     return this.http.get(`${this.urlEndPoint}/${idHorario}`).pipe(
       map(response => response as any)

@@ -89,6 +89,17 @@ export class EspacioService {
     );
   }
 
+  deleteEspacio(espacioId: number){
+    return this.http.delete(`${this.urlEndPoint}/${espacioId}?username=${JSON.parse(localStorage.getItem('usuario')).userAccount.username}`).pipe(
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al intentar eliminar un espacio.', `${e.error.mensaje}`, 'error');
+        this.route.navigate(['inicio'])
+        return throwError(e);
+      })
+    );
+  }
+
   editarEspacio(espacio: any){
     return this.http.put(this.urlEndPoint, espacio).pipe(
       map(response => response as any),

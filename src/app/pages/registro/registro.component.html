@@ -9,7 +9,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input matInput type="text" name="nombre" placeholder="Introduzca su nombre" class="form-control" autofocus
+                            <input matInput type="text" name="nombre" placeholder="Introduzca su nombre" class="form-control"
                             formControlName="nombre" [ngClass]="{'is-invalid': form.get('nombre').touched && form.get('nombre').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('nombre').touched && form.get('nombre').hasError('required')">
                                 El nombre es requerido
@@ -118,17 +118,22 @@
                         <div class="col-md-12 text-center">
                             <div class="form-group">
                                 <label>Selecciona como quieres registrarte:</label><br>
-                                <input type="radio" id="male" name="autoridad" value="PROFESOR" formControlName="autoridad">
+                                <input type="radio" id="male" name="autoridad" value="PROFESOR" formControlName="autoridad" (click)="selectRadio('PROFESOR')">
                                 <label for="male">Profesor</label>
-                                <input type="radio" id="female" name="autoridad" value="ALUMNO" formControlName="autoridad"> 
+                                <input type="radio" id="female" name="autoridad" value="ALUMNO" formControlName="autoridad" (click)="selectRadio('ALUMNO')"> 
                                 <label for="female">Alumno</label>
                             </div>
                         </div>
                     </div>
                     
                 </div>
-                <input type="file" formControlName="file">
-                <div class="row">
+
+                <div *ngIf="esProfesor('PROFESOR')" > 
+                    <label><b>Por favor, suba un documento para que podamos validar su nota</b></label><br>
+                    <input type="file" formControlName="file">
+                </div>
+
+                <div class="row mt-3">
                     <button class="btn btn-primary btn-block col-md-11 mx-auto d-block" [disabled]="form.invalid">
                         Registrarse
                     </button>

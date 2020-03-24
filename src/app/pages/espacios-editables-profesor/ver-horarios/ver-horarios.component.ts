@@ -17,7 +17,10 @@ export class VerHorariosComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.getHorarios()
+  }
 
+  getHorarios(){
     this.activatedRoute.paramMap.subscribe(paramas=>{
       this.espacioId = parseInt(paramas.get('id'), 10);
       if(paramas.has('id')){
@@ -28,7 +31,6 @@ export class VerHorariosComponent implements OnInit {
       }
 
     });
-
   }
 
   formatearFecha(){
@@ -51,6 +53,16 @@ export class VerHorariosComponent implements OnInit {
 
   volverEspaciosEditables(){
     this.router.navigate(['espacios-editable-profesor'])
+  }
+
+  eliminarHorario(id){
+    this.horarioService.deleteHorario(id).subscribe(
+      res => {
+        console.log('Borrado correctamente')
+        this.getHorarios()
+      },
+      error => console.log(error)
+    )
   }
 
 }
