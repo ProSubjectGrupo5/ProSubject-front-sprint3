@@ -1,9 +1,9 @@
-<div class="alert alert-success text-center" role="alert">
-    Su perfil ha sido actualizado con éxito.
-</div>
 <div *ngIf="!editarPerfil" class="container">
     <div class="d-flex justify-content-center row">
         <div class="col-12 col-md-6">
+            <div *ngIf="mostrarMensajeActualizarPerfil" class="alert alert-success text-center" role="alert">
+                Su perfil ha sido actualizado con éxito.
+            </div>
             <div class="card">
                 <div class="card-body">
                     <div class="row">

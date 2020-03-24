@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { confirmPasswordValidator } from '../registro/confirm-password-validator';
-import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
+import { AlumnoService, ProfesorService, FileService } from 'src/app/services/services.index';
 
 @Component({
   selector: 'app-perfil',
@@ -13,6 +13,7 @@ export class PerfilComponent implements OnInit {
 
   perfil: any;
   editarPerfil: boolean;
+  mostrarMensajeActualizarPerfil: boolean;
 
   form:FormGroup;
   usuario: any = {
@@ -32,11 +33,13 @@ export class PerfilComponent implements OnInit {
 
 
   constructor(private route: Router, private fb:FormBuilder,
-    private alumnoService: AlumnoService, private profesorService: ProfesorService) { }
+    private alumnoService: AlumnoService, private profesorService: ProfesorService,
+    private fileService: FileService) { }
 
   ngOnInit() {
     this.getPerfil();
     this.editarPerfil = false;
+    this.mostrarMensajeActualizarPerfil = false;
 
     this.form = this.fb.group({
       nombre: new FormControl(this.perfil.nombre, [Validators.required]),
@@ -64,6 +67,7 @@ export class PerfilComponent implements OnInit {
 
   public mostrarFormularioEditarPerfil() {
     this.editarPerfil = !this.editarPerfil;
+    this.mostrarMensajeActualizarPerfil = false;
   }
 
   
@@ -85,17 +89,22 @@ export class PerfilComponent implements OnInit {
           this.editarPerfil=false;
           localStorage.setItem('usuario', JSON.stringify(res));
           this.perfil = res;
-        },
-        error => console.log(error)
-      )
+          this.mostrarMensajeActualizarPerfil = true;
+        });
     }else{
-      this.profesorService.editarProfesor(this.usuario, this.perfil.id).subscribe(
+      var formData = new FormData();
+      var blob = new Blob([this.form.get('file').value], {type : 'application/pdf'})
+      formData.append('file', blob, this.form.get('file').value.substring(12))
+      this.fileService.uploadFile(formData).subscribe(
         res => {
-          this.editarPerfil=false;
-          localStorage.setItem('usuario', JSON.stringify(res));
-          this.perfil = res;
-        },
-        error => console.log(error))
+          this.profesorService.editarProfesor(this.usuario, this.perfil.id).subscribe(
+            res => {
+              this.editarPerfil=false;
+              localStorage.setItem('usuario', JSON.stringify(res));
+              this.perfil = res;
+              this.mostrarMensajeActualizarPerfil = true;
+            })
+        });
     }
   }
 
