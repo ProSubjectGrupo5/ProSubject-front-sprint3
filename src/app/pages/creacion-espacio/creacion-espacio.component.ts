@@ -78,7 +78,7 @@ export class CreacionEspacioComponent implements OnInit {
       curso: new FormControl('', Validators.required),
       asignatura: new FormControl('', Validators.required),
       precio: new FormControl('', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]{1,}(\\.[0-9]{1,2})?$')]),
-      draftMode: new FormControl(''),
+      draftMode: new FormControl('', Validators.required),
       horarios: this.fb.array([
         this.fb.group({
           dia: new FormControl('', Validators.required),
