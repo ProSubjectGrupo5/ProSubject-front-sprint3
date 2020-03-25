@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { BusquedaAsignaturaService } from 'src/app/services/busqueda-asignatura/busqueda-asignatura.service';
 import { GradoService, CursoService, AsignaturaService, FacultadService, EspacioService, ProfesorService } from 'src/app/services/services.index';
@@ -202,7 +202,11 @@ export class CreacionEspacioComponent implements OnInit {
             this.horarioService.guardarHorario(this.json).subscribe(
               res => {
                 console.log(this.json)
-                this.router.navigate(['espacios-profesor'])              
+                if(this.json[0].espacio.draftMode == 0){
+                  this.router.navigate(['espacios-profesor'])
+                }else{
+                  this.router.navigate(['espacios-editable-profesor'])
+                }              
               },
               error => console.log(error)
             )

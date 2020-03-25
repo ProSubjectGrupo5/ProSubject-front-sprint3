@@ -45,12 +45,12 @@
                             <input matInput type="text" name="dni" placeholder="Introduzca su DNI" class="form-control"
                             formControlName="dni" [ngClass]="{'is-invalid': form.get('email').touched && form.get('email').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('required')">
-                                El DNID es requerido
+                                El DNI es requerido
                             </div>
                             <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('pattern')">
                                 El DNI no es válido. Debe tener 8 números seguido de 1 letra en mayúscula
                             </div>
-                            <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('noValidDni')">
+                            <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('noValidDni') && !form.get('dni').hasError('required') && !form.get('dni').hasError('pattern')">
                                 El DNI introducido no es válido.
                             </div>
                         </div>
