@@ -15,7 +15,6 @@ import { ListadoEspaciosComponent } from './busqueda-asignatura/listado-espacios
 //----CRISTIAN----
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxPaginationModule } from "ngx-pagination";
-import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { LoginComponent } from './login/login.component';
 import { CreacionEspacioComponent } from './creacion-espacio/creacion-espacio.component';
 import { DetallesEspacioComponent } from './busqueda-asignatura/detalles-espacio/detalles-espacio.component';
@@ -81,7 +80,6 @@ import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.co
         CommonModule,
         BrowserModule,
         NgxPaginationModule,
-        NgxMaterialTimepickerModule,
         BrowserAnimationsModule
     ]
 })
