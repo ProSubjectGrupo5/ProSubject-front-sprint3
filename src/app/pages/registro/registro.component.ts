@@ -30,7 +30,7 @@ export class RegistroComponent implements OnInit {
 
     //Atributos profesor
     tarifaPremium:'false',
-    expedienteValidado: 'false',
+    expedienteValidado: 'PENDIENTE',
     //---Atributos profesor---
 
     userAccount: {
@@ -86,7 +86,6 @@ export class RegistroComponent implements OnInit {
     }else{
 
       var formData = new FormData();
-      //var blob = new Blob([this.form.get('file').value], {type : 'application/pdf'})
       formData.append('file', this.fileUpload, this.fileUpload.name)
       this.fileService.uploadFile(formData).subscribe(
         res => {console.log(res),
