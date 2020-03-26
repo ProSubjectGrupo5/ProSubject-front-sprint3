@@ -86,23 +86,15 @@ export class RegistroComponent implements OnInit {
     }else{
 
       var formData = new FormData();
+      formData.append('profesor', JSON.stringify(this.usuario))
+
       formData.append('file', this.fileUpload, this.fileUpload.name)
-      this.fileService.uploadFile(formData).subscribe(
-        res => {console.log(res),
+      console.log(this.usuario)
 
-          this.profesorService.registrarProfesor(this.usuario).subscribe(
-          res => this.router.navigate(['inicio']),
-          error => console.log(error)
-          )
-          
-        },
-        error => console.log(error)
-      )
-      
-      
-      
-
-      
+          this.profesorService.registrarProfesor(formData).subscribe(
+            res => this.router.navigate(['inicio']),
+            error => console.log(error)
+          )  
     }
   
     

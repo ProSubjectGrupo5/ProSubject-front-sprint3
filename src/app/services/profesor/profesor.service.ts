@@ -25,7 +25,7 @@ export class ProfesorService {
   }
 
   registrarProfesor(profesor: any){
-    return this.http.post(`${this.urlEndPoint}/signUpProfesor`, profesor, {headers: this.httpHeaders}).pipe(
+    return this.http.post(`${this.urlEndPoint}/signUpProfesor`, profesor).pipe(
       catchError(e =>{
         console.error(e.error.mensaje);
         swal.fire('Error al registar un profesor.', `${e.error.mensaje}`, 'error');
@@ -44,4 +44,5 @@ export class ProfesorService {
       map(response => response as any[])
     )
   }
+
 }
