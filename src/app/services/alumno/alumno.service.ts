@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import swal from 'sweetalert2';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,13 @@ export class AlumnoService {
   constructor(private http: HttpClient) { }
 
   registrarAlumno(alumno: any){
-    return this.http.post(`${this.urlEndPoint}/signUpAlumno`, alumno, {headers: this.httpHeaders})
+    return this.http.post(`${this.urlEndPoint}/signUpAlumno`, alumno, {headers: this.httpHeaders}).pipe(
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al registar un alumno.', `${e.error.mensaje}`, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   editarAlumno(alumno: any, id: string){
