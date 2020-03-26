@@ -37,4 +37,11 @@ export class ProfesorService {
   editarProfesor(profesor: any, id: string){
     return this.http.put(`${this.urlEndPoint}/profesores/edit/` + id, profesor, {headers: this.httpHeaders})
   }
+
+  //Mientras
+  getProfesores(){
+    return this.http.get(`${this.urlEndPoint}/profesores`).pipe(
+      map(response => response as any[])
+    )
+  }
 }

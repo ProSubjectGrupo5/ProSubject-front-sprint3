@@ -38,6 +38,7 @@ import { EditarEspaciosComponent } from './espacios-editables-profesor/editar-es
 import { PerfilComponent } from './perfil/perfil.component';
 
 import { ForoComponent } from './foro/foro.component';
+import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
 
 
 
@@ -65,6 +66,8 @@ import { ForoComponent } from './foro/foro.component';
         PerfilComponent,
 
         ForoComponent,
+
+        ValidarProfesorComponent,
 
     ],
     exports: [

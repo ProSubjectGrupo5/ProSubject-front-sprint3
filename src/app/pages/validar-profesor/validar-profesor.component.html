@@ -1,0 +1,33 @@
+<div class="row">
+    <div id="accordion" class="col-md-10 mx-auto d-block">
+
+        <div class="div" *ngFor="let profesor of profesores; let i=index">
+
+            <div class="card">
+                <div class="card-header bg-dark h5">
+                        <a class="text-white" href="#List-{{ i }}" data-toggle="collapse">
+                            {{profesor.apellido1}} {{profesor.apellido2}}, {{profesor.nombre}}
+                        </a>
+                </div>
+
+                <div id="List-{{ i }}" class="collapse">
+                    <ul class="h5 mt-3">
+                        <li><b>Nombre: </b> {{profesor.nombre}}</li>
+                        <li><b>Apellidos: </b> {{profesor.apellido1}} {{profesor.apellido2}}</li>
+                        <li><b>DNI: </b> {{profesor.dni}}</li>
+                        <li><b>Teléfono: </b> {{profesor.telefono}}</li>
+                        <li><b>Email: </b> {{profesor.email}}</li>
+                        <li><b>Expediente: </b> <button class = "btn btn-info" title="Descargar expediente"><i class="fas fa-file-pdf"></i></button></li>
+                    </ul>
+                    <div class="text-center mb-3">
+                        <button class="btn btn-success" title="Aceptar profesor" (click)="aceptarProfesor(profesor.id)">Aceptar</button>
+                        <button class="btn btn-danger" title="Rechazar profesor" (click)="rechazarProfesor(profesor.id)">Rechazar</button>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>
+</div>
