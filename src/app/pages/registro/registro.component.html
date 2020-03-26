@@ -130,7 +130,6 @@
 
                 <div *ngIf="esProfesor('PROFESOR')" > 
                     <label><b>Por favor, suba un documento para que podamos validar su nota</b></label><br>
-                    <input type="file" formControlName="file">
                 </div>
 
                 <div class="row mt-3">
@@ -139,6 +138,7 @@
                     </button>
                 </div>
             </form>
+            <input type="file" id="file" (change)="fileInput($event.target.files)">
 
         </div>
     </div>

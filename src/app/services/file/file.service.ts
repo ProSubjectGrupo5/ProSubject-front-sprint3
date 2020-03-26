@@ -9,6 +9,7 @@ import { saveAs } from "file-saver/dist/FileSaver";
 export class FileService {
 
   private urlEndPoint: string = environment.domain_backend + '/api/files';
+ 
 
   constructor(private http: HttpClient) { }
 
