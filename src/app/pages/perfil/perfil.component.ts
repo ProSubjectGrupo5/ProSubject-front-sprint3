@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { confirmPasswordValidator } from '../registro/confirm-password-validator';
-import { AlumnoService, ProfesorService, FileService } from 'src/app/services/services.index';
+import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
 
 @Component({
   selector: 'app-perfil',
@@ -14,6 +14,7 @@ export class PerfilComponent implements OnInit {
   perfil: any;
   editarPerfil: boolean;
   mostrarMensajeActualizarPerfil: boolean;
+  fileToUpload: File = null;
 
   form:FormGroup;
   usuario: any = {
@@ -23,7 +24,6 @@ export class PerfilComponent implements OnInit {
     dni:'',
     email:'',
     telefono:'',
-
     userAccount: {
       username:'',
       password:'',
@@ -33,13 +33,13 @@ export class PerfilComponent implements OnInit {
 
 
   constructor(private route: Router, private fb:FormBuilder,
-    private alumnoService: AlumnoService, private profesorService: ProfesorService,
-    private fileService: FileService) { }
+    private alumnoService: AlumnoService, private profesorService: ProfesorService) { }
 
   ngOnInit() {
     this.getPerfil();
     this.editarPerfil = false;
     this.mostrarMensajeActualizarPerfil = false;
+    this.fileToUpload = this.perfil['expiendete']
 
     this.form = this.fb.group({
       nombre: new FormControl(this.perfil.nombre, [Validators.required]),
@@ -48,7 +48,6 @@ export class PerfilComponent implements OnInit {
       dni: new FormControl(this.perfil.dni, [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$')]),
       email: new FormControl(this.perfil.email, [Validators.required, Validators.email]),
       telefono: new FormControl(this.perfil.telefono, [Validators.required]),
-      file: new FormControl(''),
       useraccount: new FormGroup({
         username: new FormControl(this.perfil.userAccount.username, [Validators.required]),
         password: new FormControl(this.perfil.userAccount.password, [Validators.required]),
@@ -92,20 +91,23 @@ export class PerfilComponent implements OnInit {
           this.mostrarMensajeActualizarPerfil = true;
         });
     }else{
-      var formData = new FormData();
-      var blob = new Blob([this.form.get('file').value], {type : 'application/pdf'})
-      formData.append('file', blob, this.form.get('file').value.substring(12))
-      this.fileService.uploadFile(formData).subscribe(
+      const formData: FormData = new FormData();
+      formData.append('profesor', JSON.stringify(this.usuario));
+      formData.append('file', this.fileToUpload, this.fileToUpload.name);
+
+      this.profesorService.editarProfesor(formData, this.perfil.id).subscribe(
         res => {
-          this.profesorService.editarProfesor(this.usuario, this.perfil.id).subscribe(
-            res => {
-              this.editarPerfil=false;
-              localStorage.setItem('usuario', JSON.stringify(res));
-              this.perfil = res;
-              this.mostrarMensajeActualizarPerfil = true;
-            })
+          this.editarPerfil = false;
+          localStorage.setItem('usuario', JSON.stringify(res));
+          this.perfil = res;
+          this.mostrarMensajeActualizarPerfil = true;
         });
     }
+  }
+
+
+  fileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
   }
 
 }

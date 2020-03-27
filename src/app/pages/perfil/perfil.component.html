@@ -163,7 +163,7 @@
                 </div>
 
                 <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'">
-                    <input type="file" formControlName="file">
+                    <input type="file" id="file" (change)="fileInput($event.target.files)">
                 </div>
 
                 <div class="row mt-4">
