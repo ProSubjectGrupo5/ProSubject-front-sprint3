@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { saveAs } from "file-saver/dist/FileSaver";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,9 @@ import { saveAs } from "file-saver/dist/FileSaver";
 export class FileService {
 
   private urlEndPoint: string = environment.domain_backend + '/api/files';
- 
+  private httpHeaders = new HttpHeaders({
+    'Content-Type': 'application/pdf'
+  });
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +20,7 @@ export class FileService {
 
   downloadFile(fileId){
     return this.http.get(`${this.urlEndPoint}/downloadFile/${fileId}`,
-    {responseType: 'arraybuffer'});
+    {responseType: 'blob', headers: this.httpHeaders});
   }
 
   getFile(fileId: number){

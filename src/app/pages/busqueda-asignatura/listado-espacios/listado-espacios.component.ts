@@ -29,10 +29,9 @@ export class ListadoEspaciosComponent implements OnInit {
   descargarPdf(){
     this.fileService.getFile(1).subscribe(res =>{
       this.fichero = res;
-      
       this.fileService.downloadFile(this.fichero.id).subscribe(
         res => {
-          saveAs(new Blob([this.fichero.data], {type: 'application/pdf'}), this.fichero.fileName)
+          saveAs(res , this.fichero.fileName)
         }
       )
     },

@@ -17,21 +17,32 @@ export class ValidarProfesorComponent implements OnInit {
   }
 
   getProfesor(){
-    this.profesorService.getProfesores().subscribe(
+    this.profesorService.getProfesoresPendientesValidacion().subscribe(
       data => {
         this.profesores = data
-        console.log(this.profesores)
       },
       error => console.log(error)
     )
   }
 
-  aceptarProfesor(id){
-    window.alert(id)
+  aceptarExpedienteProfesor(id){
+    this.profesorService.aceptarExpediente(id).subscribe(
+      res => {
+        console.log('Expediente profesor rechazadoº')
+        this.getProfesor()
+      },
+      error => console.log(error)
+    )
   }
 
-  rechazarProfesor(id){
-    window.alert(id)
+  rechazarExpedienteProfesor(id){
+    this.profesorService.rechazarExpediente(id).subscribe(
+      res => {
+        console.log('Expediente profesor rechazado')
+        this.getProfesor()
+      },
+      error => console.log(error)
+    )
   }
 
 

@@ -79,25 +79,24 @@ export class RegistroComponent implements OnInit {
 
     
     if(this.form.get('useraccount').get('autoridad').value == 'ALUMNO'){
+
       this.alumnoService.registrarAlumno(this.usuario).subscribe(
         res => this.router.navigate(['inicio']),
         error => console.log(error)
       )
+      
     }else{
 
       var formData = new FormData();
       formData.append('profesor', JSON.stringify(this.usuario))
-
       formData.append('file', this.fileUpload, this.fileUpload.name)
-      console.log(this.usuario)
 
-          this.profesorService.registrarProfesor(formData).subscribe(
-            res => this.router.navigate(['inicio']),
-            error => console.log(error)
-          )  
+      this.profesorService.registrarProfesor(formData).subscribe(
+        res => this.router.navigate(['inicio']),
+        error => console.log(error)
+      )
+          
     }
-  
-    
 
   }
 
@@ -111,8 +110,12 @@ export class RegistroComponent implements OnInit {
 
   esProfesor(name){
     if(name == this.selectRadioButton){
+      this.form.get('file').setValidators(Validators.required)
       return true;
     }
+    this.form.get('file').setValue('')
+    this.form.get('file').clearValidators()
+    this.form.get('file').updateValueAndValidity()
     return false;
   }
 

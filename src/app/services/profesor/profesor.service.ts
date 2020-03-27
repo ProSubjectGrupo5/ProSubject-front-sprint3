@@ -4,6 +4,7 @@ import { throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -15,7 +16,8 @@ export class ProfesorService {
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private route: Router) { }
 
   getProfesorPorId(id: Number){
     let url:string = `${this.urlEndPoint}/profesores/${id}`;
@@ -38,11 +40,33 @@ export class ProfesorService {
     return this.http.put(`${this.urlEndPoint}/profesores/edit/` + id, profesor, {headers: this.httpHeaders})
   }
 
-  //Mientras
-  getProfesores(){
-    return this.http.get(`${this.urlEndPoint}/profesores`).pipe(
+  
+  getProfesoresPendientesValidacion(){
+    return this.http.get(`${this.urlEndPoint}/profesores/validacionExpedientePendiente`).pipe(
       map(response => response as any[])
     )
+  }
+
+  aceptarExpediente(profesorId: number){
+    return this.http.get(`${this.urlEndPoint}/profesores/aceptarExpediente/${profesorId}`).pipe(
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al aceptar un expediente.', `${e.error.mensaje}`, 'error');
+        this.route.navigate(['/inicio']);
+        return throwError(e);
+      })
+    );
+  }
+
+  rechazarExpediente(profesorId: number){
+    return this.http.get(`${this.urlEndPoint}/profesores/rechazarExpediente/${profesorId}`).pipe(
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al rechazar un expediente.', `${e.error.mensaje}`, 'error');
+        this.route.navigate(['/inicio']);
+        return throwError(e);
+      })
+    );
   }
 
 }
