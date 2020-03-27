@@ -66,6 +66,21 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Fecha de inicio*</label>
+                        <input matInput type="date" name="fechaInicio" formControlName="fechaInicio" 
+                        class="form-control" [ngClass]="{'is-invalid': form.get('fechaInicio').touched && form.get('fechaInicio').invalid}">
+                        <div class="alert alert-danger" *ngIf="form.get('fechaInicio').touched && form.get('fechaInicio').hasError('required')">
+                            La fecha de inicio es requerida
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="form.get('fechaInicio').touched && form.get('fechaInicio').hasError('noValidDate')">
+                            La fecha de inicio debe ser futura
+                        </div>
+                    </div>
+                </div>
                 <button class="btn btn-primary btn-block col-md-2" [disabled]="form.invalid">
                     Guardar
                 </button>

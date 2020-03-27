@@ -125,7 +125,16 @@
                                     <div class="form-group">
                                         <label>Capacidad*</label>
                                         <input matInput type="text" name="capacidad" formControlName="capacidad" 
-                                        class="form-control" [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').invalid}">
+                                        class="form-control"  [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').invalid}">
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Fecha inicio*</label>
+                                        <input type="date" formControlName="fechaInicio" class="form-control" 
+                                        name="fechaInicio" [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('fechaInicio').touched && form.get('horarios')?.controls[i].get('fechaInicio').invalid}">
                                         
                                     </div>
                                 </div>
@@ -148,6 +157,10 @@
                                         La capacidad es requerida
                                     </div>
 
+                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('fechaInicio').touched && form.get('horarios')?.controls[i].get('fechaInicio').hasError('required')">
+                                        La fecha de inicio es requerida
+                                    </div>
+
                                     <!--VALIDACION PATTERN-->
                                     <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('horaInicio').touched && form.get('horarios')?.controls[i].get('horaInicio').hasError('pattern')">
                                         Introduce una hora de inicio valida
@@ -167,7 +180,11 @@
 
                                     <!--VALIDACION HORA INICIO < HORA FIN-->
                                     <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].touched && form.get('horarios')?.controls[i].hasError('noValidHour')">
-                                        La fecha de fin debe ser mayor que la fecha de inicio
+                                        La hora de fin debe ser mayor que la hora de inicio
+                                    </div>
+
+                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('fechaInicio').touched && form.get('horarios')?.controls[i].get('fechaInicio').hasError('noValidDate')">
+                                        La fecha de inicio debe ser futura
                                     </div>
                                 </div>
 

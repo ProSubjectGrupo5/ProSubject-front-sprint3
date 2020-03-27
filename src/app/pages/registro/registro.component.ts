@@ -43,7 +43,6 @@ export class RegistroComponent implements OnInit {
   constructor(private fb:FormBuilder,
     private alumnoService: AlumnoService,
     private profesorService: ProfesorService,
-    private fileService: FileService,
     private router: Router) { }
 
   ngOnInit() {
