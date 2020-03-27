@@ -15,7 +15,6 @@ import { ListadoEspaciosComponent } from './busqueda-asignatura/listado-espacios
 //----CRISTIAN----
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxPaginationModule } from "ngx-pagination";
-import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { LoginComponent } from './login/login.component';
 import { CreacionEspacioComponent } from './creacion-espacio/creacion-espacio.component';
 import { DetallesEspacioComponent } from './busqueda-asignatura/detalles-espacio/detalles-espacio.component';
@@ -36,9 +35,9 @@ import { CrearHorarioComponent } from './espacios-editables-profesor/ver-horario
 import { EditarHorarioComponent } from './espacios-editables-profesor/ver-horarios/editar-horario/editar-horario.component';
 import { EditarEspaciosComponent } from './espacios-editables-profesor/editar-espacios/editar-espacios.component';
 import { PerfilComponent } from './perfil/perfil.component';
-
 import { ForoComponent } from './foro/foro.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
 
 
 
@@ -64,11 +63,9 @@ import { CarritoComponent } from './carrito/carrito.component';
         EditarHorarioComponent,
         EditarEspaciosComponent,
         PerfilComponent,
-
         ForoComponent,
-
         CarritoComponent,
-
+        ValidarProfesorComponent,
     ],
     exports: [
         CommonModule
@@ -81,7 +78,6 @@ import { CarritoComponent } from './carrito/carrito.component';
         CommonModule,
         BrowserModule,
         NgxPaginationModule,
-        NgxMaterialTimepickerModule,
         BrowserAnimationsModule
     ]
 })

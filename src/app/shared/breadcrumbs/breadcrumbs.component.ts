@@ -35,6 +35,8 @@ export class BreadcrumbsComponent implements OnInit {
         this.breadcrumbsService.menu = [
           { titulo: 'Login', url: '/login' },
           { titulo: 'Crear administrador', url: '/nuevo-admin' },
+          { titulo: 'Validar profesor', url: '/validar-profesor' },
+
         ];
       }else{
         this.breadcrumbsService.menu = [

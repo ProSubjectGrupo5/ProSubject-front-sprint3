@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~8.1.0",
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
-    "ngx-material-timepicker": "^5.4.3",
+    "file-saver": "^2.0.2",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.4.0",
     "sweetalert2": "^9.10.0",

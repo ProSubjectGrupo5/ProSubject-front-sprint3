@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EspacioService } from "../../../services/espacio/espacio.service";
 import { Router } from "@angular/router";
+import { FileService } from 'src/app/services/services.index';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-listado-espacios',
@@ -11,8 +13,10 @@ export class ListadoEspaciosComponent implements OnInit {
 
   @Input() espacios: any[];
   currentPage: number = 1;
-
+  fichero;
+  
   constructor(private espacioService: EspacioService,
+    private fileService: FileService,
     private router:Router) { }
 
   ngOnInit(): void {
@@ -20,6 +24,20 @@ export class ListadoEspaciosComponent implements OnInit {
 
   detalleEspacio(id:number){
     this.router.navigate(['detalles-espacio', id])
+  }
+
+  descargarPdf(){
+    this.fileService.getFile(1).subscribe(res =>{
+      this.fichero = res;
+      
+      this.fileService.downloadFile(this.fichero.id).subscribe(
+        res => {
+          saveAs(new Blob([this.fichero.data], {type: 'application/pdf'}), this.fichero.fileName)
+        }
+      )
+    },
+    error => console.log(error)
+    )
   }
 
 }

@@ -16,6 +16,8 @@ export class RegistroComponent implements OnInit {
 
   form:FormGroup;
 
+  fileUpload: File = null;
+
   selectRadioButton: '';
 
   usuario: any = {
@@ -28,7 +30,7 @@ export class RegistroComponent implements OnInit {
 
     //Atributos profesor
     tarifaPremium:'false',
-    expedienteValidado: 'false',
+    expedienteValidado: 'PENDIENTE',
     //---Atributos profesor---
 
     userAccount: {
@@ -84,29 +86,23 @@ export class RegistroComponent implements OnInit {
     }else{
 
       var formData = new FormData();
-      var blob = new Blob([this.form.get('file').value], {type : 'application/pdf'})
-      formData.append('file', blob, this.form.get('file').value.substring(12))
+      formData.append('profesor', JSON.stringify(this.usuario))
 
-      this.fileService.uploadFile(formData).subscribe(
-        res => {console.log(res),
+      formData.append('file', this.fileUpload, this.fileUpload.name)
+      console.log(this.usuario)
 
-          this.profesorService.registrarProfesor(this.usuario).subscribe(
-          res => this.router.navigate(['inicio']),
-          error => console.log(error)
-          )
-          
-        },
-        error => console.log(error)
-      )
-      
-      
-      
-
-      
+          this.profesorService.registrarProfesor(formData).subscribe(
+            res => this.router.navigate(['inicio']),
+            error => console.log(error)
+          )  
     }
   
     
 
+  }
+
+  fileInput(files: FileList){
+    this.fileUpload = files.item(0);
   }
 
   selectRadio(e){

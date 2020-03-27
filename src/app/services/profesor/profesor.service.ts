@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import swal from 'sweetalert2';
 
 
 @Injectable({
@@ -24,10 +25,24 @@ export class ProfesorService {
   }
 
   registrarProfesor(profesor: any){
-    return this.http.post(`${this.urlEndPoint}/signUpProfesor`, profesor, {headers: this.httpHeaders})
+    return this.http.post(`${this.urlEndPoint}/signUpProfesor`, profesor).pipe(
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al registar un profesor.', `${e.error.mensaje}`, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   editarProfesor(profesor: any, id: string){
     return this.http.put(`${this.urlEndPoint}/profesores/edit/` + id, profesor)
   }
+
+  //Mientras
+  getProfesores(){
+    return this.http.get(`${this.urlEndPoint}/profesores`).pipe(
+      map(response => response as any[])
+    )
+  }
+
 }

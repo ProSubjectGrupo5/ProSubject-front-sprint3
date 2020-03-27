@@ -3,6 +3,9 @@
         <div class="card text-center">
             <div class="card-header bg-dark text-white h5 f-flex justify-content-between align-items-center">
                 <strong>{{espacio.profesor.apellido1}} {{espacio.profesor.apellido2}}, {{espacio.profesor.nombre}}</strong>
+                <button  class = "btn btn-info ml-3" title='Descargar expediente' (click)="descargarPdf()">
+                    <i class="fas fa-file-pdf"></i>
+                </button>
             </div>
             
 
@@ -13,6 +16,7 @@
                     <div class="col-md-12 mb-3"><i class="fas fa-money-bill-wave"></i> {{espacio.precio}}€</div>
                 </div>
                 <button (click)="detalleEspacio(espacio.id)" class="btn btn-primary">Ver detalles</button>
+
             </div>
             
         </div>

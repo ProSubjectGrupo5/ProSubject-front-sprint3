@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { BusquedaAsignaturaService } from 'src/app/services/busqueda-asignatura/busqueda-asignatura.service';
 import { GradoService, CursoService, AsignaturaService, FacultadService, EspacioService, ProfesorService } from 'src/app/services/services.index';
@@ -78,7 +78,7 @@ export class CreacionEspacioComponent implements OnInit {
       curso: new FormControl('', Validators.required),
       asignatura: new FormControl('', Validators.required),
       precio: new FormControl('', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]{1,}(\\.[0-9]{1,2})?$')]),
-      draftMode: new FormControl(''),
+      draftMode: new FormControl('', Validators.required),
       horarios: this.fb.array([
         this.fb.group({
           dia: new FormControl('', Validators.required),
@@ -202,7 +202,11 @@ export class CreacionEspacioComponent implements OnInit {
             this.horarioService.guardarHorario(this.json).subscribe(
               res => {
                 console.log(this.json)
-                this.router.navigate(['espacios-profesor'])              
+                if(this.json[0].espacio.draftMode == 0){
+                  this.router.navigate(['espacios-profesor'])
+                }else{
+                  this.router.navigate(['espacios-editable-profesor'])
+                }              
               },
               error => console.log(error)
             )
