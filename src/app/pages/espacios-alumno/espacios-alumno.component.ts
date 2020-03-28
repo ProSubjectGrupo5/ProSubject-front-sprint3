@@ -15,7 +15,7 @@ export class EspaciosAlumnoComponent implements OnInit {
 
 
   horarios:any[];
-  alumnosInscritos: any[]=[];
+  alumnosInscritos=new Map();
   
   constructor(private horarioService:HorarioService,
     private alumnoService: AlumnoService,
@@ -29,7 +29,7 @@ export class EspaciosAlumnoComponent implements OnInit {
 
       this.horarios.forEach(element => {
         this.alumnoService.getNumeroAlumnosPorHorario(element.id).subscribe(data =>{
-          this.alumnosInscritos.push(data);
+          this.alumnosInscritos.set(element.id, data);
         })
       })
 

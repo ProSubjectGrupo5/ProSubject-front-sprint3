@@ -4,7 +4,7 @@
             <form [formGroup]="form" (ngSubmit) = "onSubmit()">
                 
                 <div class="form-group col-md-6">
-                    <label>Día</label>
+                    <label>Día*</label>
                     <select class="form-control" formControlName="dia" [ngClass]="{'is-invalid': form.get('dia').touched && form.get('dia').invalid}">
                         <option value="">------</option>
                         <option *ngFor="let dia of diasSemana" [value]="dia">{{dia}}</option>
@@ -16,7 +16,7 @@
                 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Hora inicio</label>
+                        <label>Hora inicio*</label>
                         <input type="text" formControlName="horaInicio" class="form-control" 
                         name="horaInicio" placeholder="HH:mm" [ngClass]="{'is-invalid': form.get('horaInicio').touched && form.get('horaInicio').invalid}">
                         <div class="alert alert-danger" *ngIf="form.get('horaInicio').touched && form.get('horaInicio').hasError('required')">
@@ -32,7 +32,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Hora fin</label>
+                        <label>Hora fin*</label>
                         <input type="text" formControlName="horaFin" class="form-control" 
                         name="horaFin" placeholder="HH:mm" [ngClass]="{'is-invalid': form.get('horaFin').touched && form.get('horaFin').invalid}">
                         <div class="alert alert-danger" *ngIf="form.get('horaFin').touched && form.get('horaFin').hasError('required')">
@@ -50,18 +50,33 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Capacidad</label>
+                        <label>Capacidad*</label>
                         <input matInput type="text" name="capacidad" formControlName="capacidad" 
                         class="form-control" [ngClass]="{'is-invalid': form.get('capacidad').touched && form.get('capacidad').invalid}">
                         <div class="alert alert-danger" *ngIf="form.get('capacidad').touched && form.get('capacidad').hasError('required')">
                             La capacidad es requerida
                         </div>
 
-                        <div class="alert alert-danger" *ngIf="form.get('capacidad').touched && form.get('capacidad').hasError('pattern')">
+                        <div class="alert alert-danger" *ngIf="form.get('capacidad').touched && form.get('capacidad').hasError('pattern') && !form.get('capacidad').hasError('min')">
                             Introduce una capacidad válida
                         </div>
                         <div class="alert alert-danger" *ngIf="form.get('capacidad').touched && form.get('capacidad').hasError('min')">
                             La capacidad debe ser mayor que 0
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Fecha de inicio*</label>
+                        <input matInput type="date" name="fechaInicio" formControlName="fechaInicio" 
+                        class="form-control" [ngClass]="{'is-invalid': form.get('fechaInicio').touched && form.get('fechaInicio').invalid}">
+                        <div class="alert alert-danger" *ngIf="form.get('fechaInicio').touched && form.get('fechaInicio').hasError('required')">
+                            La fecha de inicio es requerida
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="form.get('fechaInicio').touched && form.get('fechaInicio').hasError('noValidDate')">
+                            La fecha de inicio debe ser futura
                         </div>
                     </div>
                 </div>

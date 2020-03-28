@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@ang
 import { BusquedaAsignaturaService } from 'src/app/services/busqueda-asignatura/busqueda-asignatura.service';
 import { GradoService, CursoService, AsignaturaService, FacultadService, EspacioService, ProfesorService } from 'src/app/services/services.index';
 import { validarHoras } from "./hour-validation";
+import { validarFecha } from "./date-validation";
 import { Router } from "@angular/router";
 import { HorarioService } from 'src/app/services/horario/horario.service';
 
@@ -42,6 +43,7 @@ export class CreacionEspacioComponent implements OnInit {
     horaFin:'',
     espacio:'',
     capacidad:'',
+    fechaInicio:'',
   }
   //---Creación de horarios---
 
@@ -84,7 +86,8 @@ export class CreacionEspacioComponent implements OnInit {
           dia: new FormControl('', Validators.required),
           horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
           horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-          capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),      
+          capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),
+          fechaInicio: new FormControl('', [Validators.required, validarFecha]),      
         }, {validators: validarHoras})
       ])
     })
@@ -141,7 +144,8 @@ export class CreacionEspacioComponent implements OnInit {
       dia: new FormControl('', Validators.required),
       horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")])
+      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),
+      fechaInicio: new FormControl('', [Validators.required])
     }, {validators: validarHoras}))
   }
 
@@ -149,7 +153,7 @@ export class CreacionEspacioComponent implements OnInit {
     (<FormArray>this.form.get('horarios')).removeAt(index);
   }
 
-  convertirFecha(){
+  convertirHora(){
     const horario = this.form.get('horarios').value;
 
     horario.forEach(element => {
@@ -180,13 +184,14 @@ export class CreacionEspacioComponent implements OnInit {
             this.espacio.profesor = this.profesor;
             this.espacio.draftMode = this.form.get('draftMode').value;
 
-            this.convertirFecha()
+            this.convertirHora()
             this.form.get('horarios').value.forEach(element =>{
               this.horario.dia = element.dia;
               this.horario.horaInicio = element.horaInicio;
               this.horario.horaFin = element.horaFin;
               this.horario.espacio = this.espacio;
               this.horario.capacidad = element.capacidad;
+              this.horario.fechaInicio = element.fechaInicio;
               
               this.json.push(this.horario)
               this.horario = { 
@@ -195,10 +200,11 @@ export class CreacionEspacioComponent implements OnInit {
                 horaFin:'',
                 espacio: '',
                 capacidad:'',
-                alumnos: []
+                fechaInicio: ''
               }
               
             })
+            console.log(this.json)
             this.horarioService.guardarHorario(this.json).subscribe(
               res => {
                 console.log(this.json)

@@ -47,7 +47,7 @@ export class HorarioService {
       map(response => response as any),
       catchError(e =>{
         console.error(e.error.error);
-        swal.fire('Error al editar un horario.', 'No se pueden editar el horario porque pertenece a un espacio publicado', 'error');
+        swal.fire('Error al editar un horario.', `${e.error.mensaje}`, 'error');
         return throwError(e);
       })
     );
@@ -78,8 +78,8 @@ export class HorarioService {
     )
   }
 
-  getHorariosDraftMode(espacioId: number){
-    let url:string = `${this.urlEndPoint}/draftMode/${espacioId}?username=${JSON.parse(localStorage.getItem('usuario')).userAccount.username}`;
+  getHorariosDraftMode(horarioId: number){
+    let url:string = `${this.urlEndPoint}/draftMode/${horarioId}?username=${JSON.parse(localStorage.getItem('usuario')).userAccount.username}`;
     return this.http.get(url).pipe(
       map(response => response as any[]),
       catchError(e =>{

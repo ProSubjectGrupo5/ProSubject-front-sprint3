@@ -7,7 +7,7 @@
                     <div class="col-md-5">
 
                         <div class="form-group">
-                            <label>Universidad</label>
+                            <label>Universidad*</label>
                             <select class="form-control" formControlName="universidad" [ngClass]="{'is-invalid': form.get('universidad').touched && form.get('universidad').invalid}">
                                 <option value="">------</option>
                                 <option *ngFor="let valor of universidades" [value]="valor.nombre">{{valor.nombre}}</option>
@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Facultades</label>
+                            <label>Facultades*</label>
                             <select class="form-control" formControlName="facultades" [ngClass]="{'is-invalid': form.get('facultades').touched && form.get('facultades').invalid}">
                                 <option value="">------</option>
                                 <option *ngFor="let valor of facultades" [value]="valor.nombre">{{valor.nombre}}</option>
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Grado</label>
+                            <label>Grado*</label>
                             <select class="form-control" formControlName="grado" [ngClass]="{'is-invalid': form.get('grado').touched && form.get('grado').invalid}">
                                 <option value="">------</option>
                                 <option *ngFor="let valor of grados" [value]="valor.nombre">{{valor.nombre}}</option>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Curso</label>
+                            <label>Curso*</label>
                             <select class="form-control" formControlName="curso" [ngClass]="{'is-invalid': form.get('curso').touched && form.get('curso').invalid}">
                                 <option value="">------</option>
                                 <option *ngFor="let valor of cursos" [value]="valor.nombre">{{valor.nombre}}</option>
@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Asignatura</label>
+                            <label>Asignatura*</label>
                             <select class="form-control" formControlName="asignatura" [ngClass]="{'is-invalid': form.get('asignatura').touched && form.get('asignatura').invalid}">
                                 <option value="">------</option>
                                 <option *ngFor="let valor of asignaturas" [value]="valor.id">{{valor.nombre}}</option>
@@ -62,22 +62,22 @@
                         </div>
         
                         <div class="form-group">
-                            <label>Precio</label>
+                            <label>Precio*</label>
                             <input matInput type="text" name="precio" formControlName="precio" 
-                            placeholder="Introduce el precio por hora..." class="form-control" [ngClass]="{'is-invalid': form.get('precio').touched && form.get('precio').invalid}">
+                            placeholder="Introduce el precio por clase..." class="form-control" [ngClass]="{'is-invalid': form.get('precio').touched && form.get('precio').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('required')">
                                 El precio es requerido
                             </div>
-                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('min')">
+                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('min') ">
                                 El precio debe ser mayor que 0
                             </div>
-                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('pattern')">
+                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('pattern') && !form.get('precio').hasError('min')">
                                 Introduce un precio válido
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label><b>¿Deseas publicar este espacio?</b></label><br>
+                            <label><b>¿Deseas publicar este espacio?*</b></label><br>
                             <input type="radio" id="draftMode" name="draftMode" value="1" formControlName="draftMode">
                             <label for="draftMode">Guardar en modo borrador</label>
                             <input type="radio" id="noDraftMode" name="draftMode" value="0" formControlName="draftMode"> 
@@ -87,14 +87,14 @@
                         
                     </div>
 
-                    <div class="col-md-5" >
+                    <div class="col-md-6" >
                         HORARIO
                         <hr>
                         <div formArrayName="horarios" *ngFor="let hor of form.get('horarios')?.controls; let i=index;">
                             <div class="row" [formGroupName]="i">
 
                                 <div class="form-group col-md-3">
-                                    <label>Día</label>
+                                    <label>Día*</label>
                                     <select class="form-control" formControlName="dia" [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('dia').touched && form.get('horarios')?.controls[i].get('dia').invalid}">
                                         <option value="">------</option>
                                         <option *ngFor="let dia of diasSemana" [value]="dia">{{dia}}</option>
@@ -104,7 +104,7 @@
                                 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Hora inicio</label>
+                                        <label>Hora inicio*</label>
                                         <input type="text" formControlName="horaInicio" class="form-control" 
                                         name="horaInicio" placeholder="HH:mm" [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('horaInicio').touched && form.get('horarios')?.controls[i].get('horaInicio').invalid}">
                                         
@@ -114,7 +114,7 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Hora fin</label>
+                                        <label>Hora fin*</label>
                                         <input type="text" formControlName="horaFin" class="form-control" 
                                         name="horaFin" placeholder="HH:mm" [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('horaFin').touched && form.get('horarios')?.controls[i].get('horaFin').invalid}">
                                         
@@ -123,9 +123,18 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Capacidad</label>
+                                        <label>Capacidad*</label>
                                         <input matInput type="text" name="capacidad" formControlName="capacidad" 
-                                        class="form-control" [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').invalid}">
+                                        class="form-control"  [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').invalid}">
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Fecha inicio*</label>
+                                        <input type="date" formControlName="fechaInicio" class="form-control" 
+                                        name="fechaInicio" [ngClass]="{'is-invalid': form.get('horarios')?.controls[i].get('fechaInicio').touched && form.get('horarios')?.controls[i].get('fechaInicio').invalid}">
                                         
                                     </div>
                                 </div>
@@ -148,6 +157,10 @@
                                         La capacidad es requerida
                                     </div>
 
+                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('fechaInicio').touched && form.get('horarios')?.controls[i].get('fechaInicio').hasError('required')">
+                                        La fecha de inicio es requerida
+                                    </div>
+
                                     <!--VALIDACION PATTERN-->
                                     <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('horaInicio').touched && form.get('horarios')?.controls[i].get('horaInicio').hasError('pattern')">
                                         Introduce una hora de inicio valida
@@ -157,7 +170,7 @@
                                         Introduce una hora de fin valida
                                     </div>
 
-                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').hasError('pattern')">
+                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').hasError('pattern') && !form.get('horarios')?.controls[i].get('capacidad').hasError('min')">
                                         Introduce una capacidad válida
                                     </div>
 
@@ -167,7 +180,11 @@
 
                                     <!--VALIDACION HORA INICIO < HORA FIN-->
                                     <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].touched && form.get('horarios')?.controls[i].hasError('noValidHour')">
-                                        La fecha de fin debe ser mayor que la fecha de inicio
+                                        La hora de fin debe ser mayor que la hora de inicio
+                                    </div>
+
+                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('fechaInicio').touched && form.get('horarios')?.controls[i].get('fechaInicio').hasError('noValidDate')">
+                                        La fecha de inicio debe ser futura
                                     </div>
                                 </div>
 

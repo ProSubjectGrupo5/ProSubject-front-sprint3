@@ -14,7 +14,7 @@ export class EspaciosProfesorComponent implements OnInit {
 
 
   horarios:any[];
-  alumnosIncritos: any[] = [];
+  alumnosIncritos = new Map();
 
   constructor(private horarioService:HorarioService,
     private alumnoService: AlumnoService) { }
@@ -27,7 +27,7 @@ export class EspaciosProfesorComponent implements OnInit {
 
       this.horarios.forEach(element => {
         this.alumnoService.getAlumnosPorHorario(element.id).subscribe(data =>{
-          this.alumnosIncritos.push(data);
+          this.alumnosIncritos.set(element.id, data);
         })
       })
     });
