@@ -1,0 +1,11 @@
+
+.shopping-cart {
+    margin-top: 20px;
+}
+
+.button {
+    background-color: #745af2;
+    color:white;
+    transition: 0.2s ease-in;
+    border: 1px solid #745af2;
+}
