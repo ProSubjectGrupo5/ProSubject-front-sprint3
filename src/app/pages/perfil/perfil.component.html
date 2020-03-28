@@ -21,15 +21,15 @@
                             <img *ngIf="perfil.userAccount.autoridad === 'PROFESOR'" src="https://library.kissclipart.com/20180902/riq/kissclipart-teacher-icon-png-clipart-computer-icons-teacher-b3ddbed8ad96e62f.png" alt="profesor" class="mx-auto rounded-circle img-fluid">
                             <br>
                             <ul class="list-inline ratings text-center" title="Ratings">
-                                <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+                                <li class="list-inline-item"><a><span class="fa fa-star"></span></a>
                                 </li>
-                                <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+                                <li class="list-inline-item"><a><span class="fa fa-star"></span></a>
                                 </li>
-                                <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+                                <li class="list-inline-item"><a><span class="fa fa-star"></span></a>
                                 </li>
-                                <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+                                <li class="list-inline-item"><a><span class="fa fa-star"></span></a>
                                 </li>
-                                <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
+                                <li class="list-inline-item"><a><span class="fa fa-star"></span></a>
                                 </li>
                             </ul>
                         </div>
@@ -164,9 +164,12 @@
 
                 <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'">
                     <input class="col-12" type="file" id="file" (change)="fileInput($event.target.files)">
-                    <div class="col-12 mt-3"><b>Expediente actual:</b> <strong class="mr-2 ml-2">{{perfil.expendiente.fileName}}</strong> <a class = "btn btn-secondary" title="Descargar expediente"><i class="fas fa-file-pdf"></i></a></div>
+                    <div class="alert alert-danger d-inline-block" *ngIf="error">
+                        {{error}}
+                    </div>
+                    <div *ngIf="perfil.expendiente" class="col-12 mt-3"><b>Expediente actual:</b> <strong class="mr-2 ml-2">{{perfil.expendiente.fileName}}</strong> <a class = "btn btn-secondary" title="Descargar expediente"><i class="fas fa-file-pdf"></i></a></div>
                 </div>
-
+            
                 <div class="row mt-4">
                     <button class="btn col-12 col-md-6 mb-1" [disabled]="form.invalid">
                         Guardar
