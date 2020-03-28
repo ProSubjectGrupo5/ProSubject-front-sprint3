@@ -21,8 +21,8 @@ import { EditarHorarioComponent } from './espacios-editables-profesor/ver-horari
 import { CrearHorarioComponent } from './espacios-editables-profesor/ver-horarios/crear-horario/crear-horario.component';
 import { EditarEspaciosComponent } from './espacios-editables-profesor/editar-espacios/editar-espacios.component';
 import { PerfilComponent } from './perfil/perfil.component';
-
 import { ForoComponent } from './foro/foro.component';
+import { CarritoComponent } from './carrito/carrito.component';
 import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
 
 
@@ -41,6 +41,7 @@ const pagesRoutes: Routes = [
             { path:'registro', component:RegistroComponent, data:{titulo:'Registro'}},
 
             {path:'perfil', component: PerfilComponent, data:{titulo:'Perfil'}},
+            {path:'carrito', component: CarritoComponent, data:{titulo:'Carrito'}, canActivate: [AlumnoGuard]},
 
             //----CRISTIAN----
             {path:'creacion-espacio', component: CreacionEspacioComponent, data:{titulo:'Creacion de espacio'}, canActivate: [ProfesorGuard]},

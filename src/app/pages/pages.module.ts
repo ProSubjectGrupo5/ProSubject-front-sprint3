@@ -35,8 +35,8 @@ import { CrearHorarioComponent } from './espacios-editables-profesor/ver-horario
 import { EditarHorarioComponent } from './espacios-editables-profesor/ver-horarios/editar-horario/editar-horario.component';
 import { EditarEspaciosComponent } from './espacios-editables-profesor/editar-espacios/editar-espacios.component';
 import { PerfilComponent } from './perfil/perfil.component';
-
 import { ForoComponent } from './foro/foro.component';
+import { CarritoComponent } from './carrito/carrito.component';
 import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
 
 
@@ -63,11 +63,9 @@ import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.co
         EditarHorarioComponent,
         EditarEspaciosComponent,
         PerfilComponent,
-
         ForoComponent,
-
+        CarritoComponent,
         ValidarProfesorComponent,
-
     ],
     exports: [
         CommonModule
