@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HorarioService } from 'src/app/services/horario/horario.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlumnoService } from 'src/app/services/services.index';
 
 @Component({
   selector: 'app-ver-horarios',
@@ -10,10 +11,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class VerHorariosComponent implements OnInit {
 
   horarios: any[];
+  alumnosInscritos= new Map();
   espacioId: number;
 
   constructor(private horarioService: HorarioService,
     private activatedRoute: ActivatedRoute,
+    private alumnoService:AlumnoService,
     private router: Router) { }
 
   ngOnInit() {
@@ -27,6 +30,15 @@ export class VerHorariosComponent implements OnInit {
         this.horarioService.getHorariosPorIdDraftMode(parseInt(paramas.get('id'), 10)).subscribe(data=>{
           this.horarios = data;
           this.formatearFecha()
+
+          this.horarios.forEach(element => { 
+
+            this.alumnoService.getNumeroAlumnosPorHorario(element.id).subscribe(data =>{
+             
+              this.alumnosInscritos.set(element.id, data);
+
+            });     
+          });
         });
       }
 

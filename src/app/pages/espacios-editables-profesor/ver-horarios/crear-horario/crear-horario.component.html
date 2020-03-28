@@ -58,7 +58,7 @@
                             La capacidad es requerida
                         </div>
 
-                        <div class="alert alert-danger" *ngIf="form.get('capacidad').touched && form.get('capacidad').hasError('pattern')">
+                        <div class="alert alert-danger" *ngIf="form.get('capacidad').touched && form.get('capacidad').hasError('pattern') && !form.get('capacidad').hasError('min')">
                             Introduce una capacidad válida
                         </div>
                         <div class="alert alert-danger" *ngIf="form.get('capacidad').touched && form.get('capacidad').hasError('min')">

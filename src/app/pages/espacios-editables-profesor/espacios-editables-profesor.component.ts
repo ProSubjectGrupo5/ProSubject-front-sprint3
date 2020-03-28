@@ -21,7 +21,7 @@ export class EspaciosEditablesProfesorComponent implements OnInit {
   }
 
   getEspacios(){
-    this.espacioService.getEspaciosEditablesPorProfesor(JSON.parse(localStorage.getItem('usuario')).id)
+    this.espacioService.getEspaciosPorProfesor(JSON.parse(localStorage.getItem('usuario')).id)
     .subscribe(
       data => this.espacios = data
     )

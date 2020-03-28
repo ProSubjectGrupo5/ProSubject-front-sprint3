@@ -64,14 +64,14 @@
                         <div class="form-group">
                             <label>Precio*</label>
                             <input matInput type="text" name="precio" formControlName="precio" 
-                            placeholder="Introduce el precio por hora..." class="form-control" [ngClass]="{'is-invalid': form.get('precio').touched && form.get('precio').invalid}">
+                            placeholder="Introduce el precio por clase..." class="form-control" [ngClass]="{'is-invalid': form.get('precio').touched && form.get('precio').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('required')">
                                 El precio es requerido
                             </div>
-                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('min')">
+                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('min') ">
                                 El precio debe ser mayor que 0
                             </div>
-                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('pattern')">
+                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('pattern') && !form.get('precio').hasError('min')">
                                 Introduce un precio válido
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                                         Introduce una hora de fin valida
                                     </div>
 
-                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').hasError('pattern')">
+                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').hasError('pattern') && !form.get('horarios')?.controls[i].get('capacidad').hasError('min')">
                                         Introduce una capacidad válida
                                     </div>
 
