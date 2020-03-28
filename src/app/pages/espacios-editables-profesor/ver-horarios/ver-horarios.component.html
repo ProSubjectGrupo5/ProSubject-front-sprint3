@@ -19,7 +19,7 @@
                             </ul>
                         </div>
                 </div>
-                <div *ngIf="alumnosInscritos[i] == 0">
+                <div *ngIf="alumnosInscritos.get(horario.id) == 0">
                     <button (click) = "editarHorario(horario.id)" class="btn btn-primary">
                         Editar
                     </button>
