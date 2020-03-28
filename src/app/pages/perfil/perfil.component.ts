@@ -24,6 +24,7 @@ export class PerfilComponent implements OnInit {
     dni:'',
     email:'',
     telefono:'',
+    expendiente: '',
     userAccount: {
       username:'',
       password:'',
@@ -39,7 +40,6 @@ export class PerfilComponent implements OnInit {
     this.getPerfil();
     this.editarPerfil = false;
     this.mostrarMensajeActualizarPerfil = false;
-    this.fileToUpload = this.perfil['expiendete']
 
     this.form = this.fb.group({
       nombre: new FormControl(this.perfil.nombre, [Validators.required]),
@@ -71,6 +71,9 @@ export class PerfilComponent implements OnInit {
 
   
   onSubmit(){
+    if(!this.fileToUpload) {
+      this.usuario.expendiente = this.perfil['expendiente']
+    }  
     this.usuario.id = this.perfil.id;
     this.usuario.nombre = this.form.get('nombre').value;
     this.usuario.apellido1 = this.form.get('apellido1').value;
@@ -93,8 +96,9 @@ export class PerfilComponent implements OnInit {
     }else{
       const formData: FormData = new FormData();
       formData.append('profesor', JSON.stringify(this.usuario));
-      formData.append('file', this.fileToUpload, this.fileToUpload.name);
-
+      if(this.fileToUpload) {
+        formData.append('file', this.fileToUpload, this.fileToUpload.name);
+      }    
       this.profesorService.editarProfesor(formData, this.perfil.id).subscribe(
         res => {
           this.editarPerfil = false;
