@@ -171,7 +171,7 @@
                     <div class="alert alert-danger d-inline-block" *ngIf="error">
                         {{error}}
                     </div>
-                    <div *ngIf="perfil.expendiente" class="col-12 mt-3"><b>Expediente actual:</b> <strong class="mr-2 ml-2">{{perfil.expendiente.fileName}}</strong> <a class = "btn btn-secondary" title="Descargar expediente" (click)="download()"><i class="fas fa-file-pdf"></i></a></div>
+                    <div *ngIf="perfil.expendiente" class="col-12 mt-3"><b>Expediente actual:</b> <strong class="mr-2 ml-2">{{perfil.expendiente.fileName}}</strong> <a class = "btn btn-secondary" title="Descargar expediente" (click)="download(perfil.expendiente.id)"><i class="fas fa-file-pdf"></i></a></div>
                 </div>
             
                 <div class="row mt-4">

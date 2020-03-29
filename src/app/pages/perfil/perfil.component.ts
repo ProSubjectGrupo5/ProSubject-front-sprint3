@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { confirmPasswordValidator } from '../registro/confirm-password-validator';
-import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
+import { AlumnoService, ProfesorService, FileService } from 'src/app/services/services.index';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-perfil',
@@ -43,7 +44,8 @@ export class PerfilComponent implements OnInit {
 
 
   constructor(private route: Router, private fb:FormBuilder,
-    private alumnoService: AlumnoService, private profesorService: ProfesorService) { }
+    private alumnoService: AlumnoService, private profesorService: ProfesorService,
+    private fileService: FileService) { }
 
   ngOnInit() {
     this.getPerfil();
@@ -134,9 +136,17 @@ export class PerfilComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
-  download() {
-    const blob = new Blob([this.perfil.expendiente.data], { type: this.perfil.expendiente.fileType });
-    const url= window.URL.createObjectURL(blob);
-    window.open(url);
+  download(id){
+    var fichero: any;
+    this.fileService.getFile(id).subscribe(res =>{
+      fichero = res;
+      this.fileService.downloadFile(fichero.id).subscribe(
+        res => {
+          saveAs(res , fichero.fileName)
+        }
+      )
+    },
+    error => console.log(error)
+    )
   }
 }

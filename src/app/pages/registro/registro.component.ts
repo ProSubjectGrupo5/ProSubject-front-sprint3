@@ -80,7 +80,7 @@ export class RegistroComponent implements OnInit {
     if(this.form.get('useraccount').get('autoridad').value == 'ALUMNO'){
 
       this.alumnoService.registrarAlumno(this.usuario).subscribe(
-        res => this.router.navigate(['inicio']),
+        res => this.router.navigate(['login']),
         error => console.log(error)
       )
       
@@ -91,7 +91,7 @@ export class RegistroComponent implements OnInit {
       formData.append('file', this.fileUpload, this.fileUpload.name)
 
       this.profesorService.registrarProfesor(formData).subscribe(
-        res => this.router.navigate(['inicio']),
+        res => this.router.navigate(['login']),
         error => console.log(error)
       )
           
