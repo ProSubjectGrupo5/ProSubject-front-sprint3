@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ForoService, RespuestaService } from 'src/app/services/services.index';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+
+import {Client} from '@stomp/stompjs';
+import * as SockJS from 'sockjs-client';
+
+
 
 @Component({
   selector: 'app-foro',
   templateUrl: './foro.component.html',
   styleUrls: ['./foro.component.css']
 })
-export class ForoComponent implements OnInit {
+export class ForoComponent implements OnInit, OnDestroy {
 
   form:FormGroup;
 
@@ -20,6 +25,8 @@ export class ForoComponent implements OnInit {
   foroId:number;
 
   respuestas:any[] = [];
+
+  private client:Client;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -38,13 +45,37 @@ export class ForoComponent implements OnInit {
 
           this.respuestaService.getRespuestasPorForo(this.foroId).subscribe(data=>{
             this.respuestas = data;
-            console.log(this.respuestas);
+
+            this.client = new Client();
+            this.client.webSocketFactory = ()=>{
+              return new SockJS("http://localhost:8080/ws");
+            }
+
+            this.client.onConnect = (frame) => {
+              console.log('Conectados: ' + this.client.connected + ' : ' + frame);
+
+              this.client.subscribe('/chat/mensaje', e =>{
+
+                let respuesta = JSON.parse(e.body);
+                respuesta.creacionRespuesta = new Date(respuesta.creacionRespuesta);
+                this.respuestas.push(respuesta);
+                console.log(respuesta);
+              });
+            }
+            //NOS CONECTAMOS
+            this.client.activate();
+
           });
         });
       }
 
     });
 
+  }
+
+  ngOnDestroy(){
+    //NOS DESCONECTAMOS
+    this.client.deactivate();
   }
 
 
@@ -66,19 +97,20 @@ export class ForoComponent implements OnInit {
   }
 
   insertar(){
-
     if(this.form.valid){
 
       this.respuesta.contenido = this.form.get('contenido').value;
 
       this.respuestaService.insertarComentario(this.respuesta).subscribe(data=>{
         console.log(data);
+        this.client.publish({destination: '/api/mensaje', body: JSON.stringify(data)});
+        this.form.get('contenido').setValue('');
 
       });
-
     }
-
-
   }
+
+
+  
 
 }

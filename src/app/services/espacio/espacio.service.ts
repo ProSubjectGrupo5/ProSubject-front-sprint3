@@ -33,7 +33,12 @@ export class EspacioService {
   getEspaciosPorParametros(universidad:string, facultad:string, grado:string, curso:string, asignatura:string):Observable<any[]> {
     let url:string = `${this.urlEndPoint}/espaciosDisponibles?universidad=${universidad}&facultad=${facultad}&grado=${grado}&curso=${curso}&asignatura=${asignatura}`;
     return this.http.get(url).pipe(
-      map(response => response as any[])
+      map(response => response as any[]),
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al realizar la busqueda.', `${e.error.mensaje}`, 'warning');
+        return throwError(e);
+      })
     );
   }
 

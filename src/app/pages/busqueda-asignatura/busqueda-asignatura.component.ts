@@ -31,7 +31,7 @@ export class BusquedaAsignaturaComponent implements OnInit {
               private gradoService:GradoService,
               private facultadService:FacultadService,
               private espaciosService:EspacioService) { 
-                this.espacios = null;
+                this.espacios = [];
               }
 
 
@@ -41,8 +41,6 @@ export class BusquedaAsignaturaComponent implements OnInit {
     this.busquedaAsignaturaService.getUniversidades().subscribe(data=>{
       this.universidades = data;
       console.log(this.universidades);
-
-     
 
         this.cursoService.getCursos().subscribe(data=>{
           this.cursos = data;
@@ -61,11 +59,11 @@ export class BusquedaAsignaturaComponent implements OnInit {
 
   inicializarFormulario(){
     this.form = this.fb.group({
-      universidad: new FormControl(''),
-      facultad: new FormControl(''),
-      grado: new FormControl(''),
-      curso: new FormControl(''),
-      asignatura: new FormControl('')
+      universidad: new FormControl(null),
+      facultad: new FormControl({value:null, disabled:true}),
+      grado: new FormControl({value:null, disabled:true}),
+      curso: new FormControl(null),
+      asignatura: new FormControl({value:null, disabled:true})
     });
 
     //VALIDACIONES
@@ -82,10 +80,18 @@ export class BusquedaAsignaturaComponent implements OnInit {
 
       if(data !== ''){
         this.facultadService.getFacultadesPorUniversidad(this.form.get('universidad').value).subscribe(res=>{
-          this.facultades = res;
+          if(res.length > 0){
+            this.facultades = res;
+            this.form.get('facultad').enable();
+          }else{
+            this.form.get('facultad').setValue('');
+            this.form.get('facultad').disable();
+            this.facultades = [];
+          }
         });
       }else{
         this.form.get('facultad').setValue('');
+        this.form.get('facultad').disable();
         this.facultades = [];
       }
 
@@ -97,10 +103,18 @@ export class BusquedaAsignaturaComponent implements OnInit {
 
       if(data !== ''){
         this.gradoService.getGradosPorUniversidadYFacultad(this.form.get('universidad').value, this.form.get('facultad').value).subscribe(res=>{
-          this.grados = res;
+          if(res.length > 0){
+            this.grados = res;
+            this.form.get('grado').enable();
+          }else{
+            this.form.get('grado').setValue('');
+            this.form.get('grado').disable();
+            this.grados = [];
+          }
         });
       }else{
         this.form.get('grado').setValue('');
+        this.form.get('grado').disable();
         this.grados = [];
       }
 
@@ -123,19 +137,20 @@ export class BusquedaAsignaturaComponent implements OnInit {
 
       if(data !== ''){
         this.asignaturaService.getAsignaturasPorUniversidadYFacultadYGradoYCurso(this.form.get('universidad').value, this.form.get('facultad').value, this.form.get('grado').value, this.form.get('curso').value).subscribe(res=>{
+          console.log(res);
           this.asignaturas = res;
+          this.form.get('asignatura').enable();
+          
         });
       }else{
         this.form.get('asignatura').setValue('');
+        this.form.get('asignatura').disable();
         this.asignaturas = [];
+        
       }
 
 
     });
-
-
-
-
 
 
 
@@ -162,7 +177,7 @@ export class BusquedaAsignaturaComponent implements OnInit {
     this.form.get('curso').setValue('');
     this.form.get('asignatura').setValue('');
 
-    this.espacios = null;
+    this.espacios = [];
   }
 
 }
