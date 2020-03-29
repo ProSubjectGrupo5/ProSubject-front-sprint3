@@ -40,6 +40,7 @@ export { AlumnoService } from "./alumno/alumno.service";
 
 export { FileService } from './file/file.service'; 
 
+export { CarritoService } from './carrito/carrito.service'; 
 
 
 

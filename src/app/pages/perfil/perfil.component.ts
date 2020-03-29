@@ -134,4 +134,9 @@ export class PerfilComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
+  download() {
+    const blob = new Blob([this.perfil.expendiente.data], { type: this.perfil.expendiente.fileType });
+    const url= window.URL.createObjectURL(blob);
+    window.open(url);
+  }
 }

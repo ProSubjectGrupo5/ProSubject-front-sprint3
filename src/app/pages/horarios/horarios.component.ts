@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterContentInit} from '@angular/core';
 import { HorarioService } from 'src/app/services/horario/horario.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService, AlumnoService } from 'src/app/services/services.index';
+import { LoginService, AlumnoService, CarritoService } from 'src/app/services/services.index';
 
 //declare var paypal;
 
@@ -37,7 +37,8 @@ export class HorariosComponent implements OnInit, AfterContentInit{
     private alumnoService: AlumnoService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    public loginService: LoginService) {
+    public loginService: LoginService,
+    private carritoService: CarritoService) {
 
      
      }
@@ -146,6 +147,18 @@ export class HorariosComponent implements OnInit, AfterContentInit{
         this.router.navigateByUrl('/espacios-alumno');
       });
     }
+  }
+
+  addHorario(idHorario: string) {
+    var carrito: any;
+    this.carritoService.getCarritoPorIdAlumno(JSON.parse(localStorage.getItem('usuario')).id).subscribe(
+      res => {
+        carrito = res
+        this.carritoService.addHorarioCarrito(carrito.id, idHorario).subscribe(
+          res => {
+            this.router.navigateByUrl('/carrito');
+          })
+      })
   }
 
 }
