@@ -163,6 +163,10 @@
                 </div>
 
                 <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'">
+                    <div class="alert alert-info d-inline-block">
+                        * Si cambia de expendiente, quedará a la espera de su nueva validación.
+                          Por tanto, no podrá realizar ninguna función como profesor.
+                    </div>
                     <input class="col-12" type="file" id="file" (change)="fileInput($event.target.files)">
                     <div class="alert alert-danger d-inline-block" *ngIf="error">
                         {{error}}

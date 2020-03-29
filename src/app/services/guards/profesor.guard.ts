@@ -14,7 +14,8 @@ export class ProfesorGuard implements CanActivate {
 
   canActivate(){
     
-    if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR'){
+    if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR'
+    && JSON.parse(localStorage.getItem('usuario')).expedienteValidado === 'ACEPTADO'){
       return true;
     }else{
       this.route.navigate(['/inicio']);
