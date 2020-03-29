@@ -26,8 +26,9 @@ export class ListadoEspaciosComponent implements OnInit {
     this.router.navigate(['detalles-espacio', id])
   }
 
-  descargarPdf(){
-    this.fileService.getFile(1).subscribe(res =>{
+  descargarExpediente(id){
+
+    this.fileService.getFile(id).subscribe(res =>{
       this.fichero = res;
       this.fileService.downloadFile(this.fichero.id).subscribe(
         res => {
@@ -37,6 +38,7 @@ export class ListadoEspaciosComponent implements OnInit {
     },
     error => console.log(error)
     )
+
   }
 
 }

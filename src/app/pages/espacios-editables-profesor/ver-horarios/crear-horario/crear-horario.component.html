@@ -69,7 +69,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Fecha de inicio*</label>
+                        <label>Fecha límite de inscripción*</label>
                         <input matInput type="date" name="fechaInicio" formControlName="fechaInicio" 
                         class="form-control" [ngClass]="{'is-invalid': form.get('fechaInicio').touched && form.get('fechaInicio').invalid}">
                         <div class="alert alert-danger" *ngIf="form.get('fechaInicio').touched && form.get('fechaInicio').hasError('required')">
