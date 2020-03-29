@@ -32,17 +32,19 @@
                             <a class="btn" (click)="eliminarHorario(carrito.id, horario.id)"><img class="mr-2" alt="Eliminar" src="assets/images/criss-cross.png"></a>
                         </div>                       
                     </div>
+                   
             </div>
             <div class="card-footer">
                 <div class="pull-right" style="margin: 10px">
-                    <a href="" class="button btn btn-secondary pull-right">Pagar</a>
+                    <div id="paypal"></div>
+                    <!--<a class="button btn btn-secondary pull-right">Pagar</a>-->
                     <div *ngIf="carrito" class="pull-right" style="margin: 5px">
                         Precio mensual: <b>{{carrito.precioMensual}}€</b>
                     </div>
                 </div>
             </div>
         </div>
-
+        
 
         <!-- --------------- SIN PRODUCTOS -------------- -->
     <div *ngIf="carrito.precioMensual === 0" class="card shopping-cart">
@@ -59,4 +61,7 @@
                 </div>
         </div>
     </div>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="col-12 col-md-6 col-sm-12 col-lg-6" id="paypal"></div>
 </div>
