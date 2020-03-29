@@ -30,7 +30,7 @@ export class HorariosComponent implements OnInit, AfterContentInit{
 
 
   horarios: any[]
-  alumnosInscritos: any[]=[];
+  alumnosInscritos = new Map();
   espacioId:number
 
   constructor(private horarioService: HorarioService,
@@ -53,34 +53,23 @@ export class HorariosComponent implements OnInit, AfterContentInit{
             
               this.horarios = res;
               this.formatearHora();
-              
 
+              this.horarios.forEach(element => { 
 
-            this.horarios.forEach(element => { 
+                this.alumnoService.getNumeroAlumnosPorHorario(element.id).subscribe(data =>{
+                  this.alumnosInscritos.set(element.id ,data);
+                  //this.paypal();
 
-              this.alumnoService.getNumeroAlumnosPorHorario(element.id).subscribe(data =>{
-               
-                this.alumnosInscritos.push(data);
-                //this.paypal();
-
-              });     
-              
-              
+                });
 
             });
-            
-            
 
           });  
-          
 
       }
-    
- 
+
     });
-    
-  
-    
+ 
   }
 
   ngAfterContentInit(){

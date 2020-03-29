@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { HorarioService } from 'src/app/services/horario/horario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { validarHoras } from "../../../creacion-espacio/hour-validation";
+import { validarFecha } from"../../../creacion-espacio/date-validation";
 
 @Component({
   selector: 'app-editar-horario',
@@ -24,7 +25,7 @@ export class EditarHorarioComponent implements OnInit {
     horaFin:'',
     espacio:'',
     capacidad:'',
-    alumnos: []
+    fechaInicio: ''
   }
 
   diasSemana: any[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', "Sabado", "Domingo"]
@@ -39,7 +40,8 @@ export class EditarHorarioComponent implements OnInit {
       dia: new FormControl('', Validators.required),
       horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")])
+      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),
+      fechaInicio: new FormControl('', [Validators.required, validarFecha])
     }, {validators: validarHoras})
 
     this.activatedRoute.paramMap.subscribe(paramas=>{
@@ -51,6 +53,7 @@ export class EditarHorarioComponent implements OnInit {
           this.form.controls['dia'].setValue(this.horario.dia)
           this.formatearFecha(this.horario)
           this.form.controls['capacidad'].setValue(this.horario.capacidad)
+          this.form.controls['fechaInicio'].setValue(this.horario.fechaInicio)
 
         });
       }
@@ -90,6 +93,7 @@ export class EditarHorarioComponent implements OnInit {
     this.convertirFecha()
     this.nuevoHorario.capacidad = this.form.get('capacidad').value
     this.nuevoHorario.espacio = this.horario.espacio
+    this.nuevoHorario.fechaInicio = this.form.get('fechaInicio').value
 
     this.horarioService.editarHorario(this.nuevoHorario).subscribe(
       res => this.router.navigate(['ver-horarios', this.horario.espacio.id]),

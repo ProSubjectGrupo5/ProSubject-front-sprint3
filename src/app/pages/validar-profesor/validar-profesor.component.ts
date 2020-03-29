@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfesorService } from 'src/app/services/services.index';
+import { ProfesorService, FileService } from 'src/app/services/services.index';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-validar-profesor',
@@ -9,29 +10,55 @@ import { ProfesorService } from 'src/app/services/services.index';
 export class ValidarProfesorComponent implements OnInit {
 
   profesores: any[];
+  fichero;
 
-  constructor(private profesorService: ProfesorService) { }
+  constructor(private profesorService: ProfesorService,
+    private fileService: FileService) { }
 
   ngOnInit() {
     this.getProfesor();
   }
 
   getProfesor(){
-    this.profesorService.getProfesores().subscribe(
+    this.profesorService.getProfesoresPendientesValidacion().subscribe(
       data => {
         this.profesores = data
-        console.log(this.profesores)
       },
       error => console.log(error)
     )
   }
 
-  aceptarProfesor(id){
-    window.alert(id)
+  descargarExpediente(id){
+    this.fileService.getFile(id).subscribe(res =>{
+      this.fichero = res;
+      this.fileService.downloadFile(this.fichero.id).subscribe(
+        res => {
+          saveAs(res , this.fichero.fileName)
+        }
+      )
+    },
+    error => console.log(error)
+    )
   }
 
-  rechazarProfesor(id){
-    window.alert(id)
+  aceptarExpedienteProfesor(id){
+    this.profesorService.aceptarExpediente(id).subscribe(
+      res => {
+        console.log('Expediente profesor rechazadoº')
+        this.getProfesor()
+      },
+      error => console.log(error)
+    )
+  }
+
+  rechazarExpedienteProfesor(id){
+    this.profesorService.rechazarExpediente(id).subscribe(
+      res => {
+        console.log('Expediente profesor rechazado')
+        this.getProfesor()
+      },
+      error => console.log(error)
+    )
   }
 
 

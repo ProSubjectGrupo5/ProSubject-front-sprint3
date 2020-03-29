@@ -4,6 +4,7 @@ import { HorarioService } from 'src/app/services/horario/horario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EspacioService } from 'src/app/services/services.index';
 import { validarHoras } from "../../../creacion-espacio/hour-validation";
+import { validarFecha } from"../../../creacion-espacio/date-validation";
 
 @Component({
   selector: 'app-crear-horario',
@@ -22,7 +23,7 @@ export class CrearHorarioComponent implements OnInit {
     horaFin:'',
     espacio:'',
     capacidad:'',
-    alumnos: []
+    fechaInicio: ''
   }
 
   diasSemana: any[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', "Sabado", "Domingo"]
@@ -44,7 +45,8 @@ export class CrearHorarioComponent implements OnInit {
       dia: new FormControl('', Validators.required),
       horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")])
+      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),
+      fechaInicio: new FormControl('', [Validators.required, validarFecha]),      
     }, {validators: validarHoras})
   }
 
@@ -67,6 +69,7 @@ export class CrearHorarioComponent implements OnInit {
     this.horario.dia = this.form.get('dia').value;
     this.convertirFecha()
     this.horario.capacidad = this.form.get('capacidad').value;
+    this.horario.fechaInicio = this.form.get('fechaInicio').value;
       
     this.espacioService.getEspaciosPorId(this.espacioId).subscribe(
       res => {

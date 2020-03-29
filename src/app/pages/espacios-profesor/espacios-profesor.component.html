@@ -9,20 +9,22 @@
 
             <div class="card-body text-dark h6" id="parentCard">
                 <div class="container">
-                    <i class="fas fa-money-bill-wave"></i>{{horario.espacio.precio}}€/hora
+                    <i class="fas fa-money-bill-wave"></i>{{horario.espacio.precio}}€/clase
 
                     <div class="card rounded mt-3">
                         <ul class="list-group">
                             <li class="list-group-item h4">{{horario.dia}}</li>
+                            <li class="list-group-item"><strong>Fecha de comienzo</strong> {{horario.fechaInicio | date: 'dd-MM-yyyy'}}</li>
+                            <li class="list-group-item"><strong>Fecha de fin:</strong> {{horario.fechaFin | date: 'dd-MM-yyyy'}}</li>
                             <li class="list-group-item"><strong>De:</strong> {{horario.horaInicio}}</li>
                             <li class="list-group-item"><strong>A:</strong> {{horario.horaFin}}</li>
                             <li class="list-group-item"><strong>Capacidad:</strong> {{horario.capacidad}}</li>
                             <li class="list-group-item"><strong>Alumnos inscritos:</strong> 
-                                <div *ngIf="alumnosIncritos[i]?.length == 0">
+                                <div *ngIf="alumnosIncritos.get(horario.id)?.length == 0">
                                     No hay alumnos inscritos.
                                 </div>
-                                <div *ngIf="alumnosIncritos[i]?.length > 0">
-                                    <div *ngFor="let alumno of alumnosIncritos[i]">
+                                <div *ngIf="alumnosIncritos.get(horario.id)?.length > 0">
+                                    <div *ngFor="let alumno of alumnosIncritos.get(horario.id)">
                                         {{alumno.apellido1}} {{alumno.apellido2}}, {{alumno.nombre}} ({{alumno.email}}).
                                     </div>
                                 </div>
