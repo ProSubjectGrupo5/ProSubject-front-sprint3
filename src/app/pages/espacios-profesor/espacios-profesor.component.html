@@ -14,10 +14,19 @@
                     <div class="card rounded mt-3">
                         <ul class="list-group">
                             <li class="list-group-item h4">{{horario.dia}}</li>
-                            <li class="list-group-item"><strong>Fecha de comienzo</strong> {{horario.fechaInicio | date: 'dd-MM-yyyy'}}</li>
-                            <li class="list-group-item"><strong>Fecha de fin:</strong> {{horario.fechaFin | date: 'dd-MM-yyyy'}}</li>
-                            <li class="list-group-item"><strong>De:</strong> {{horario.horaInicio}}</li>
-                            <li class="list-group-item"><strong>A:</strong> {{horario.horaFin}}</li>
+                            <li class="list-group-item"><strong>Fecha límite de inscripción:</strong> {{horario.fechaInicio | date: 'dd-MM-yyyy'}}</li>
+                            <li class="list-group-item"><strong>Fecha de finalización del horario:</strong> {{horario.fechaFin | date: 'dd-MM-yyyy'}}</li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-6 text-right">
+                                        <strong>De:</strong> {{horario.horaInicio}}
+                                    </div>
+                                    <div class="col-md-6 text-left">
+                                        <strong>A:</strong> {{horario.horaFin}}
+
+                                    </div>
+                                </div>
+                            </li>
                             <li class="list-group-item"><strong>Capacidad:</strong> {{horario.capacidad}}</li>
                             <li class="list-group-item"><strong>Alumnos inscritos:</strong> 
                                 <div *ngIf="alumnosIncritos.get(horario.id)?.length == 0">
