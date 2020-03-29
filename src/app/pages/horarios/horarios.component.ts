@@ -32,6 +32,7 @@ export class HorariosComponent implements OnInit, AfterContentInit{
   horarios: any[]
   alumnosInscritos = new Map();
   espacioId:number
+  mostrarMensaje: boolean = false;
 
   constructor(private horarioService: HorarioService,
     private alumnoService: AlumnoService,
@@ -44,7 +45,7 @@ export class HorariosComponent implements OnInit, AfterContentInit{
      }
 
   ngOnInit() {
-
+    this.mostrarMensaje=false;
     this.activatedRoute.paramMap.subscribe(paramas=>{
       this.espacioId = parseInt(paramas.get('id'), 10);
       if(paramas.has('id')){
@@ -124,28 +125,16 @@ export class HorariosComponent implements OnInit, AfterContentInit{
     this.router.navigate(['detalles-espacio', id])
   }
 
-  inscribirse(horarioId:number){
-    
-    if(!localStorage.getItem('usuario')){
-      this.router.navigateByUrl('/login');
-    }else{
-      console.log(this.espacioId);
-      console.log(JSON.parse(localStorage.getItem('usuario')).id);
-      this.horarioService.insertarAlumno(horarioId,JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
-        console.log(data);
-        this.router.navigateByUrl('/espacios-alumno');
-      });
-    }
-  }
 
   addHorario(idHorario: string) {
     var carrito: any;
+    this.mostrarMensaje=false;
     this.carritoService.getCarritoPorIdAlumno(JSON.parse(localStorage.getItem('usuario')).id).subscribe(
       res => {
         carrito = res
         this.carritoService.addHorarioCarrito(carrito.id, idHorario).subscribe(
           res => {
-            this.router.navigateByUrl('/carrito');
+            this.mostrarMensaje=true;
           })
       })
   }
