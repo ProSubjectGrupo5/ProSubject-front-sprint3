@@ -1,39 +1,62 @@
-<div class="container">
-   <div class="card shopping-cart">
+<div *ngIf="carrito" class="container">
+   <div  *ngIf="carrito.precioMensual !== 0" class="card shopping-cart">
             <div class="card-header bg-dark text-light">
                 <img class="mr-2" alt="Carrito" src="assets/images/smart-cart.png" width="40px">
-                Productos añadidos
+                Horarios añadidos
             </div>
             <div class="card-body">
                     <!-- PRODUCTS -->
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-2 text-center">
+                    <div *ngFor="let horario of carrito.horario" class="row mt-4 linea">
+                        <div class="col-12 col-sm-12 col-md-2 text-center mb-3">
                             <img class="mr-2" alt="Asignatura" src="assets/images/libros.jpg" width="120" height="80">
                         </div>
-                        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
-                            <h4 class="product-name"><strong>Product Name</strong></h4>
+                        <div class="col-6 text-sm-center col-sm-6 text-md-left col-md-3">
+                            <h4 class="product-name"><strong>Asignatura</strong></h4>
                             <h4>
-                                <small>Product description</small>
+                                <small>{{horario.espacio.asignatura.nombre}}</small>
                             </h4>
                         </div>
-                        <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                                <h6><strong>25.00 <span class="text-muted">€</span></strong></h6>
-                            </div>
-                            <div class="col-4 col-sm-4 col-md-4"></div>
-                            <div class="col-2 col-sm-2 col-md-2 text-right">
-                                <a class="btn" (click)="eliminar()"><img class="mr-2" alt="Eliminar" src="assets/images/criss-cross.png"></a>
-                            </div>
+                        <div class="col-6 text-sm-center col-sm-6 text-md-left col-md-3">
+                            <h4 class="product-name"><strong>Horario</strong></h4>
+                            <h4>
+                                <small>{{horario.fechaInicio}} - {{horario.fechaFin}} </small>
+                            </h4>
                         </div>
+                        <div class="col-6 text-sm-center col-sm-6 text-md-left col-md-2">
+                            <h4 class="product-name"><strong>Día</strong></h4>
+                            <h4>
+                                <small>{{horario.dia}}</small>
+                            </h4>
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-1">
+                            <a class="btn" (click)="eliminarHorario(carrito.id, horario.id)"><img class="mr-2" alt="Eliminar" src="assets/images/criss-cross.png"></a>
+                        </div>                       
                     </div>
             </div>
             <div class="card-footer">
                 <div class="pull-right" style="margin: 10px">
                     <a href="" class="button btn btn-secondary pull-right">Pagar</a>
-                    <div class="pull-right" style="margin: 5px">
-                        Total price: <b>50.00€</b>
+                    <div *ngIf="carrito" class="pull-right" style="margin: 5px">
+                        Precio mensual: <b>{{carrito.precioMensual}}€</b>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <!-- --------------- SIN PRODUCTOS -------------- -->
+    <div *ngIf="carrito.precioMensual === 0" class="card shopping-cart">
+        <div class="card-header bg-dark text-light">
+            <img class="mr-2" alt="Carrito" src="assets/images/smart-cart.png" width="40px">
+            Aún no dispone horarios añadidos
+        </div>
+        <div class="card-body">
+                <!-- PRODUCTS -->
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 text-center">
+                        <img class="mr-2" alt="Asignatura" src="https://image.flaticon.com/icons/svg/1827/1827444.svg" width="250" height="250">
+                    </div>
+                </div>
+        </div>
+    </div>
 </div>

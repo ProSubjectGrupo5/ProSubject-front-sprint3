@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { confirmPasswordValidator } from '../registro/confirm-password-validator';
-import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
+import { AlumnoService, ProfesorService, FileService } from 'src/app/services/services.index';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-perfil',
@@ -14,6 +15,7 @@ export class PerfilComponent implements OnInit {
   perfil: any;
   editarPerfil: boolean;
   mostrarMensajeActualizarPerfil: boolean;
+  error: string;
   fileToUpload: File = null;
 
   form:FormGroup;
@@ -24,22 +26,32 @@ export class PerfilComponent implements OnInit {
     dni:'',
     email:'',
     telefono:'',
-    expendiente: '',
+    expendiente: {
+      id:'',
+      fileName:'',
+      fileType:'',
+      data:''
+    },
     userAccount: {
+      id:'',
       username:'',
       password:'',
       autoridad:''
-    }
+    },
+    tarifaPremium:'',
+    expedienteValidado:''
   }
 
 
   constructor(private route: Router, private fb:FormBuilder,
-    private alumnoService: AlumnoService, private profesorService: ProfesorService) { }
+    private alumnoService: AlumnoService, private profesorService: ProfesorService,
+    private fileService: FileService) { }
 
   ngOnInit() {
     this.getPerfil();
     this.editarPerfil = false;
     this.mostrarMensajeActualizarPerfil = false;
+    this.error = null;
 
     this.form = this.fb.group({
       nombre: new FormControl(this.perfil.nombre, [Validators.required]),
@@ -71,9 +83,12 @@ export class PerfilComponent implements OnInit {
 
   
   onSubmit(){
-    if(!this.fileToUpload) {
+    if(!this.fileToUpload && this.perfil.userAccount.autoridad === 'PROFESOR') {
       this.usuario.expendiente = this.perfil['expendiente']
-    }  
+    } else if(this.fileToUpload && this.perfil.userAccount.autoridad === 'PROFESOR') {
+      this.usuario.expendiente = this.perfil['expendiente']
+      this.usuario.expendiente.id = -1
+    }
     this.usuario.id = this.perfil.id;
     this.usuario.nombre = this.form.get('nombre').value;
     this.usuario.apellido1 = this.form.get('apellido1').value;
@@ -81,9 +96,12 @@ export class PerfilComponent implements OnInit {
     this.usuario.dni = this.form.get('dni').value;
     this.usuario.email = this.form.get('email').value;
     this.usuario.telefono = this.form.get('telefono').value;
+    this.usuario.userAccount.id = this.perfil.userAccount.id
     this.usuario.userAccount.username = this.form.get('useraccount').get('username').value;
     this.usuario.userAccount.password = this.form.get('useraccount').get('password').value;
     this.usuario.userAccount.autoridad = this.perfil.userAccount.autoridad;
+    this.usuario.expedienteValidado = this.perfil.expedienteValidado
+    this.usuario.tarifaPremium = this.perfil.tarifaPremium
 
     if(this.perfil.userAccount.autoridad === 'ALUMNO'){
       this.alumnoService.editarAlumno(this.usuario, this.perfil.id).subscribe(
@@ -98,14 +116,18 @@ export class PerfilComponent implements OnInit {
       formData.append('profesor', JSON.stringify(this.usuario));
       if(this.fileToUpload) {
         formData.append('file', this.fileToUpload, this.fileToUpload.name);
-      }    
+      }
+
       this.profesorService.editarProfesor(formData, this.perfil.id).subscribe(
         res => {
           this.editarPerfil = false;
           localStorage.setItem('usuario', JSON.stringify(res));
           this.perfil = res;
           this.mostrarMensajeActualizarPerfil = true;
-        });
+        },
+        error =>{
+          this.error = error.error.mensaje;
+        })
     }
   }
 
@@ -114,4 +136,17 @@ export class PerfilComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
+  download(id){
+    var fichero: any;
+    this.fileService.getFile(id).subscribe(res =>{
+      fichero = res;
+      this.fileService.downloadFile(fichero.id).subscribe(
+        res => {
+          saveAs(res , fichero.fileName)
+        }
+      )
+    },
+    error => console.log(error)
+    )
+  }
 }

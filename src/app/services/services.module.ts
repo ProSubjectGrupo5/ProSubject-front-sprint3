@@ -22,7 +22,9 @@ import {
     RespuestaService,
     AlumnoProfesorGuard,
     WebSocketService,
-    FileService
+    FileService,
+    CarritoService
+    
  } from './services.index';
 
 
@@ -55,8 +57,8 @@ import {
     RespuestaService,
     AlumnoProfesorGuard,
     WebSocketService,
-    FileService
-
+    FileService,
+    CarritoService
   ],
   declarations: []
 })
