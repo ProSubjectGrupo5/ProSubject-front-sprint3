@@ -1,5 +1,8 @@
 <div class="container">
     <div class="row">
+        <div class="col-12">
+
+        
 
         <div class="row">
             <div class="col-12">
@@ -9,7 +12,7 @@
 
         <div class="row">
 
-            <div class="col-6" style="overflow-y: scroll; height: 360px;">
+            <div *ngIf="respuestas.length != 0" class="col-6" style="overflow-y: scroll; height: 360px;">
                 <div *ngFor="let respuesta of respuestas;"class="col-12">
 
                     <div class="card">
@@ -26,11 +29,10 @@
         
                 </div>
             </div>
-            <!--
-            <div *ngIf="respuestas.length == 0" class="col-6">
-                No hay contenido para mostrar.
+
+            <div *ngIf="respuestas.length == 0" class="col-6" style="overflow-y: scroll; height: 360px;"> 
+                El foro no contiene ningún mensaje.
             </div>
-            -->
 
             
 
@@ -64,53 +66,6 @@
 
         
 
-
-        <!--
-        <div class="col-12 comments-container">
-
-            
-            <div class="row">
-                <div class="col-12">
-                    <h1>{{foro.titulo}}</h1>
-                </div>
-            </div>
-
-            <div class="row">
-
-                <ul id="comments-list" class="comments-list">
-                    <li>
-                        <div class="comment-main-level">
-
-                            <div class="comment-avatar"></div>
-
-                            
-                            <div class="comment-box">
-
-                                
-                                <div class="comment-head">
-                                    <h6 class="comment-name by-author" >RAUL</h6>
-                                    <span>hace 20 minutos</span>
-
-                                </div>
-
-                              
-                                <div class="comment-content">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed atque et, natus quibusdam explicabo aspernatur sunt recusandae, eius enim fugit accusantium quos odio temporibus porro quidem, qui debitis aperiam obcaecati?
-
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-
-            </div>
-            
-
-
         </div>
-        -->
     </div>
 </div>

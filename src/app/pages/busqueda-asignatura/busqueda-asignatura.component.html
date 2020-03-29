@@ -2,24 +2,43 @@
     <div class="row">
         <div class="col-12">
             <form novalidate [formGroup]="form" (ngSubmit)="buscar()">
-                <!--col-md-3 mb-3-->
 
                 <div class="form-row">
 
                     <div class="col-md-6 mb-6">
                         <label>Universidad</label>
+                        <!--
                         <select class="form-control" formControlName="universidad">
                             <option></option>
                             <option *ngFor="let valor of universidades" [value]="valor.nombre">{{valor.nombre}}</option>
                         </select>
+                        -->
+                        <input 
+                            type="text"
+                            class="form-control" 
+                            formControlName="universidad"
+                            list="universidad"
+                        />
+                        <datalist id="universidad">
+                            <select>
+                                <option *ngFor="let valor of universidades" [value]="valor.nombre">{{valor.nombre}}</option>
+                            </select>
+                        </datalist>
                     </div>
 
                     <div class="col-md-6 mb-6">
                         <label>Facultades</label>
-                        <select class="form-control" formControlName="facultad">
-                            <option></option>
-                            <option *ngFor="let valor of facultades" [value]="valor.nombre">{{valor.nombre}}</option>
-                        </select>
+                        <input 
+                            type="text"
+                            class="form-control" 
+                            formControlName="facultad"
+                            list="facultad"
+                        />
+                        <datalist id="facultad">
+                            <select>
+                                <option *ngFor="let valor of facultades" [value]="valor.nombre">{{valor.nombre}}</option>
+                            </select>
+                        </datalist>
                     </div>
 
                 </div>
@@ -28,26 +47,41 @@
 
                     <div class="col-md-4 mb-4">
                         <label>Grado</label>
-                        <select class="form-control" formControlName="grado">
-                            <option></option>
-                            <option *ngFor="let valor of grados" [value]="valor.nombre">{{valor.nombre}}</option>
-                        </select>
+                        <input 
+                            type="text"
+                            class="form-control" 
+                            formControlName="grado"
+                            list="grado"
+                        />
+                        <datalist id="grado">
+                            <select>
+                                <option *ngFor="let valor of grados" [value]="valor.nombre">{{valor.nombre}}</option>
+                            </select>
+                        </datalist>
                     </div>
 
                     <div class="col-md-4 mb-4">
-                        <label>Curso</label>
+                        <label>Curso</label> 
                         <select class="form-control" formControlName="curso">
                             <option></option>
                             <option *ngFor="let valor of cursos" [value]="valor.nombre">{{valor.nombre}}</option>
                         </select>
+                      
                     </div>
 
                     <div class="col-md-4 mb-4">
                         <label>Asignatura</label>
-                        <select class="form-control" formControlName="asignatura">
-                            <option></option>
-                            <option *ngFor="let valor of asignaturas" [value]="valor.nombre">{{valor.nombre}}</option>
-                        </select>
+                        <input 
+                            type="text"
+                            class="form-control" 
+                            formControlName="asignatura"
+                            list="asignatura"
+                        />
+                        <datalist id="asignatura">
+                            <select>
+                                <option *ngFor="let valor of asignaturas" [value]="valor.nombre">{{valor.nombre}}</option>
+                            </select>
+                        </datalist>
                     </div>
                 </div>
 
@@ -65,10 +99,12 @@
     
     <div class="row mt-4">
         <div class="col-12">
-            <div *ngIf= "espacios != null">
+            <div *ngIf= "espacios.length > 0">
                 <app-listado-espacios [espacios] = "espacios"></app-listado-espacios>
             </div>  
         </div>
     </div>
 
 </div>
+
+{{form.value|json}}
