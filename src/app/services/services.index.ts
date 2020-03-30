@@ -18,6 +18,8 @@ export { AlumnoGuard } from './guards/alumno.guard';
 
 export { ProfesorGuard } from './guards/profesor.guard';
 
+export { ProfesorExpedienteGuard } from './guards/profesor.guard-expediente';
+
 export { LoginService } from './login/login.service';
 
 export { FacultadService } from './facultad/facultad.service';

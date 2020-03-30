@@ -12,7 +12,7 @@ import { HorariosComponent } from './horarios/horarios.component';
 
 import { RegistroComponent } from './registro/registro.component';
 
-import { ProfesorGuard, AlumnoGuard, AdministradorGuard, AlumnoProfesorGuard } from '../services/services.index';
+import { ProfesorGuard, AlumnoGuard, AdministradorGuard, AlumnoProfesorGuard, ProfesorExpedienteGuard } from '../services/services.index';
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
 
 import { EspaciosEditablesProfesorComponent } from './espacios-editables-profesor/espacios-editables-profesor.component';
@@ -46,7 +46,7 @@ const pagesRoutes: Routes = [
             //----CRISTIAN----
             {path:'creacion-espacio', component: CreacionEspacioComponent, data:{titulo:'Creacion de espacio'}, canActivate: [ProfesorGuard]},
             {path:'detalles-espacio/:id', component: DetallesEspacioComponent, data:{titulo: 'Detalle del espacio'}},
-            {path:'espacios-profesor', component: EspaciosProfesorComponent, data:{titulo: 'Mis espacios'}, canActivate: [ProfesorGuard]},
+            {path:'espacios-profesor', component: EspaciosProfesorComponent, data:{titulo: 'Mis espacios'}, canActivate: [ProfesorExpedienteGuard]},
             {path:'espacios-editable-profesor', component: EspaciosEditablesProfesorComponent, data:{titulo: 'Espacios editables'}, canActivate: [ProfesorGuard]},
             {path:'ver-horarios/:id', component: VerHorariosComponent, data:{titulo: 'Horarios'}, canActivate: [ProfesorGuard]},
             {path:'editar-horario/:id', component: EditarHorarioComponent, data:{titulo: 'Editar horario'}, canActivate: [ProfesorGuard]},

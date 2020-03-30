@@ -4,7 +4,7 @@ import { CanActivate, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfesorGuard implements CanActivate {
+export class ProfesorExpedienteGuard implements CanActivate {
 
   constructor(private route:Router){
 
@@ -14,7 +14,7 @@ export class ProfesorGuard implements CanActivate {
 
   canActivate(){
     
-    if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR' && JSON.parse(localStorage.getItem('usuario')).expedienteValidado === 'ACEPTADO'){
+    if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR'){
       return true;
     }else{
       this.route.navigate(['/inicio']);

@@ -26,6 +26,7 @@ import {
     CarritoService
     
  } from './services.index';
+import { ProfesorExpedienteGuard } from './guards/profesor.guard-expediente';
 
 
 
@@ -58,7 +59,8 @@ import {
     AlumnoProfesorGuard,
     WebSocketService,
     FileService,
-    CarritoService
+    CarritoService, 
+    ProfesorExpedienteGuard
   ],
   declarations: []
 })
