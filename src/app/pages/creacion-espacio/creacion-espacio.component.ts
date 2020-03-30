@@ -75,10 +75,10 @@ export class CreacionEspacioComponent implements OnInit {
     //CAMPOS DEL FORMULARIO Y VALIDACIONES
     this.form = this.fb.group({
       universidad: new FormControl('', Validators.required),
-      facultades: new FormControl('', Validators.required),
-      grado: new FormControl('', Validators.required),
+      facultades: new FormControl({value:null, disabled:true}, Validators.required),
+      grado: new FormControl({value:null, disabled:true}, Validators.required),
       curso: new FormControl('', Validators.required),
-      asignatura: new FormControl('', Validators.required),
+      asignatura: new FormControl({value:null, disabled:true}, Validators.required),
       precio: new FormControl('', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]{1,}(\\.[0-9]{1,2})?$')]),
       draftMode: new FormControl('', Validators.required),
       horarios: this.fb.array([
@@ -92,47 +92,85 @@ export class CreacionEspacioComponent implements OnInit {
       ])
     })
 
-    //CAMBIOS EN EL SELECT DE UNIVERSIDAD
+    
+    //ESPERO CAMBIOS EN EL SELECT DE UNIVERSIDAD
     this.form.get('universidad').valueChanges.subscribe(data=>{
 
       if(data !== ''){
         this.facultadService.getFacultadesPorUniversidad(this.form.get('universidad').value).subscribe(res=>{
-          this.facultades = res;
+          if(res.length > 0){
+            this.facultades = res;
+            this.form.get('facultades').enable();
+          }else{
+            this.form.get('facultades').setValue('');
+            this.form.get('facultades').disable();
+            this.facultades = [];
+          }
         });
       }else{
-        this.form.get('facultad').setValue('');
+        this.form.get('facultades').setValue('');
+        this.form.get('facultades').disable();
         this.facultades = [];
       }
 
     });
 
-    //CAMBIO EN EL SELECT DE FACULTAD
+
+    //ESPERO CAMBIOS EN EL SELECT DE FACULTAD
     this.form.get('facultades').valueChanges.subscribe(data=>{
 
       if(data !== ''){
         this.gradoService.getGradosPorUniversidadYFacultad(this.form.get('universidad').value, this.form.get('facultades').value).subscribe(res=>{
-          this.grados = res;
+          if(res.length > 0){
+            this.grados = res;
+            this.form.get('grado').enable();
+          }else{
+            this.form.get('grado').setValue('');
+            this.form.get('grado').disable();
+            this.grados = [];
+          }
         });
       }else{
         this.form.get('grado').setValue('');
+        this.form.get('grado').disable();
         this.grados = [];
       }
 
+
     });
 
-    //CAMBIO EN EL SELECT DE CURSO
-    this.form.get('curso').valueChanges.subscribe(data=>{
+
+
+    //ESPERO CAMBIOS EN EL SELECT DE GRADOS
+    this.form.get('grado').valueChanges.subscribe(data=>{
+
+     this.form.get('curso').setValue('');
+
+
+    });
+
+
+     //ESPERO CAMBIOS EN EL SELECT DE CURSO
+     this.form.get('curso').valueChanges.subscribe(data=>{
 
       if(data !== ''){
         this.asignaturaService.getAsignaturasPorUniversidadYFacultadYGradoYCurso(this.form.get('universidad').value, this.form.get('facultades').value, this.form.get('grado').value, this.form.get('curso').value).subscribe(res=>{
+          console.log(res);
           this.asignaturas = res;
+          this.form.get('asignatura').setValue('');
+          this.form.get('asignatura').enable();
+          
         });
       }else{
-        this.form.get('asignaturas').setValue('');
+        this.form.get('asignatura').setValue('');
+        this.form.get('asignatura').disable();
         this.asignaturas = [];
+        
       }
 
+
     });
+
   }
 
   get horarios(){
@@ -173,7 +211,7 @@ export class CreacionEspacioComponent implements OnInit {
 
   submit(){
 
-    this.asignaturaService.getAsignaturaPorId(this.form.get('asignatura').value).subscribe(
+    this.asignaturaService.getAsignaturaPorNombre(this.form.get('asignatura').value).subscribe(
       res => {
         this.asignatura = res;
         this.profesorService.getProfesorPorId(JSON.parse(localStorage.getItem('usuario')).id).subscribe(
