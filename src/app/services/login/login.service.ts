@@ -43,4 +43,12 @@ export class LoginService {
     return false;
   }
   }
+
+  esAdministrador(){
+    if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ADMIN'){  
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

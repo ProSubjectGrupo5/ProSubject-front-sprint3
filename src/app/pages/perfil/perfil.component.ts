@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { confirmPasswordValidator } from '../registro/confirm-password-validator';
-import { AlumnoService, ProfesorService, FileService } from 'src/app/services/services.index';
+import { AlumnoService, ProfesorService, FileService, AdminService } from 'src/app/services/services.index';
 import { saveAs } from "file-saver";
 import { validDNIValidator } from "../registro/dni-validator";
 
@@ -47,7 +47,7 @@ export class PerfilComponent implements OnInit {
 
   constructor(private route: Router, private fb:FormBuilder,
     private alumnoService: AlumnoService, private profesorService: ProfesorService,
-    private fileService: FileService) { }
+    private fileService: FileService, private adminService: AdminService) { }
 
   ngOnInit() {
     this.getPerfil();
@@ -105,7 +105,16 @@ export class PerfilComponent implements OnInit {
     this.usuario.expedienteValidado = this.perfil.expedienteValidado
     this.usuario.tarifaPremium = this.perfil.tarifaPremium
 
-    if(this.perfil.userAccount.autoridad === 'ALUMNO'){
+    if(this.perfil.userAccount.autoridad === 'ADMIN') {
+      this.adminService.editarAdmin(this.usuario, this.perfil.id).subscribe(
+        res => {
+          this.editarPerfil=false;
+          localStorage.setItem('usuario', JSON.stringify(res));
+          this.perfil = res;
+          this.mostrarMensajeActualizarPerfil = true;
+        });
+
+    } else if(this.perfil.userAccount.autoridad === 'ALUMNO'){
       this.alumnoService.editarAlumno(this.usuario, this.perfil.id).subscribe(
         res => {
           this.editarPerfil=false;

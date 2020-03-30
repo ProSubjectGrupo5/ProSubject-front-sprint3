@@ -6,6 +6,8 @@ import { HttpClientModule} from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgxSpinnerModule } from "ngx-spinner";  
+
 
 // Modulos
 import { PagesModule } from './pages/pages.module';
@@ -22,7 +24,8 @@ import { ServiceModule } from './services/services.module';
     PagesModule,
     SharedModule,
     ServiceModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

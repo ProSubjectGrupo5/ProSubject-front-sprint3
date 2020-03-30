@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarritoService } from 'src/app/services/carrito/carrito.service';
 import { HorarioService } from 'src/app/services/horario/horario.service';
+import { NgxSpinnerService } from "ngx-spinner";  
 
 declare var paypal;
 
@@ -19,7 +20,7 @@ export class CarritoComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   
   constructor(private route: Router, private carritoService: CarritoService,
-    private horarioService: HorarioService) { }
+    private horarioService: HorarioService, private spinnerService: NgxSpinnerService) { }
 
   ngOnInit() {
     this.getPerfil();
@@ -54,7 +55,6 @@ export class CarritoComponent implements OnInit {
   }
 
   paypal(){
-
     paypal
       .Buttons({
         createOrder: (data, actions) => {
@@ -71,6 +71,7 @@ export class CarritoComponent implements OnInit {
           });
         },
         onApprove: async (data, actions) => {
+          this.spinnerService.show();
           const order = await actions.order.capture();
           var listHorariosId: number[] = [];
           this.carrito.horario.forEach(element => {
@@ -89,11 +90,15 @@ export class CarritoComponent implements OnInit {
 
   inscribirse(horariosId:any){
     if(!localStorage.getItem('usuario')){
+      this.spinnerService.hide();
       this.route.navigateByUrl('/login');
     }else{
       this.horarioService.insertarAlumno(horariosId,JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
         this.getPerfil();
+        this.spinnerService.hide();
         this.route.navigateByUrl('/espacios-alumno');
+      }, err =>{
+        this.spinnerService.hide();
       });
     }
   }
