@@ -1,8 +1,8 @@
 FROM node:11.15.0-alpine as build-step
 WORKDIR /app
 COPY package.json ./
-RUN npm clean
-RUN npm install
+RUN npm cache clean
+RUN npm clean-install
 COPY . .
 RUN npm run build -- --configuration=production
 
