@@ -32,4 +32,8 @@ export class AdminService {
       })
     );
   }
+
+  editarAdmin(admin: any, id: string){
+    return this.http.put(`${this.urlEndPoint}/edit/` + id, admin, {headers: this.httpHeaders})
+  }
 }
