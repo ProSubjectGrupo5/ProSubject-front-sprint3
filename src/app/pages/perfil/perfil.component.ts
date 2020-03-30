@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { confirmPasswordValidator } from '../registro/confirm-password-validator';
 import { AlumnoService, ProfesorService, FileService } from 'src/app/services/services.index';
 import { saveAs } from "file-saver";
+import { validDNIValidator } from "../registro/dni-validator";
+
 
 @Component({
   selector: 'app-perfil',
@@ -57,9 +59,9 @@ export class PerfilComponent implements OnInit {
       nombre: new FormControl(this.perfil.nombre, [Validators.required]),
       apellido1: new FormControl(this.perfil.apellido1, [Validators.required]),
       apellido2: new FormControl(this.perfil.apellido2, [Validators.required]),
-      dni: new FormControl(this.perfil.dni, [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$')]),
+      dni: new FormControl(this.perfil.dni, [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]{1}$'), validDNIValidator]),
       email: new FormControl(this.perfil.email, [Validators.required, Validators.email]),
-      telefono: new FormControl(this.perfil.telefono, [Validators.required]),
+      telefono: new FormControl(this.perfil.telefono, [Validators.pattern('^[0-9]{9}$')]),
       useraccount: new FormGroup({
         username: new FormControl(this.perfil.userAccount.username, [Validators.required]),
         password: new FormControl(this.perfil.userAccount.password, [Validators.required]),

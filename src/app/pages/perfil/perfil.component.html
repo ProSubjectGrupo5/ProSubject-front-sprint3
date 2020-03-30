@@ -57,7 +57,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Nombre</label>
+                            <label>Nombre*</label>
                             <input matInput type="text" name="nombre" placeholder="Introduzca su nombre" class="form-control" autofocus
                             formControlName="nombre" [ngClass]="{'is-invalid': form.get('nombre').touched && form.get('nombre').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('nombre').touched && form.get('nombre').hasError('required')">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Primer apellido</label>
+                            <label>Primer apellido*</label>
                             <input matInput type="text" name="apellido1" placeholder="Introduzca su primer apellido" class="form-control"
                             formControlName="apellido1" [ngClass]="{'is-invalid': form.get('apellido1').touched && form.get('apellido1').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('apellido1').touched && form.get('apellido1').hasError('required')">
@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Segundo apellido</label>
+                            <label>Segundo apellido*</label>
                             <input matInput type="text" name="apellido2" placeholder="Introduzca su segundo apellido" class="form-control"
                             formControlName="apellido2" [ngClass]="{'is-invalid': form.get('apellido2').touched && form.get('apellido2').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('apellido2').touched && form.get('apellido2').hasError('required')">
@@ -90,14 +90,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>DNI</label>
+                            <label>DNI*</label>
                             <input matInput type="text" name="dni" placeholder="Introduzca su DNI" class="form-control"
                             formControlName="dni" [ngClass]="{'is-invalid': form.get('email').touched && form.get('email').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('required')">
-                                El DNID es requerido
+                                El DNI es requerido
                             </div>
                             <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('pattern')">
                                 El DNI no es válido. Debe tener 8 números seguido de 1 letra en mayúscula
+                            </div>
+                            <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('noValidDni') && !form.get('dni').hasError('required') && !form.get('dni').hasError('pattern')">
+                                El DNI introducido no es válido.
                             </div>
                         </div>
                     </div>
@@ -106,8 +109,8 @@
                             <label>Teléfono</label>
                             <input matInput type="text" name="telefono" placeholder="Introduzca su teléfono" class="form-control"
                             formControlName="telefono" [ngClass]="{'is-invalid': form.get('telefono').touched && form.get('telefono').invalid}">
-                            <div class="alert alert-danger" *ngIf="form.get('telefono').touched && form.get('telefono').hasError('required')">
-                                El teléfono es requerido
+                            <div class="alert alert-danger" *ngIf="form.get('telefono').touched && form.get('telefono').hasError('pattern')">
+                                El telefono introducido no es válido
                             </div>
                         </div>
                     </div>
@@ -116,7 +119,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Email</label>
+                            <label>Email*</label>
                             <input matInput type="text" name="email" placeholder="Introduzca su email" class="form-control"
                             formControlName="email" [ngClass]="{'is-invalid': form.get('email').touched && form.get('email').invalid}" >
                             <div class="alert alert-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">
@@ -133,7 +136,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Nombre de usuario</label>
+                                <label>Nombre de usuario*</label>
                                 <input matInput type="text" name="username" placeholder="Introduzca su usuario" class="form-control"
                                 formControlName="username" [ngClass]="{'is-invalid': form.get('useraccount').get('username').touched && form.get('useraccount').get('username').invalid}">
                                 <div class="alert alert-danger" *ngIf="form.get('useraccount').get('username').touched && form.get('useraccount').get('username').hasError('required')">
@@ -143,7 +146,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Contraseña</label>
+                                <label>Contraseña*</label>
                                 <input matInput type="password" name="password" placeholder="Introduzca su contraseña" class="form-control"
                                 formControlName="password" [ngClass]="{'is-invalid': form.get('useraccount').get('password').touched && form.get('useraccount').get('password').invalid}">
                                 <div class="alert alert-danger" *ngIf="form.get('useraccount').get('password').touched && form.get('useraccount').get('password').hasError('required')">
@@ -151,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Confirmar contraseña</label>
+                                <label>Confirmar contraseña*</label>
                                 <input matInput type="password" name="confirmPassword" placeholder="Repita su contraseña" class="form-control"
                                 formControlName="confirmPassword" [ngClass]="{'is-invalid': form.get('useraccount').get('confirmPassword').touched && form.get('useraccount').get('confirmPassword').invalid}">
                                 <div class="alert alert-danger" *ngIf="form.get('useraccount').get('confirmPassword').touched && form.get('useraccount').errors?.noMatch">

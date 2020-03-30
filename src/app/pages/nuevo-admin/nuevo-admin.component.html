@@ -11,33 +11,42 @@
                         <div class="form-row">
     
                             <div class="col-md-4 mb-4">
-                                <label>Nombre</label>
+                                <label>Nombre*</label>
                                 <input
                                 class="form-control"
                                 formControlName="nombre"
                                 type="text"
                                 
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('nombre').touched && form.get('nombre').hasError('required')">
+                                    El nombre es requerido
+                                </div>
                             </div>
         
                             <div class="col-md-4 mb-4">
-                                <label>Primer apellido</label>
+                                <label>Primer apellido*</label>
                                 <input
                                 class="form-control"
                                 formControlName="apellido1"
                                 type="text"
                                 
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('apellido1').touched && form.get('apellido1').hasError('required')">
+                                    El primer apellido es requerido
+                                </div>
                             </div>
         
                             <div class="col-md-4 mb-4">
-                                <label>Segundo apellido</label>
+                                <label>Segundo apellido*</label>
                                 <input
                                 class="form-control"
                                 formControlName="apellido2"
                                 type="text"
                                 
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('apellido2').touched && form.get('apellido2').hasError('required')">
+                                    El segundo apellido es requerido
+                                </div>
                             </div>
         
                         </div>
@@ -45,7 +54,7 @@
                         <div class="form-row">
         
                             <div class="col-md-4 mb-4">
-                                <label>DNI</label>
+                                <label>DNI*</label>
                                 <input
                                 class="form-control"
                                 formControlName="dni"
@@ -53,10 +62,19 @@
                                 placeholder="12345678X"
                                 
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('required')">
+                                    El DNI es requerido
+                                </div>
+                                <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('pattern')">
+                                    El DNI no es válido. Debe tener 8 números seguido de 1 letra en mayúscula
+                                </div>
+                                <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('noValidDni') && !form.get('dni').hasError('required') && !form.get('dni').hasError('pattern')">
+                                    El DNI introducido no es válido.
+                                </div>
                             </div>
         
                             <div class="col-md-4 mb-4">
-                                <label>Email</label>
+                                <label>Email*</label>
                                 <input
                                 class="form-control"
                                 formControlName="email"
@@ -64,6 +82,12 @@
                                 placeholder="ejemplo@gmail.com"
                                 
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">
+                                    El email es requerido
+                                </div>
+                                <div class="alert alert-danger" *ngIf="form.get('email').touched && form.get('email').hasError('email')">
+                                    Introduce en email válido
+                                </div>
                             </div>
         
                             <div class="col-md-4 mb-4">
@@ -74,6 +98,9 @@
                                 type="text"
                                 
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('telefono').touched && form.get('telefono').hasError('pattern')">
+                                    El telefono introducido no es válido
+                                </div>
                             </div>
                         </div>
             
@@ -88,27 +115,33 @@
                         <div class="form-row">
 
                             <div class="col-md-4 mb-4">
-                                <label>Usuario</label>
+                                <label>Usuario*</label>
                                 <input
                                 class="form-control"
                                 formControlName="username"
                                 type="text"
                                 
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('username').touched && form.get('username').hasError('required')">
+                                    El nombre de usuario es requerido
+                                </div>
                             </div>
         
                             <div class="col-md-4 mb-4">
-                                <label>Contraseña</label>
+                                <label>Contraseña*</label>
                                 <input
                                 class="form-control"
                                 formControlName="password1"
                                 type="password"
                                 
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('password1').touched && form.get('password1').hasError('required')">
+                                    La contraseña es requerida
+                                </div>
                             </div>
 
                             <div class="col-md-4 mb-4">
-                                <label>Repetir contraseña</label>
+                                <label>Repetir contraseña*</label>
                                 <input
                                 class="form-control"
                                 formControlName="password2"
