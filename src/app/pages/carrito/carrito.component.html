@@ -17,12 +17,19 @@
                             </h4>
                         </div>
                         <div class="col-6 text-sm-center col-sm-6 text-md-left col-md-3">
-                            <h4 class="product-name"><strong>Horario</strong></h4>
+                            <h4 class="product-name"><strong>Fecha y horario</strong></h4>
                             <h4>
-                                <small>{{horario.fechaInicio}} - {{horario.fechaFin}} </small>
+                                <small>{{horario.fechaInicio}} - {{horario.fechaFin}}</small><br>
+                                <small>{{horario.horaInicio}} - {{horario.horaFin}}</small>
                             </h4>
                         </div>
-                        <div class="col-6 text-sm-center col-sm-6 text-md-left col-md-2">
+                        <div class="col-3 text-sm-center col-sm-3 text-md-left col-md-2">
+                            <h4 class="product-name"><strong>Nº clases</strong></h4>
+                            <h4>
+                                <small>4 x {{horario.espacio.precio}}€</small>
+                            </h4>
+                        </div>
+                        <div class="col-3 text-sm-center col-sm-3 text-md-left col-md-1">
                             <h4 class="product-name"><strong>Día</strong></h4>
                             <h4>
                                 <small>{{horario.dia}}</small>

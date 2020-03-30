@@ -11,9 +11,9 @@
           <li *ngFor="let i of breadcrumbsService.menu" class="nav-item">
             <a *ngIf="i.titulo != 'Login'" class="nav-link" routerLinkActive="active" [routerLink]="[ i.url ]"> {{ i.titulo }} </a>
           </li>
-          <li *ngIf="loginService.isLogged() && !loginService.esProfesor()" class="nav-item ml-2 mr-2">
+          <li *ngIf="loginService.isLogged() && !loginService.esProfesor() && !loginService.esAdministrador()" class="nav-item ml-2 mr-2">
             <div>
-             <a routerLinkActive="active" routerLink="/carrito"><img src="assets/images/smart-cart.png"  alt="Carrito" width="40px"></a>
+             <a routerLinkActive="active" routerLink="/carrito"><img src="assets/images/smart-cart.png"  alt="Carrito" width="35px" height="35px"></a>
             </div>
           </li>
           <li class="nav-item dropdown">
