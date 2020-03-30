@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AdminService, ValidadoresService } from 'src/app/services/services.index';
 import { validDNIValidator } from "../registro/dni-validator";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-admin',
@@ -14,7 +15,10 @@ export class NuevoAdminComponent implements OnInit {
   form:FormGroup;
 
   
-  constructor(private fb:FormBuilder, private administradorService:AdminService, private validadoresService:ValidadoresService) { }
+  constructor(private fb:FormBuilder, 
+    private administradorService:AdminService, 
+    private validadoresService:ValidadoresService,
+    private router: Router) { }
 
   ngOnInit() {
     this.inicializarFormulario();
@@ -87,6 +91,7 @@ export class NuevoAdminComponent implements OnInit {
 
       this.administradorService.crearAdmin(this.administrador).subscribe(data=>{
         console.log(data);
+        this.router.navigate(['inicio'])
       });
 
     }
