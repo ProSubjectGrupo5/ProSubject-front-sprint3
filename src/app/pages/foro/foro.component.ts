@@ -22,7 +22,7 @@ export class ForoComponent implements OnInit, OnDestroy {
     fechaCreacion:''
   }
 
-  foroId:number;
+  espacioId:number;
 
   respuestas:any[] = [];
 
@@ -37,14 +37,15 @@ export class ForoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.inicializarFormulario();
     this.activatedRoute.paramMap.subscribe(paramas=>{
-      this.foroId = parseInt(paramas.get('id'), 10);
+      this.espacioId = parseInt(paramas.get('id'), 10);
       if(paramas.has('id')){
-        this.foroService.getForoPorEspacio(parseInt(paramas.get('id'), 10)).subscribe(data=>{
+        this.foroService.getForoPorEspacio(this.espacioId).subscribe(data=>{
           this.foro = data;
           this.respuesta.foro = this.foro;
 
-          this.respuestaService.getRespuestasPorForo(this.foroId).subscribe(data=>{
+          this.respuestaService.getRespuestasPorForo(this.foro.id).subscribe(data=>{
             this.respuestas = data;
+            console.log(this.respuestas);
 
             this.client = new Client();
             this.client.webSocketFactory = ()=>{
@@ -107,6 +108,14 @@ export class ForoComponent implements OnInit, OnDestroy {
         this.form.get('contenido').setValue('');
 
       });
+    }
+  }
+
+  cancelar(){
+    if(JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ALUMNO'){
+      this.router.navigateByUrl('/espacios-alumno');
+    }else{
+      this.router.navigateByUrl('/espacios-profesor');
     }
   }
 
