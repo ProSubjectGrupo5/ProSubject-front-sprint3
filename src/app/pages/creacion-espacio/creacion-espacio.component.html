@@ -68,11 +68,11 @@
                             <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('required')">
                                 El precio es requerido
                             </div>
-                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('min') ">
-                                El precio debe ser mayor que 0
+                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && (form.get('precio').hasError('min') || form.get('precio').hasError('max'))">
+                                El precio debe ser mayor que 0 y menor que 30€
                             </div>
-                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('pattern') && !form.get('precio').hasError('min')">
-                                Introduce un precio válido
+                            <div class="alert alert-danger" *ngIf="form.get('precio').touched && form.get('precio').hasError('pattern') && !form.get('precio').hasError('min') && !form.get('precio').hasError('max')">
+                                Introduce un precio válido sin el símbolo "€"
                             </div>
                         </div>
 
@@ -174,8 +174,8 @@
                                         Introduce una capacidad válida
                                     </div>
 
-                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('capacidad').touched && form.get('horarios')?.controls[i].get('capacidad').hasError('min')">
-                                        La capacidad debe ser mayor que 0
+                                    <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].get('capacidad').touched && (form.get('horarios')?.controls[i].get('capacidad').hasError('min') || form.get('horarios')?.controls[i].get('capacidad').hasError('max'))">
+                                        La capacidad debe ser mayor que 0 y menor que 50
                                     </div>
 
                                     <!--VALIDACION HORA INICIO < HORA FIN-->
@@ -194,11 +194,11 @@
                             </div>
 
                         </div>
-                        <button type="button" title="Añadir horario" (click)="addNuevoHorario()"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn btn-primary" title="Añadir horario" (click)="addNuevoHorario()">Añadir horario</button>
                     </div>
                 </div>
 
-                <button class="btn btn-primary btn-block col-md-6 mx-auto d-block" [disabled]="form.invalid">
+                <button class="btn btn-primary btn-block col-md-6 mx-auto d-block mt-4" [disabled]="form.invalid">
                     Guardar
                 </button>
 

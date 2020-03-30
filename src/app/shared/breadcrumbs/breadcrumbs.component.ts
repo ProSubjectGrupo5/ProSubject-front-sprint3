@@ -23,13 +23,18 @@ export class BreadcrumbsComponent implements OnInit {
           { titulo: 'Busqueda de espacios', url: '/busqueda-asignatura' },
           { titulo: 'Mis clases', url: '/espacios-alumno'},
         ];
-      }else if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR'){
+      }else if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR' && JSON.parse(localStorage.getItem('usuario')).expedienteValidado === 'ACEPTADO'){
         this.breadcrumbsService.menu = [
           { titulo: 'Login', url: '/login' },
           { titulo: 'Creación de espacio', url: '/creacion-espacio'},
           { titulo: 'Mis espacios', url: '/espacios-profesor'},
           { titulo: 'Espacios editables', url: '/espacios-editable-profesor'},
 
+        ];
+      }else if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR' && JSON.parse(localStorage.getItem('usuario')).expedienteValidado != 'ACEPTADO'){
+        this.breadcrumbsService.menu = [
+          { titulo: 'Login', url: '/login' },
+          { titulo: 'Mis espacios', url: '/espacios-profesor'},
         ];
       }else if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ADMIN'){
         this.breadcrumbsService.menu = [

@@ -40,7 +40,7 @@ export class EditarHorarioComponent implements OnInit {
       dia: new FormControl('', Validators.required),
       horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),
+      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.max(50), Validators.pattern("^[0-9]+$")]),
       fechaInicio: new FormControl('', [Validators.required, validarFecha])
     }, {validators: validarHoras})
 

@@ -48,7 +48,7 @@ export class EditarEspaciosComponent implements OnInit {
       grado: new FormControl('', Validators.required),
       curso: new FormControl('', Validators.required),
       asignatura: new FormControl('', Validators.required),
-      precio: new FormControl('', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]{1,}(\\.[0-9]{1,2})?$')]),
+      precio: new FormControl('', [Validators.required, Validators.min(0), Validators.max(30),Validators.pattern('^[0-9]{1,}(\\.[0-9]{1,2})?$')]),
       draftMode: new FormControl('')
     })
 

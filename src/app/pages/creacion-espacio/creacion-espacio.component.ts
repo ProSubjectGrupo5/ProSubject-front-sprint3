@@ -79,14 +79,14 @@ export class CreacionEspacioComponent implements OnInit {
       grado: new FormControl('', Validators.required),
       curso: new FormControl('', Validators.required),
       asignatura: new FormControl('', Validators.required),
-      precio: new FormControl('', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]{1,}(\\.[0-9]{1,2})?$')]),
+      precio: new FormControl('', [Validators.required, Validators.min(0), Validators.max(30),Validators.pattern('^[0-9]{1,}(\\.[0-9]{1,2})?$')]),
       draftMode: new FormControl('', Validators.required),
       horarios: this.fb.array([
         this.fb.group({
           dia: new FormControl('', Validators.required),
           horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
           horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-          capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),
+          capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.max(50), Validators.pattern("^[0-9]+$")]),
           fechaInicio: new FormControl('', [Validators.required, validarFecha]),      
         }, {validators: validarHoras})
       ])
@@ -144,7 +144,7 @@ export class CreacionEspacioComponent implements OnInit {
       dia: new FormControl('', Validators.required),
       horaInicio: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
       horaFin: new FormControl('', [Validators.required, Validators.pattern('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')]),
-      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern("^[0-9]+$")]),
+      capacidad: new FormControl('', [Validators.required, Validators.min(1), Validators.max(50), Validators.pattern("^[0-9]+$")]),
       fechaInicio: new FormControl('', [Validators.required])
     }, {validators: validarHoras}))
   }
