@@ -38,6 +38,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ForoComponent } from './foro/foro.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -78,7 +79,8 @@ import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.co
         CommonModule,
         BrowserModule,
         NgxPaginationModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgxSpinnerModule
     ]
 })
 export class PagesModule { }
