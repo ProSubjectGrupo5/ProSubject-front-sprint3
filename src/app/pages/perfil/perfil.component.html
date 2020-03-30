@@ -156,7 +156,7 @@
                             <div class="form-group">
                                 <label>Confirmar contraseña*</label>
                                 <input matInput type="password" name="confirmPassword" placeholder="Repita su contraseña" class="form-control"
-                                formControlName="confirmPassword" [ngClass]="{'is-invalid': form.get('useraccount').get('confirmPassword').touched && form.get('useraccount').get('confirmPassword').invalid}">
+                                formControlName="confirmPassword" [ngClass]="{'is-invalid': form.get('useraccount').get('confirmPassword').touched && form.get('useraccount').errors?.noMatch}">
                                 <div class="alert alert-danger" *ngIf="form.get('useraccount').get('confirmPassword').touched && form.get('useraccount').errors?.noMatch">
                                     Las contraseñas no coinciden
                                 </div>

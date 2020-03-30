@@ -16,7 +16,7 @@
                                 class="form-control"
                                 formControlName="nombre"
                                 type="text"
-                                
+                                [ngClass]="{'is-invalid': form.get('nombre').touched && form.get('nombre').invalid}"
                                 />
                                 <div class="alert alert-danger" *ngIf="form.get('nombre').touched && form.get('nombre').hasError('required')">
                                     El nombre es requerido
@@ -29,7 +29,7 @@
                                 class="form-control"
                                 formControlName="apellido1"
                                 type="text"
-                                
+                                [ngClass]="{'is-invalid': form.get('apellido1').touched && form.get('apellido1').invalid}"
                                 />
                                 <div class="alert alert-danger" *ngIf="form.get('apellido1').touched && form.get('apellido1').hasError('required')">
                                     El primer apellido es requerido
@@ -42,7 +42,7 @@
                                 class="form-control"
                                 formControlName="apellido2"
                                 type="text"
-                                
+                                [ngClass]="{'is-invalid': form.get('apellido2').touched && form.get('apellido2').invalid}"
                                 />
                                 <div class="alert alert-danger" *ngIf="form.get('apellido2').touched && form.get('apellido2').hasError('required')">
                                     El segundo apellido es requerido
@@ -60,7 +60,7 @@
                                 formControlName="dni"
                                 type="text"
                                 placeholder="12345678X"
-                                
+                                [ngClass]="{'is-invalid': form.get('dni').touched && form.get('dni').invalid}"
                                 />
                                 <div class="alert alert-danger" *ngIf="form.get('dni').touched && form.get('dni').hasError('required')">
                                     El DNI es requerido
@@ -80,7 +80,7 @@
                                 formControlName="email"
                                 type="text"
                                 placeholder="ejemplo@gmail.com"
-                                
+                                [ngClass]="{'is-invalid': form.get('email').touched && form.get('email').invalid}"
                                 />
                                 <div class="alert alert-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">
                                     El email es requerido
@@ -96,7 +96,7 @@
                                 class="form-control"
                                 formControlName="telefono"
                                 type="text"
-                                
+                                [ngClass]="{'is-invalid': form.get('telefono').touched && form.get('telefono').invalid}"
                                 />
                                 <div class="alert alert-danger" *ngIf="form.get('telefono').touched && form.get('telefono').hasError('pattern')">
                                     El telefono introducido no es válido
@@ -120,7 +120,7 @@
                                 class="form-control"
                                 formControlName="username"
                                 type="text"
-                                
+                                [ngClass]="{'is-invalid': form.get('username').touched && form.get('username').invalid}"
                                 />
                                 <div class="alert alert-danger" *ngIf="form.get('username').touched && form.get('username').hasError('required')">
                                     El nombre de usuario es requerido
@@ -133,7 +133,7 @@
                                 class="form-control"
                                 formControlName="password1"
                                 type="password"
-                                
+                                [ngClass]="{'is-invalid': form.get('password1').touched && form.get('password1').invalid}"
                                 />
                                 <div class="alert alert-danger" *ngIf="form.get('password1').touched && form.get('password1').hasError('required')">
                                     La contraseña es requerida
@@ -146,8 +146,11 @@
                                 class="form-control"
                                 formControlName="password2"
                                 type="password"
-                                
+                                [ngClass]="{'is-invalid': form.get('password2').touched && form.get('password2').invalid}"
                                 />
+                                <div class="alert alert-danger" *ngIf="form.get('password2').touched && form.get('password2').hasError('noEsIgual')">
+                                    Las contraseñas no coinciden
+                                </div>
                             </div>
 
 
