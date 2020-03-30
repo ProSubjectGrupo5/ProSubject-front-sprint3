@@ -127,9 +127,9 @@ export class HorarioService {
 
 
 
-  insertarAlumno(horarioId:number, alumnoId:number){
-    let url:string = `${this.urlEndPoint}/insertarAlumno?horarioId=${horarioId}&alumnoId=${alumnoId}`;
-    return this.http.put(url, {}).pipe(
+  insertarAlumno(horarios:any, alumnoId:number){
+    let url:string = `${this.urlEndPoint}/insertarAlumno?alumnoId=${alumnoId}`;
+    return this.http.put(url, horarios).pipe(
       map(response => response as any),
       catchError(e =>{
         console.error(e.error.mensaje);
