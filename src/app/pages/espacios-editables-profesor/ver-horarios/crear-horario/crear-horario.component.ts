@@ -59,8 +59,8 @@ export class CrearHorarioComponent implements OnInit {
         anyo = 1
       }
 
-      this.horario.horaInicio = new Date(2050,0,0,parseInt(horaInicio[0]), parseInt(horaInicio[1])).toISOString()
-      this.horario.horaFin = new Date(2050+anyo,0,0, parseInt(horaFin[0]), parseInt(horaFin[1])).toISOString()
+      this.horario.horaInicio = new Date(2050,0,0,parseInt(horaInicio[0])+1, parseInt(horaInicio[1])).toISOString()
+      this.horario.horaFin = new Date(2050+anyo,0,0, parseInt(horaFin[0])+1, parseInt(horaFin[1])).toISOString()
 
   }
 

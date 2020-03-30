@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AdminService, ValidadoresService } from 'src/app/services/services.index';
+import { validDNIValidator } from "../registro/dni-validator";
 
 @Component({
   selector: 'app-nuevo-admin',
@@ -39,7 +40,7 @@ export class NuevoAdminComponent implements OnInit {
     this.form.get('nombre').setValidators(Validators.required);
     this.form.get('apellido1').setValidators(Validators.required);
     this.form.get('apellido2').setValidators(Validators.required);
-    this.form.get('dni').setValidators([Validators.required, Validators.pattern('[0-9]{8}[A-Z]{1}')]);
+    this.form.get('dni').setValidators([Validators.required, Validators.pattern('[0-9]{8}[A-Z]{1}'), validDNIValidator]);
     this.form.get('email').setValidators([Validators.required,Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]);
     this.form.get('telefono').setValidators(Validators.pattern('[0-9]{9}'));
     this.form.get('username').setValidators(Validators.required);
