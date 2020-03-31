@@ -26,9 +26,13 @@
                 <a class="dropdown-item" routerLinkActive="active" routerLink="/login"><i class="fas fa-user"></i>Login</a>
                 <a class="dropdown-item" routerLinkActive="active" routerLink="/registro"><i class="fas fa-user-plus"></i>Registro</a>
               </div>
+              <div *ngIf="loginService.esProfesor()">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" routerLinkActive="active" routerLink="/premium"><i class="fas fa-medal"></i> Premium</a>
+              </div>
               <div *ngIf="loginService.isLogged()">
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click) = 'logout()'><i class="fas fa-sign-out-alt"></i>Logout</a>
+                <a class="dropdown-item" (click) = 'logout()'><i class="fas fa-sign-out-alt"></i> Logout</a>
               </div>
             </div>
         </ul>

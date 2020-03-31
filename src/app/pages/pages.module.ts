@@ -39,6 +39,7 @@ import { ForoComponent } from './foro/foro.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PremiumComponent } from './premium/premium.component';
 
 
 
@@ -67,6 +68,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         ForoComponent,
         CarritoComponent,
         ValidarProfesorComponent,
+        PremiumComponent,
     ],
     exports: [
         CommonModule

@@ -24,6 +24,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ForoComponent } from './foro/foro.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
+import { PremiumComponent } from './premium/premium.component';
 
 
 
@@ -42,6 +43,7 @@ const pagesRoutes: Routes = [
 
             {path:'perfil', component: PerfilComponent, data:{titulo:'Perfil'}},
             {path:'carrito', component: CarritoComponent, data:{titulo:'Carrito'}, canActivate: [AlumnoGuard]},
+            {path:'premium', component: PremiumComponent, data:{titulo:'Premium'}, canActivate: [ProfesorGuard]},
 
             //----CRISTIAN----
             {path:'creacion-espacio', component: CreacionEspacioComponent, data:{titulo:'Creacion de espacio'}, canActivate: [ProfesorGuard]},
