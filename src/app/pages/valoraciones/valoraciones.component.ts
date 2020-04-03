@@ -23,7 +23,6 @@ export class ValoracionesComponent implements OnInit {
         this.valoracionesService.getValoracionesPorEspacio(this.espacioId).subscribe(
           data => {
             this.valoraciones = data
-            console.log(data)
           }
         )
     })
@@ -32,7 +31,11 @@ export class ValoracionesComponent implements OnInit {
   }
 
   volverBuscador(){
-    this.router.navigate(['busqueda-asignatura'])
+    if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR'){
+      this.router.navigate(['espacios-profesor'])
+    }else{
+      this.router.navigate(['busqueda-asignatura'])
+    }
   }
 
 

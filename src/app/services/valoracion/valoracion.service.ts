@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,18 @@ export class ValoracionService {
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private router: Router) { }
 
   getValoracionesPorEspacio(espacioId: number){
     return this.http.get(`${this.urlEndPoint}/espacio/${espacioId}`).pipe(
-      map(response => response as any[])
+      map(response => response as any[]),
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al crear una valoración.', `${e.error.mensaje}`, 'error');
+        this.router.navigate(['login'])
+        return throwError(e);
+      })
     );
   }
 
