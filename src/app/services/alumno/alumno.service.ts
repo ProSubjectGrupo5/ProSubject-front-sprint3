@@ -44,4 +44,10 @@ export class AlumnoService {
       map(response => response as any[])
     )
   }
+
+  getAlumnoPorId(alumnoId: number){
+    return this.http.get(`${this.urlEndPoint}/alumnos/${alumnoId}`).pipe(
+      map(response => response as any)
+    )
+  }
 }

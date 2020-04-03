@@ -36,7 +36,9 @@
                             <li class="list-group-item"><strong>Alumnos inscritos:</strong> {{alumnosInscritos.get(horario.id)}} </li>
                         </ul>
                     </div>
-                    <button [routerLink] = "['/foro', horario.espacio.id]" class="btn btn-primary">Foro</button>
+                    <button [routerLink] = "['/foro', horario.espacio.id]" class="btn btn-primary mr-1">Foro</button>
+                    <button [routerLink] = "['/añadir-valoracion', horario.espacio.id]" class="btn btn-primary ml-1">Ver valoraciones</button>
+
                 </div>
                 
             </div>
