@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ValoracionService } from 'src/app/services/valoracion/valoracion.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { EspacioService, AlumnoService } from 'src/app/services/services.index';
 
@@ -13,6 +13,8 @@ export class CrearValoracionComponent implements OnInit {
 
   valoraciones: any[];
   espacioId: number;
+  alumnoId: number;
+  haComentado: boolean;
 
   form: FormGroup;
 
@@ -28,12 +30,15 @@ export class CrearValoracionComponent implements OnInit {
     private valoracionesService: ValoracionService,
     private espacioService: EspacioService,
     private alumnoService: AlumnoService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
     ngOnInit() {
       this.activatedRoute.paramMap.subscribe(paramas=>{
         this.espacioId = parseInt(paramas.get('id'), 10);
         this.getValoraciones()
+        
+        
     })
 
     this.form = this.fb.group({
@@ -47,12 +52,31 @@ export class CrearValoracionComponent implements OnInit {
     this.valoracionesService.getValoracionesPorEspacio(this.espacioId).subscribe(
       data => {
         this.valoraciones = data
+        this.alumnoId = JSON.parse(localStorage.getItem('usuario')).id
+        this.haComentado = this.alumnoHaComentado(this.valoraciones, this.alumnoId);
+        console.log(this.haComentado)
       }
+      
     )
+  }
+
+  alumnoHaComentado(valoraciones, id){
+    let res = false;
+    for(let valoracion of valoraciones){
+      if(valoracion.alumno.id == id){
+        res = true
+        break
+      }
+    }
+    return res
   }
 
   onRatingSet(value){
     this.form.controls['puntuacion'].setValue(value)
+  }
+
+  volverEspaciosAlumnos(){
+    this.router.navigate(['espacios-alumno'])
   }
 
   submit(){

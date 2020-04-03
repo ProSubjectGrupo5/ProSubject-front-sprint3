@@ -13,33 +13,38 @@
 
         </div> 
         
-        <form [formGroup]="form" (ngSubmit) = "submit()">
+        <div *ngIf="!haComentado">
+            <form [formGroup]="form" (ngSubmit) = "submit()">
 
-            <div class="card-header mt-4 bg-dark text-white h5 f-flex justify-content-between align-items-center">
-                Añade tu valoración aqui        
-            </div>
-
-            <div class="card-body text-dark" id="parentCard">
-                <div class="form-group">
-                    <label><strong>Valoración: </strong></label>
-                    <ngx-stars (ratingOutput)="onRatingSet($event)" [size]="2"></ngx-stars>
+                <div class="card-header mt-4 bg-dark text-white h5 f-flex justify-content-between align-items-center">
+                    Añade tu valoración aqui        
                 </div>
 
-                <div class="form-group">
-                    <label for="comment"><strong>Comentario: </strong></label>
-                    <textarea id="comment" class="form-control" 
-                    formControlName="comentario" rows="4" cols="50"></textarea>
+                <div class="card-body text-dark" id="parentCard">
+                    <div class="form-group">
+                        <label><strong>Valoración: </strong></label>
+                        <ngx-stars (ratingOutput)="onRatingSet($event)" [size]="2"></ngx-stars>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comment"><strong>Comentario: </strong></label>
+                        <textarea id="comment" class="form-control" 
+                        formControlName="comentario" rows="4" cols="50"></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary" [disabled]="form.invalid"> 
+                        Guardar
+                    </button>
                 </div>
-                
-                <button class="btn btn-primary" [disabled]="form.invalid"> 
-                    Guardar
-                </button>
-            </div>
-        </form>
+            </form>
+        </div>
 
     </div>
 </div>
 
+<button class="btn btn-primary mt-3" (click)="volverEspaciosAlumnos()"> 
+    Cancelar
+</button>
 
 
 
