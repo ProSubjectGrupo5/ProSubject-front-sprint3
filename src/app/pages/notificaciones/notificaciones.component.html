@@ -1,40 +1,45 @@
-<form [formGroup]="form" (ngSubmit) = "submit()">
+<div class="row">
+    <div class="col-md-10 mx-auto d-block">
+        <form [formGroup]="form" (ngSubmit) = "submit()">
 
-    <div class="card-header mt-4 bg-dark text-white h5 f-flex justify-content-between align-items-center">
-        Añade tu valoración aqui        
-    </div>
-
-    <div class="card-body text-dark" id="parentCard">
-        <div class="form-group">
-            <label><strong>Para: </strong></label>
-            <input type="text" formControlName="to" class="form-control" 
-            name="para" [ngClass]="{'is-invalid': form.get('to').touched && form.get('to').invalid}">
-            <div class="alert alert-danger" *ngIf="form.get('to').touched && form.get('to').hasError('required')">
-                Debes introducir un receptor del mensaje
+            <div class="card-header mt-4 bg-dark text-white h5 f-flex justify-content-between align-items-center">
+                Notificación        
             </div>
-        </div>
-
-        <div class="form-group">
-            <label><strong>Asunto: </strong></label>
-            <input type="text" formControlName="subject" class="form-control" 
-            name="asunto" [ngClass]="{'is-invalid': form.get('subject').touched && form.get('subject').invalid}">
-            <div class="alert alert-danger" *ngIf="form.get('subject').touched && form.get('subject').hasError('required')">
-                El asunto del mensaje es requerido
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="comment"><strong>Comentario: </strong></label>
-            <textarea id="comment" class="form-control" 
-            formControlName="body" rows="4" cols="50"
-            [ngClass]="{'is-invalid': form.get('body').touched && form.get('body').invalid}"></textarea>
-            <div class="alert alert-danger" *ngIf="form.get('body').touched && form.get('body').hasError('required')">
-                El cuerpo del mensaje es requerido
-            </div>
-        </div>
         
-        <button class="btn btn-primary" [disabled]="form.invalid"> 
-            Guardar
-        </button>
+            <div class="card-body text-dark" id="parentCard">
+                <div class="form-group">
+                    <label><strong>Para: </strong></label>
+                    <input type="text" formControlName="to" class="form-control" 
+                    name="para" [ngClass]="{'is-invalid': form.get('to').touched && form.get('to').invalid}">
+                    <div class="alert alert-danger" *ngIf="form.get('to').touched && form.get('to').hasError('required')">
+                        Debes introducir un receptor del mensaje
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label><strong>Asunto: </strong></label>
+                    <input type="text" formControlName="subject" class="form-control" 
+                    name="asunto" [ngClass]="{'is-invalid': form.get('subject').touched && form.get('subject').invalid}">
+                    <div class="alert alert-danger" *ngIf="form.get('subject').touched && form.get('subject').hasError('required')">
+                        El asunto del mensaje es requerido
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label for="comment"><strong>Comentario: </strong></label>
+                    <textarea id="comment" class="form-control" 
+                    formControlName="body" rows="4" cols="50"
+                    [ngClass]="{'is-invalid': form.get('body').touched && form.get('body').invalid}"></textarea>
+                    <div class="alert alert-danger" *ngIf="form.get('body').touched && form.get('body').hasError('required')">
+                        El cuerpo del mensaje es requerido
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" [disabled]="form.invalid"> 
+                    Guardar
+                </button>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
