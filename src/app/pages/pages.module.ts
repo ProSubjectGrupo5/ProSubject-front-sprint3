@@ -43,6 +43,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PremiumComponent } from './premium/premium.component';
 import { ValoracionesComponent } from './valoraciones/valoraciones.component';
 import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 
 
@@ -74,6 +75,7 @@ import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.co
         PremiumComponent,
         ValoracionesComponent,
         CrearValoracionComponent,
+        NotificacionesComponent,
     ],
     exports: [
         CommonModule
