@@ -26,6 +26,10 @@ export class ListadoEspaciosComponent implements OnInit {
     this.router.navigate(['detalles-espacio', id])
   }
 
+  valoracionEspacio(id:number){
+    this.router.navigate(['valoraciones', id])
+  }
+
   descargarExpediente(id){
 
     this.fileService.getFile(id).subscribe(res =>{

@@ -29,11 +29,11 @@
                         </div>
                 </div>
                 <div *ngIf="alumnosInscritos.get(horario.id) == 0">
-                    <button (click) = "editarHorario(horario.id)" class="btn btn-primary">
+                    <button (click) = "editarHorario(horario.id)" class="btn btn-primary mr-1">
                         Editar
                     </button>
 
-                <button (click) = "eliminarHorario(horario.id)" class="btn btn-danger">
+                <button (click) = "eliminarHorario(horario.id)" class="btn btn-danger ml-1">
                     Eliminar
                 </button>
                 </div>

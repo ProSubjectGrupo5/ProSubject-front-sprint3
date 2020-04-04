@@ -12,12 +12,13 @@
                     <i class="fas fa-money-bill-wave"></i>{{espacio.precio}}€/clase
                 </div>
                 <div class="container mt-3">
-                    <div *ngIf="espacio.draftMode == 1">
-                        <button (click)="editarEspacio(espacio.id)" class="btn btn-primary mr-1">Editar</button>
-                        <button (click)="borrarEspacio(espacio.id)" class="btn btn-danger mr-1">Borrar</button>
+                    <div class="btn-group">
+                        <div *ngIf="espacio.draftMode == 1">
+                            <button (click)="editarEspacio(espacio.id)" class="btn btn-primary mr-1">Editar</button>
+                            <button (click)="borrarEspacio(espacio.id)" class="btn btn-danger mr-1">Borrar</button>
+                        </div>
+                        <button (click)="verHorarios(espacio.id)" class="btn btn-primary mr-1">Ver horarios</button>
                     </div>
-                    <button (click)="verHorarios(espacio.id)" class="btn btn-primary mr-1">Ver horarios</button>
-
                 </div>
             </div>
             

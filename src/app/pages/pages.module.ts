@@ -18,6 +18,7 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { LoginComponent } from './login/login.component';
 import { CreacionEspacioComponent } from './creacion-espacio/creacion-espacio.component';
 import { DetallesEspacioComponent } from './busqueda-asignatura/detalles-espacio/detalles-espacio.component';
+import { NgxStarsModule } from 'ngx-stars';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -40,6 +41,8 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PremiumComponent } from './premium/premium.component';
+import { ValoracionesComponent } from './valoraciones/valoraciones.component';
+import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.component';
 
 
 
@@ -69,6 +72,8 @@ import { PremiumComponent } from './premium/premium.component';
         CarritoComponent,
         ValidarProfesorComponent,
         PremiumComponent,
+        ValoracionesComponent,
+        CrearValoracionComponent,
     ],
     exports: [
         CommonModule
@@ -82,7 +87,8 @@ import { PremiumComponent } from './premium/premium.component';
         BrowserModule,
         NgxPaginationModule,
         BrowserAnimationsModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        NgxStarsModule
     ]
 })
 export class PagesModule { }

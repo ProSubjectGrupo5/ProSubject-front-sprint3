@@ -12,7 +12,7 @@ import { HorariosComponent } from './horarios/horarios.component';
 
 import { RegistroComponent } from './registro/registro.component';
 
-import { ProfesorGuard, AlumnoGuard, AdministradorGuard, AlumnoProfesorGuard, ProfesorExpedienteGuard } from '../services/services.index';
+import { ProfesorGuard, AlumnoGuard, AdministradorGuard, AlumnoProfesorGuard, ProfesorExpedienteGuard, ValoracionProfesorGuard, ValoracionAlumnoGuard } from '../services/services.index';
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
 
 import { EspaciosEditablesProfesorComponent } from './espacios-editables-profesor/espacios-editables-profesor.component';
@@ -25,6 +25,8 @@ import { ForoComponent } from './foro/foro.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.component';
 import { PremiumComponent } from './premium/premium.component';
+import { ValoracionesComponent } from './valoraciones/valoraciones.component';
+import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.component';
 
 
 
@@ -59,6 +61,9 @@ const pagesRoutes: Routes = [
             {path:'nuevo-admin', component: NuevoAdminComponent, data: {titulo: 'Crear administrador'}, canActivate: [AdministradorGuard]},
             {path:'foro/:id', component: ForoComponent, data: {titulo: 'Foro'}, canActivate: [AlumnoProfesorGuard]},
             {path:'validar-profesor', component: ValidarProfesorComponent, data:{titulo: 'Validar profesor'}, canActivate: [AdministradorGuard]},
+            {path:'valoraciones/:id', component: ValoracionesComponent, data: {titulo: 'Valoraciones'}, canActivate: [ValoracionProfesorGuard]},
+            {path:'añadir-valoracion/:id', component: CrearValoracionComponent, data: {titulo: 'Valoraciones'}, canActivate: [AlumnoGuard, ValoracionAlumnoGuard]},
+
             { path: '', redirectTo: '/inicio', pathMatch: 'full' }
         ]
     }
