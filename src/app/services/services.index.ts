@@ -44,7 +44,9 @@ export { FileService } from './file/file.service';
 
 export { CarritoService } from './carrito/carrito.service'; 
 
+export { ValoracionProfesorGuard } from './guards/valoracion-profesor.guard'
 
+export { ValoracionAlumnoGuard } from './guards/valoracion-alumno.guard'
 
 
 

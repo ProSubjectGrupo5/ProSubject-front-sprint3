@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AlumnoService {
     'Content-Type': 'application/json'
   });
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private router:Router) { }
 
   registrarAlumno(alumno: any){
     return this.http.post(`${this.urlEndPoint}/signUpAlumno`, alumno, {headers: this.httpHeaders}).pipe(
@@ -49,5 +51,19 @@ export class AlumnoService {
     return this.http.get(`${this.urlEndPoint}/alumnos/${alumnoId}`).pipe(
       map(response => response as any)
     )
+  }
+
+  getAlumnosDeUnEspacio(espacioId: string){
+    let url:string = `${this.urlEndPoint}/alumnos/espacio/${espacioId}`
+    return this.http.get(url).pipe(
+      map(response => response as any),
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al obtener los alumnos.', `${e.error.mensaje}`, 'error');
+        this.router.navigate(['inicio'])
+        return throwError(e);
+      })
+    )
+  
   }
 }

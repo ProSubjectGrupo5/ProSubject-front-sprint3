@@ -23,7 +23,9 @@ import {
     AlumnoProfesorGuard,
     WebSocketService,
     FileService,
-    CarritoService
+    CarritoService,
+    ValoracionProfesorGuard,
+    ValoracionAlumnoGuard
     
  } from './services.index';
 import { ProfesorExpedienteGuard } from './guards/profesor.guard-expediente';
@@ -60,7 +62,9 @@ import { ProfesorExpedienteGuard } from './guards/profesor.guard-expediente';
     WebSocketService,
     FileService,
     CarritoService, 
-    ProfesorExpedienteGuard
+    ProfesorExpedienteGuard,
+    ValoracionProfesorGuard,
+    ValoracionAlumnoGuard
   ],
   declarations: []
 })

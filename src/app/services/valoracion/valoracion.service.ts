@@ -25,7 +25,7 @@ export class ValoracionService {
       catchError(e =>{
         console.error(e.error.mensaje);
         swal.fire('Error al crear una valoración.', `${e.error.mensaje}`, 'error');
-        this.router.navigate(['login'])
+        this.router.navigate(['inicio'])
         return throwError(e);
       })
     );
