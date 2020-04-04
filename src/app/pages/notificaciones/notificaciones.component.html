@@ -1,5 +1,11 @@
+<ngx-spinner></ngx-spinner>
 <div class="row">
     <div class="col-md-10 mx-auto d-block">
+
+        <div *ngIf="mensajeEnviado" class="alert alert-success text-center" role="alert">
+            La notificación ha sido enviada con éxito.
+        </div>
+
         <form [formGroup]="form" (ngSubmit) = "submit()">
 
             <div class="card-header mt-4 bg-dark text-white h5 f-flex justify-content-between align-items-center">
@@ -13,6 +19,9 @@
                     name="para" [ngClass]="{'is-invalid': form.get('to').touched && form.get('to').invalid}">
                     <div class="alert alert-danger" *ngIf="form.get('to').touched && form.get('to').hasError('required')">
                         Debes introducir un receptor del mensaje
+                    </div>
+                    <div class="alert alert-danger" *ngIf="form.get('to').touched && form.get('to').hasError('email')">
+                        El email introducido no es válido
                     </div>
                 </div>
         

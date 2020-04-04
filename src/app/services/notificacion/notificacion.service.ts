@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import swal from 'sweetalert2';
+import {catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +22,12 @@ export class NotificacionService {
         'body': body
       },
     },).pipe(
-      res => {return res}
+      res => {return res},
+      catchError(e =>{
+        console.error(e.error.message);
+        swal.fire('Error al crear un horario.', 'No se pueden crear horarios a espacios publicados', 'error');
+        return throwError(e);
+      })
     )
   }
 }
