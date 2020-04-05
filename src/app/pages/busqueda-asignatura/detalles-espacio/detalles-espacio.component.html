@@ -2,7 +2,17 @@
     <div class="col-md-8 mx-auto d-block">
         <div class="card text-center">
             <div class="card-header bg-dark text-white h5 f-flex justify-content-between align-items-center">
-                <strong>Profesor: {{espacio.profesor?.apellido1}} {{espacio.profesor?.apellido2}}, {{espacio.profesor?.nombre}}</strong>
+                <strong>Profesor:</strong> {{espacio.profesor?.apellido1}} {{espacio.profesor?.apellido2}}, {{espacio.profesor?.nombre}}
+                <div *ngIf="espacio.profesor?.valoracionMedia">
+                    <div class="container d-flex justify-content-center">
+                        <strong>Valoración:</strong> 
+                        <ngx-stars [initialStars]="espacio.profesor.valoracionMedia" title="Valoración: {{espacio.profesor.valoracionMedia}}/5" [readonly]="true"></ngx-stars>
+                    </div>
+                          
+                </div>
+                <div *ngIf="!espacio.profesor?.valoracionMedia">
+                    <strong>Valoración:</strong> Este profesor no tiene valoración aún.
+                </div>
             </div>
             
 

@@ -2,18 +2,28 @@
     <div class="col-md-6" *ngFor="let espacio of espacios | paginate: { itemsPerPage: 6, currentPage: currentPage }">
         <div class="card text-center">
             <div class="card-header bg-dark text-white h5 f-flex justify-content-between align-items-center">
-                <strong class="mr-2">{{espacio.profesor.apellido1}} {{espacio.profesor.apellido2}}, {{espacio.profesor.nombre}}</strong><img *ngIf="espacio.profesor.tarifaPremium" class="ml-4" src="assets/images/medal.png"  alt="Carrito" width="80px" height="80px">
-                <div *ngIf="!espacio.profesor.expendiente">
-                    <button  class = "btn btn-info ml-3" title='Descargar expediente' (click)="descargarExpediente(0)">
-                        <i class="fas fa-file-pdf"></i>
-                    </button>
+                <div class="container d-flex justify-content-center">
+                    <strong class="mr-2">{{espacio.profesor.apellido1}} {{espacio.profesor.apellido2}}, {{espacio.profesor.nombre}}</strong><img *ngIf="espacio.profesor.tarifaPremium" class="ml-4" src="assets/images/medal.png"  alt="Carrito" width="80px" height="80px">
+                    <div *ngIf="!espacio.profesor.expendiente">
+                        <button  class = "btn btn-info ml-3" title='Descargar expediente' (click)="descargarExpediente(0)">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>
+                    </div>
+                    <div *ngIf="espacio.profesor.expendiente">
+                        <button  class = "btn btn-info ml-3" title='Descargar expediente' (click)="descargarExpediente(espacio.profesor.expendiente.id)">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>
+                    </div>
                 </div>
-                <div *ngIf="espacio.profesor.expendiente">
-                    <button  class = "btn btn-info ml-3" title='Descargar expediente' (click)="descargarExpediente(espacio.profesor.expendiente.id)">
-                        <i class="fas fa-file-pdf"></i>
-                    </button>
+                <div *ngIf="espacio.profesor?.valoracionMedia">
+                    <div class="container d-flex justify-content-center">
+                        <ngx-stars [initialStars]="espacio.profesor.valoracionMedia" title="Valoración: {{espacio.profesor.valoracionMedia}}/5" [readonly]="true"></ngx-stars>
+                    </div>
+                          
                 </div>
-                
+                <div *ngIf="!espacio.profesor?.valoracionMedia">
+                     Este profesor no tiene valoración aún.
+                </div>
             </div>
             
 
