@@ -1,5 +1,6 @@
 <div class="container">
-    <h2 class="m-4 text-center">¿Aún no eres premium? Consigue las siguientes ventajas:</h2>
+    <h2 *ngIf="!perfil.tarifaPremium" class="m-4 text-center">¿Aún no eres premium? Consigue las siguientes ventajas por tan sólo <b>7€/mes</b>:</h2>
+    <h2 *ngIf="perfil.tarifaPremium" class="m-4 text-center">¡Enhorabuena, ya eres premium! Amplíalo por tan sólo <b>7€/mes</b>:</h2>
     <div class="m-2">
         <div class="blog-card">
             <div class="meta">
