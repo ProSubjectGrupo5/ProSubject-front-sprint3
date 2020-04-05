@@ -183,14 +183,24 @@ export class BusquedaAsignaturaComponent implements OnInit {
   }
 
   reset(){
+    if(this.breadcrumbsService.usuario === null){
+      this.form.get('universidad').setValue('');
+      this.form.get('facultad').setValue('');
+      this.form.get('grado').setValue('');
+      this.form.get('curso').setValue('');
+      this.form.get('asignatura').setValue('');
+      this.espacios = [];
+    }else{
+      this.form.get('curso').setValue('');
+      this.form.get('asignatura').setValue('');
+      this.espacios = [];
+    }
 
-    this.form.get('universidad').setValue('');
-    this.form.get('facultad').setValue('');
-    this.form.get('grado').setValue('');
-    this.form.get('curso').setValue('');
-    this.form.get('asignatura').setValue('');
+    }
+    
 
-    this.espacios = [];
-  }
+    
+
+   
 
 }
