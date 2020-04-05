@@ -40,11 +40,9 @@ export class BusquedaAsignaturaComponent implements OnInit {
     this.inicializarFormulario();
     this.busquedaAsignaturaService.getUniversidades().subscribe(data=>{
       this.universidades = data;
-      console.log(this.universidades);
 
         this.cursoService.getCursos().subscribe(data=>{
           this.cursos = data;
-          console.log(this.cursos);
 
 
 
