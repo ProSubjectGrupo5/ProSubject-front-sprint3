@@ -7,5 +7,7 @@ export class BreadcrumbsService {
 
   menu:any[] = [];
 
+  usuario:any = null;
+
   constructor() { }
 }

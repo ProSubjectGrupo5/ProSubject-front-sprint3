@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('usuario');
+    this.breadcrumbsService.usuario = null;
     this.route.navigate(['/login']);
 
   }

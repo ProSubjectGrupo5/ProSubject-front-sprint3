@@ -43,7 +43,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PremiumComponent } from './premium/premium.component';
 import { ValoracionesComponent } from './valoraciones/valoraciones.component';
 import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.component';
+
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+
+import { TycComponent } from './tyc/tyc.component';
+
+
 
 
 
@@ -75,7 +80,12 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
         PremiumComponent,
         ValoracionesComponent,
         CrearValoracionComponent,
+
         NotificacionesComponent,
+
+        TycComponent
+        
+
     ],
     exports: [
         CommonModule

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from "./confirm-password-validator";
 import { validDNIValidator } from "./dni-validator";
-import { AlumnoService, ProfesorService } from 'src/app/services/services.index';
+import { AlumnoService, ProfesorService, ValidadoresService, FacultadService, BusquedaAsignaturaService, GradoService } from 'src/app/services/services.index';
 import { Router } from '@angular/router';
 import { FileService } from 'src/app/services/file/file.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -13,6 +14,10 @@ import { FileService } from 'src/app/services/file/file.service';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+
+  universidades:any[];
+  grados:any[];
+  facultades:any[];
 
   form:FormGroup;
 
@@ -43,9 +48,21 @@ export class RegistroComponent implements OnInit {
   constructor(private fb:FormBuilder,
     private alumnoService: AlumnoService,
     private profesorService: ProfesorService,
-    private router: Router) { }
+    private router: Router,
+    private validadoresService:ValidadoresService,
+    private facultadService:FacultadService,
+    private busquedaAsignaturaService:BusquedaAsignaturaService,
+    private gradoService:GradoService) { }
 
   ngOnInit() {
+    this.inicializarFormulario();
+    
+  }
+    
+
+
+
+  inicializarFormulario(){
     this.form = this.fb.group({
       nombre: new FormControl('', [Validators.required]),
       apellido1: new FormControl('', [Validators.required]),
@@ -54,13 +71,16 @@ export class RegistroComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       telefono: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
       file: new FormControl(''),
-      useraccount: new FormGroup({
-        username: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required]),
-        confirmPassword: new FormControl(''),
-        autoridad: new FormControl('', Validators.required)
-      }, {validators: confirmPasswordValidator})
-    })
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl(''),
+      autoridad: new FormControl('', Validators.required),
+      check: new FormControl(false)
+
+      
+  
+    },{validators: this.validadoresService.passwordsIguales('password','confirmPassword')});
+    
   }
 
   onSubmit(){
@@ -72,12 +92,12 @@ export class RegistroComponent implements OnInit {
     this.usuario.dni = this.form.get('dni').value;
     this.usuario.email = this.form.get('email').value;
     this.usuario.telefono = this.form.get('telefono').value;
-    this.usuario.userAccount.username = this.form.get('useraccount').get('username').value;
-    this.usuario.userAccount.password = this.form.get('useraccount').get('password').value;
-    this.usuario.userAccount.autoridad = this.form.get('useraccount').get('autoridad').value;
+    this.usuario.userAccount.username = this.form.get('username').value;
+    this.usuario.userAccount.password = this.form.get('password').value;
+    this.usuario.userAccount.autoridad = this.form.get('autoridad').value;
 
     
-    if(this.form.get('useraccount').get('autoridad').value == 'ALUMNO'){
+    if(this.form.get('autoridad').value == 'ALUMNO'){
 
       this.alumnoService.registrarAlumno(this.usuario).subscribe(
         res => this.router.navigate(['login']),
@@ -108,8 +128,8 @@ export class RegistroComponent implements OnInit {
   }
 
   esProfesor(name){
-    if(name == this.selectRadioButton){
-      this.form.get('file').setValidators(Validators.required)
+    if(name === this.selectRadioButton){
+      this.form.get('file').setValidators(Validators.required);
       return true;
     }
     this.form.get('file').setValue('')
@@ -117,5 +137,8 @@ export class RegistroComponent implements OnInit {
     this.form.get('file').updateValueAndValidity()
     return false;
   }
+
+
+  
 
 }

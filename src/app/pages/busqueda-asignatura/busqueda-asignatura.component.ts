@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Form, FormGroup, FormControl, Validators } from '@angular/forms';
 import { BusquedaAsignaturaService } from 'src/app/services/busqueda-asignatura/busqueda-asignatura.service';
-import { GradoService, CursoService, AsignaturaService, FacultadService, EspacioService } from 'src/app/services/services.index';
+import { GradoService, CursoService, AsignaturaService, FacultadService, EspacioService, BreadcrumbsService } from 'src/app/services/services.index';
 
 @Component({
   selector: 'app-busqueda-asignatura',
@@ -30,14 +30,16 @@ export class BusquedaAsignaturaComponent implements OnInit {
               private asignaturaService:AsignaturaService,
               private gradoService:GradoService,
               private facultadService:FacultadService,
-              private espaciosService:EspacioService) { 
+              private espaciosService:EspacioService,
+              private breadcrumbsService: BreadcrumbsService) { 
                 this.espacios = [];
               }
 
 
 
   ngOnInit() {
-    this.inicializarFormulario();
+    console.log(this.breadcrumbsService.usuario);
+    this.inicializarFormulario(this.breadcrumbsService.usuario);
     this.busquedaAsignaturaService.getUniversidades().subscribe(data=>{
       this.universidades = data;
 
@@ -55,14 +57,27 @@ export class BusquedaAsignaturaComponent implements OnInit {
   }
 
 
-  inicializarFormulario(){
-    this.form = this.fb.group({
-      universidad: new FormControl(null),
-      facultad: new FormControl({value:null, disabled:true}),
-      grado: new FormControl({value:null, disabled:true}),
-      curso: new FormControl(null),
-      asignatura: new FormControl({value:null, disabled:true})
-    });
+  inicializarFormulario(usuario:any){
+
+    if(usuario === null){
+      this.form = this.fb.group({
+        universidad: new FormControl(null),
+        facultad: new FormControl({value:null, disabled:true}),
+        grado: new FormControl({value:null, disabled:true}),
+        curso: new FormControl(null),
+        asignatura: new FormControl({value:null, disabled:true})
+      });
+
+    }else{
+      this.form = this.fb.group({
+        universidad: new FormControl({value:usuario.universidad.nombre, disabled:true}),
+        facultad: new FormControl({value:usuario.facultad.nombre, disabled:true}),
+        grado: new FormControl({value:usuario.grado.nombre, disabled:true}),
+        curso: new FormControl(null),
+        asignatura: new FormControl({value:null, disabled:true})
+      });
+    }
+    
 
     //VALIDACIONES
     this.form.get('universidad').setValidators(Validators.required);

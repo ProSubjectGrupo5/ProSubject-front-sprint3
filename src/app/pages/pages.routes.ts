@@ -27,7 +27,11 @@ import { ValidarProfesorComponent } from './validar-profesor/validar-profesor.co
 import { PremiumComponent } from './premium/premium.component';
 import { ValoracionesComponent } from './valoraciones/valoraciones.component';
 import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.component';
+
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+
+import { TycComponent } from './tyc/tyc.component';
+
 
 
 
@@ -64,7 +68,11 @@ const pagesRoutes: Routes = [
             {path:'validar-profesor', component: ValidarProfesorComponent, data:{titulo: 'Validar profesor'}, canActivate: [AdministradorGuard]},
             {path:'valoraciones/:id', component: ValoracionesComponent, data: {titulo: 'Valoraciones'}, canActivate: [ValoracionProfesorGuard]},
             {path:'añadir-valoracion/:id', component: CrearValoracionComponent, data: {titulo: 'Valoraciones'}, canActivate: [AlumnoGuard, ValoracionAlumnoGuard]},
+
             {path:'notificaciones', component: NotificacionesComponent, data: {titulo: 'Notificaciones'}, canActivate: [AdministradorGuard]},
+
+            {path:'terminos-y-condiciones', component: TycComponent, data: {titulo: 'Términos y condiciones'}},
+
 
             { path: '', redirectTo: '/inicio', pathMatch: 'full' }
         ]
