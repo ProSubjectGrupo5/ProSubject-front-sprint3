@@ -18,4 +18,16 @@ export class BusquedaAsignaturaService {
       map(response => response as any[])
     );
   }
+
+  getIdUniversidad(nombreUniversidad){
+    return this.http.get(`${this.urlEndPoint}/uniId?nombreUni=${nombreUniversidad}`).pipe(
+      map(response => response as any)
+    )
+  }
+
+  getUniversidadPorId(idUniversidad){
+    return this.http.get(`${this.urlEndPoint}/${idUniversidad}`).pipe(
+      map(response => response as any)
+    )
+  }
 }

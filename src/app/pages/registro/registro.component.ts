@@ -38,6 +38,12 @@ export class RegistroComponent implements OnInit {
     expedienteValidado: 'PENDIENTE',
     //---Atributos profesor---
 
+    //Atributos profesor
+    universidad:'',
+    facultad: '',
+    grado: '',
+    //---Atributos profesor---
+
     userAccount: {
       username:'',
       password:'',
@@ -56,6 +62,10 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit() {
     this.inicializarFormulario();
+
+    this.busquedaAsignaturaService.getUniversidades().subscribe(
+      data => this.universidades = data
+    )
     
   }
     
@@ -76,10 +86,8 @@ export class RegistroComponent implements OnInit {
       confirmPassword: new FormControl(''),
       autoridad: new FormControl('', Validators.required),
       check: new FormControl(false)
-
-      
-  
     },{validators: this.validadoresService.passwordsIguales('password','confirmPassword')});
+  
     
   }
 
@@ -99,12 +107,45 @@ export class RegistroComponent implements OnInit {
     
     if(this.form.get('autoridad').value == 'ALUMNO'){
 
-      this.alumnoService.registrarAlumno(this.usuario).subscribe(
-        res => this.router.navigate(['login']),
-        error => console.log(error)
+      this.busquedaAsignaturaService.getIdUniversidad(this.form.get('universidad').value).subscribe(
+        data => {
+          this.busquedaAsignaturaService.getUniversidadPorId(data).subscribe(
+            data => {
+              this.usuario.universidad = data
+              
+              this.facultadService.getIdFacultad(this.form.get('facultades').value).subscribe(
+                data => {
+                  this.facultadService.getFacultadPorId(data).subscribe(
+                    data => {
+                      this.usuario.facultad = data
+                      
+                      this.gradoService.getIdGrado(this.form.get('grado').value).subscribe(
+                        idGrado => {
+                          this.gradoService.getGradoPorId(idGrado).subscribe(
+                            data => {
+                              this.usuario.grado = data
+
+                              this.alumnoService.registrarAlumno(this.usuario).subscribe(
+                                      res => this.router.navigate(['login']),
+                                      error => console.log(error)
+                                    )
+                            }
+                          )
+                        }
+                      )
+                    }
+                  )
+                }
+              )
+            }
+          )
+        }
       )
       
     }else{
+      delete this.usuario.universidad
+      delete this.usuario.facultad
+      delete this.usuario.grado
 
       var formData = new FormData();
       formData.append('profesor', JSON.stringify(this.usuario))
@@ -123,8 +164,8 @@ export class RegistroComponent implements OnInit {
     this.fileUpload = files.item(0);
   }
 
-  selectRadio(e){
-    this.selectRadioButton = e
+  selectRadio(autoridad){
+    this.selectRadioButton = autoridad
   }
 
   esProfesor(name){
@@ -136,6 +177,43 @@ export class RegistroComponent implements OnInit {
     this.form.get('file').clearValidators()
     this.form.get('file').updateValueAndValidity()
     return false;
+  }
+
+  esAlumno(name){
+    if(name === this.selectRadioButton){
+      this.form.addControl('universidad', new FormControl('', Validators.required))
+      this.form.addControl('facultades', new FormControl('', Validators.required))
+      this.form.addControl('grado', new FormControl('', Validators.required))
+
+      this.form.get('universidad').valueChanges.subscribe(data=>{
+        console.log(data)
+        if(data !== ''){
+          this.facultadService.getFacultadesPorUniversidad(this.form.get('universidad').value).subscribe(res=>{
+            this.facultades = res;
+          });
+        }else{
+          this.form.get('facultad').setValue('');
+          this.facultades = [];
+        }
+  
+      });
+  
+      //CAMBIO EN EL SELECT DE FACULTAD
+      this.form.get('facultades').valueChanges.subscribe(data=>{
+  
+        if(data !== ''){
+          this.gradoService.getGradosPorUniversidadYFacultad(this.form.get('universidad').value, this.form.get('facultades').value).subscribe(res=>{
+            this.grados = res;
+          });
+        }else{
+          this.form.get('grado').setValue('');
+          this.grados = [];
+        }
+  
+      });
+
+      return true;
+    }
   }
 
 

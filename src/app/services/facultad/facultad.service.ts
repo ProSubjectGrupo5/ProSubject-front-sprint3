@@ -31,4 +31,16 @@ export class FacultadService {
 
     
   }
+
+  getIdFacultad(nombreFacultad){
+    return this.http.get(`${this.urlEndPoint}/facuId?nombreFacu=${nombreFacultad}`).pipe(
+      map(response => response as any)
+    )
+  }
+
+  getFacultadPorId(idFacultad){
+    return this.http.get(`${this.urlEndPoint}/${idFacultad}`).pipe(
+      map(response => response as any)
+    )
+  }
 }
