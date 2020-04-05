@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,7 @@ export class GradoService {
     );
   }
 
+
   getIdGrado(nombreGrado){
     return this.http.get(`${this.urlEndPoint}/gradoId?nombreGrado=${nombreGrado}`).pipe(
       map(response => response as any)
@@ -38,6 +41,8 @@ export class GradoService {
       map(response => response as any)
     )
   }
+
+
 
 
   

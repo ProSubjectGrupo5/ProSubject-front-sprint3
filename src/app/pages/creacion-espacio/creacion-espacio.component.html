@@ -65,10 +65,23 @@
 
                         <div class="form-group">
                             <label>Curso*</label>
+                            <!--
                             <select class="form-control" formControlName="curso" [ngClass]="{'is-invalid': form.get('curso').touched && form.get('curso').invalid}">
                                 <option value="">------</option>
                                 <option *ngFor="let valor of cursos" [value]="valor.nombre">{{valor.nombre}}</option>
                             </select>
+                            -->
+                            <input 
+                                type="text"
+                                class="form-control" 
+                                formControlName="curso"
+                                list="curso"
+                            />
+                            <datalist id="curso">
+                                <select>
+                                    <option *ngFor="let valor of cursos" [value]="valor.nombre">{{valor.nombre}}</option>
+                                </select>
+                            </datalist>
                             <div class="alert alert-danger" *ngIf="form.get('curso').touched && form.get('curso').hasError('required')">
                                 Debes introducir un curso
                             </div>

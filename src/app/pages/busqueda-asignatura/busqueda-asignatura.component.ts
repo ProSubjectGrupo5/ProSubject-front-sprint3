@@ -42,13 +42,6 @@ export class BusquedaAsignaturaComponent implements OnInit {
     this.inicializarFormulario(this.breadcrumbsService.usuario);
     this.busquedaAsignaturaService.getUniversidades().subscribe(data=>{
       this.universidades = data;
-
-        this.cursoService.getCursos().subscribe(data=>{
-          this.cursos = data;
-
-
-
-        });
     });
 
 
@@ -62,10 +55,10 @@ export class BusquedaAsignaturaComponent implements OnInit {
     if(usuario === null){
       this.form = this.fb.group({
         universidad: new FormControl(null),
-        facultad: new FormControl({value:null, disabled:true}),
-        grado: new FormControl({value:null, disabled:true}),
+        facultad: new FormControl(null),
+        grado: new FormControl(null),
         curso: new FormControl(null),
-        asignatura: new FormControl({value:null, disabled:true})
+        asignatura: new FormControl(null)
       });
 
     }else{
@@ -74,7 +67,7 @@ export class BusquedaAsignaturaComponent implements OnInit {
         facultad: new FormControl({value:usuario.facultad.nombre, disabled:true}),
         grado: new FormControl({value:usuario.grado.nombre, disabled:true}),
         curso: new FormControl(null),
-        asignatura: new FormControl({value:null, disabled:true})
+        asignatura: new FormControl(null)
       });
     }
     
@@ -91,20 +84,22 @@ export class BusquedaAsignaturaComponent implements OnInit {
     //ESPERO CAMBIOS EN EL SELECT DE UNIVERSIDAD
     this.form.get('universidad').valueChanges.subscribe(data=>{
 
-      if(data !== ''){
+      if(data !== null && data !== ''){
         this.facultadService.getFacultadesPorUniversidad(this.form.get('universidad').value).subscribe(res=>{
           if(res.length > 0){
+            console.log(res);
             this.facultades = res;
-            this.form.get('facultad').enable();
+            //this.form.get('facultad').enable();
           }else{
-            this.form.get('facultad').setValue('');
-            this.form.get('facultad').disable();
+            console.log(res);
+            this.form.get('facultad').setValue(null);
+            //this.form.get('facultad').disable();
             this.facultades = [];
           }
         });
       }else{
-        this.form.get('facultad').setValue('');
-        this.form.get('facultad').disable();
+        this.form.get('facultad').setValue(null);
+        //this.form.get('facultad').disable();
         this.facultades = [];
       }
 
@@ -114,20 +109,20 @@ export class BusquedaAsignaturaComponent implements OnInit {
     //ESPERO CAMBIOS EN EL SELECT DE FACULTAD
     this.form.get('facultad').valueChanges.subscribe(data=>{
 
-      if(data !== ''){
+      if(data !== null && data !== ''){
         this.gradoService.getGradosPorUniversidadYFacultad(this.form.get('universidad').value, this.form.get('facultad').value).subscribe(res=>{
           if(res.length > 0){
             this.grados = res;
-            this.form.get('grado').enable();
+            //this.form.get('grado').enable();
           }else{
-            this.form.get('grado').setValue('');
-            this.form.get('grado').disable();
+            this.form.get('grado').setValue(null);
+            //this.form.get('grado').disable();
             this.grados = [];
           }
         });
       }else{
-        this.form.get('grado').setValue('');
-        this.form.get('grado').disable();
+        this.form.get('grado').setValue(null);
+        //this.form.get('grado').disable();
         this.grados = [];
       }
 
@@ -135,36 +130,71 @@ export class BusquedaAsignaturaComponent implements OnInit {
     });
 
 
+    if(this.breadcrumbsService.usuario !== null){
 
-    //ESPERO CAMBIOS EN EL SELECT DE GRADOS
-    this.form.get('grado').valueChanges.subscribe(data=>{
+      this.cursoService.getCursosPorGrado(this.form.get('grado').value).subscribe(res=>{
+        if(res.length > 0){
+          this.cursos = res;
+          //this.form.get('curso').enable();
+        }else{
+          this.form.get('curso').setValue(null);
+          //this.form.get('curso').disable();
+          this.cursos = [];
+        }
+      });
 
-     this.form.get('curso').setValue('');
+    }else{
+      
+      this.form.get('grado').valueChanges.subscribe(data=>{
+        if(data !== null && data !== ''){
+          this.cursoService.getCursosPorGrado(this.form.get('grado').value).subscribe(res=>{
+            if(res.length > 0){
+              this.cursos = res;
+              //this.form.get('curso').enable();
+            }else{
+              this.form.get('curso').setValue(null);
+              //this.form.get('curso').disable();
+              this.cursos = [];
+            }
+          });
+        }else{
+          this.form.get('curso').setValue(null);
+          //this.form.get('curso').disable();
+          this.cursos = [];
+        }
+      });
+
+    }
+    
+   
+
+  
 
 
-    });
+    this.form.get('curso').valueChanges.subscribe(data=>{
 
-
-     //ESPERO CAMBIOS EN EL SELECT DE CURSO
-     this.form.get('curso').valueChanges.subscribe(data=>{
-
-      if(data !== ''){
-        this.asignaturaService.getAsignaturasPorUniversidadYFacultadYGradoYCurso(this.form.get('universidad').value, this.form.get('facultad').value, this.form.get('grado').value, this.form.get('curso').value).subscribe(res=>{
-          console.log(res);
-          this.asignaturas = res;
-          this.form.get('asignatura').enable();
-          
-        });
-      }else{
-        this.form.get('asignatura').setValue('');
-        this.form.get('asignatura').disable();
-        this.asignaturas = [];
+        if(data !== null && data !== ''){
+          this.asignaturaService.getAsignaturasPorUniversidadYFacultadYGradoYCurso(this.form.get('universidad').value, this.form.get('facultad').value, this.form.get('grado').value, this.form.get('curso').value).subscribe(res=>{
+            if(res.length > 0){ 
+              console.log(res);
+              this.asignaturas = res;
+              //this.form.get('asignatura').enable(); 
+            }else{
+              console.log(res);
+              this.form.get('asignatura').setValue(null);
+              //this.form.get('asignatura').disable();
+              this.asignaturas = [];
+            }
+            
+          });
+        }else{
+          this.form.get('asignatura').setValue(null);
+          //this.form.get('asignatura').disable();
+          this.asignaturas = [];
+        }
         
-      }
-
-
     });
-
+     
 
 
   }
@@ -184,19 +214,19 @@ export class BusquedaAsignaturaComponent implements OnInit {
 
   reset(){
     if(this.breadcrumbsService.usuario === null){
-      this.form.get('universidad').setValue('');
-      this.form.get('facultad').setValue('');
-      this.form.get('grado').setValue('');
-      this.form.get('curso').setValue('');
-      this.form.get('asignatura').setValue('');
+      this.form.get('universidad').setValue(null);
+      this.form.get('facultad').setValue(null);
+      this.form.get('grado').setValue(null);
+      this.form.get('curso').setValue(null);
+      this.form.get('asignatura').setValue(null);
       this.espacios = [];
     }else{
-      this.form.get('curso').setValue('');
-      this.form.get('asignatura').setValue('');
+      this.form.get('curso').setValue(null);
+      this.form.get('asignatura').setValue(null);
       this.espacios = [];
     }
 
-    }
+  }
     
 
     

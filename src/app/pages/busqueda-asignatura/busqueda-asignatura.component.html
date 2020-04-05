@@ -62,10 +62,17 @@
 
                     <div class="col-md-4 mb-4">
                         <label>Curso</label> 
-                        <select class="form-control" formControlName="curso">
-                            <option></option>
-                            <option *ngFor="let valor of cursos" [value]="valor.nombre">{{valor.nombre}}</option>
-                        </select>
+                        <input 
+                            type="text"
+                            class="form-control" 
+                            formControlName="curso"
+                            list="curso"
+                        />
+                        <datalist id="curso">
+                            <select>
+                                <option *ngFor="let valor of cursos" [value]="valor.nombre">{{valor.nombre}}</option>
+                            </select>
+                        </datalist>
                       
                     </div>
 
@@ -106,5 +113,7 @@
     </div>
 
 </div>
+
+{{form.value|json}}
 
 
