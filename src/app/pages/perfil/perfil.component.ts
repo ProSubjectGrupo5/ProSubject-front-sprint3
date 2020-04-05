@@ -41,7 +41,8 @@ export class PerfilComponent implements OnInit {
       autoridad:''
     },
     tarifaPremium:'',
-    expedienteValidado:''
+    expedienteValidado:'',
+    valoracionMedia: ''
   }
 
 
@@ -85,6 +86,9 @@ export class PerfilComponent implements OnInit {
 
   
   onSubmit(){
+    if(this.perfil.userAccount.autoridad === 'PROFESOR') {
+      this.usuario.valoracionMedia = this.perfil['valoracionMedia']
+    }
     if(!this.fileToUpload && this.perfil.userAccount.autoridad === 'PROFESOR') {
       this.usuario.expendiente = this.perfil['expendiente']
     } else if(this.fileToUpload && this.perfil.userAccount.autoridad === 'PROFESOR') {
@@ -123,6 +127,7 @@ export class PerfilComponent implements OnInit {
           this.mostrarMensajeActualizarPerfil = true;
         });
     }else{
+
       const formData: FormData = new FormData();
       formData.append('profesor', JSON.stringify(this.usuario));
       if(this.fileToUpload) {

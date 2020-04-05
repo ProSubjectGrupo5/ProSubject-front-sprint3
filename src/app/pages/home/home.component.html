@@ -1,5 +1,8 @@
   <!-- Page Content -->
   <div class="container">
+    <div *ngIf="perfil && perfil.userAccount.autoridad === 'PROFESOR' && perfil.expedienteValidado !== 'ACEPTADO'" class="alert alert-info text-center" role="alert">
+      Su expediente aún no ha sido validado. Su estado actual es <b>{{perfil.expedienteValidado}}</b>.
+    </div>
 
     <h1 class="my-4">Te saluda tu amiga y aliada <b>ProSubject</b></h1>
 

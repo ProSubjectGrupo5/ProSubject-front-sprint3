@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  perfil: any;
+  
   constructor() { }
 
   ngOnInit() {
+    if(JSON.parse(localStorage.getItem('usuario'))){
+      this.perfil = JSON.parse(localStorage.getItem('usuario'));
+    }
   }
 
 }
