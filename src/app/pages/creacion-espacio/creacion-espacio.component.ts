@@ -65,9 +65,11 @@ export class CreacionEspacioComponent implements OnInit {
     this.busquedaAsignaturaService.getUniversidades().subscribe(data=>{
       this.universidades = data;
 
+      /*
       this.cursoService.getCursos().subscribe(data=>{
         this.cursos = data;
       });
+      */
     });
   }
 
@@ -147,10 +149,22 @@ export class CreacionEspacioComponent implements OnInit {
 
     //ESPERO CAMBIOS EN EL SELECT DE GRADOS
     this.form.get('grado').valueChanges.subscribe(data=>{
-
-     this.form.get('curso').setValue('');
-
-
+      if(data !== null && data !== ''){
+        this.cursoService.getCursosPorGrado(this.form.get('grado').value).subscribe(res=>{
+          if(res.length > 0){
+            this.cursos = res;
+            this.form.get('curso').enable();
+          }else{
+            this.form.get('curso').setValue(null);
+            this.form.get('curso').disable();
+            this.cursos = [];
+          }
+        });
+      }else{
+        this.form.get('curso').setValue(null);
+        this.form.get('curso').disable();
+        this.cursos = [];
+      }
     });
 
 
