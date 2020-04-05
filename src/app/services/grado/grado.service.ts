@@ -27,6 +27,18 @@ export class GradoService {
     );
   }
 
+  getIdGrado(nombreGrado){
+    return this.http.get(`${this.urlEndPoint}/gradoId?nombreGrado=${nombreGrado}`).pipe(
+      map(response => response as any)
+    )
+  }
+
+  getGradoPorId(idGrado){
+    return this.http.get(`${this.urlEndPoint}/${idGrado}`).pipe(
+      map(response => response as any)
+    )
+  }
+
 
   
 }
