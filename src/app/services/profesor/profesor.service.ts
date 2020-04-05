@@ -69,4 +69,17 @@ export class ProfesorService {
     );
   }
 
+
+  comprarPremium(id: string){
+    return this.http.get(this.urlEndPoint + '/profesores/pagoTarifaPremium/' + id).pipe(
+      map(response => response as any)
+    )
+  }
+
+  diasPremium(id: string){
+    return this.http.get(this.urlEndPoint + '/profesores/comprobarDiasPremium/' + id).pipe(
+      map(response => response as any)
+    )
+  }
+
 }

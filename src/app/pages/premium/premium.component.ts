@@ -14,7 +14,8 @@ export class PremiumComponent implements OnInit {
 
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   perfil: any;
-  
+  dias_premium: string = '';
+
   constructor(private route: Router, private spinnerService: NgxSpinnerService,
     private profesorService: ProfesorService) { }
 
@@ -26,6 +27,7 @@ export class PremiumComponent implements OnInit {
   private getPerfil() {
     if(JSON.parse(localStorage.getItem('usuario'))){
       this.perfil = JSON.parse(localStorage.getItem('usuario'));
+      this.diasPremium();
     }else{
       this.route.navigate(['/inicio']);
     }
@@ -50,7 +52,7 @@ export class PremiumComponent implements OnInit {
         onApprove: async (data, actions) => {
           this.spinnerService.show();
           const order = await actions.order.capture();
-          this.compraPremium()
+          this.comprarPremium()
           console.log(order);
         },
         onError: err => {
@@ -61,19 +63,24 @@ export class PremiumComponent implements OnInit {
   }
 
 
-  compraPremium() {
-
-    this.perfil.tarifaPremium = true
-    const formData: FormData = new FormData();
-    formData.append('profesor', JSON.stringify(this.perfil));
-
-    this.profesorService.editarProfesor(formData, this.perfil.id).subscribe(
+  comprarPremium() {
+    this.profesorService.comprarPremium(this.perfil.id).subscribe(
       res => {
         localStorage.setItem('usuario', JSON.stringify(res));
         this.perfil = res;
         this.spinnerService.hide()
       }, err => {
         this.spinnerService.hide()
+      })
+  }
+
+  diasPremium() {
+    this.profesorService.diasPremium(this.perfil.id).subscribe(
+      res => {
+        this.dias_premium = '0';
+      }, err => {
+        const m = err['error']['mensaje'].replace(/\D/g, "");
+        this.dias_premium = m;
       })
   }
 
