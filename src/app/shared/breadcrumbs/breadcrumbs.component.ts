@@ -18,6 +18,7 @@ export class BreadcrumbsComponent implements OnInit {
     this.getDataRouter().subscribe(data=>{
 
       if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ALUMNO'){
+        this.breadcrumbsService.usuario = JSON.parse(localStorage.getItem('usuario'));
         this.breadcrumbsService.menu = [
           { titulo: 'Login', url: '/login' },
           { titulo: 'Busqueda de espacios', url: '/busqueda-asignatura' },
