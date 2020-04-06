@@ -13,15 +13,17 @@
             </div>
         
             <div class="card-body text-dark" id="parentCard">
-                <div class="form-group">
-                    <label><strong>Para: </strong></label>
-                    <input type="text" formControlName="to" class="form-control" 
-                    name="para" [ngClass]="{'is-invalid': form.get('to').touched && form.get('to').invalid}">
-                    <div class="alert alert-danger" *ngIf="form.get('to').touched && form.get('to').hasError('required')">
-                        Debes introducir un receptor del mensaje
-                    </div>
-                    <div class="alert alert-danger" *ngIf="form.get('to').touched && form.get('to').hasError('email')">
-                        El email introducido no es válido
+                <div *ngIf="!esBroadcast('BROADCAST')">
+                    <div class="form-group">
+                        <label><strong>Para: </strong></label>
+                        <input type="text" formControlName="to" class="form-control" 
+                        name="para" [ngClass]="{'is-invalid': form.get('to').touched && form.get('to').invalid}">
+                        <div class="alert alert-danger" *ngIf="form.get('to').touched && form.get('to').hasError('required')">
+                            Debes introducir un receptor del mensaje
+                        </div>
+                        <div class="alert alert-danger" *ngIf="form.get('to').touched && form.get('to').hasError('email')">
+                            El email introducido no es válido
+                        </div>
                     </div>
                 </div>
         
@@ -42,6 +44,14 @@
                     <div class="alert alert-danger" *ngIf="form.get('body').touched && form.get('body').hasError('required')">
                         El cuerpo del mensaje es requerido
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label><b>¿Como desea enviar la notificación?</b></label><br>
+                    <input type="radio" id="unicast" name="broadcast" value="1" formControlName="broadcast" (click)="selectRadio('UNICAST')">
+                    <label for="unicast">Unicast</label>
+                    <input type="radio" id="broadcast" name="broadcast" value="0" formControlName="broadcast" (click)="selectRadio('BROADCAST')"> 
+                    <label for="broadcast">Broadcast</label>
                 </div>
                 
                 <button class="btn btn-primary" [disabled]="form.invalid"> 

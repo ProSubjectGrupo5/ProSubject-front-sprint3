@@ -25,7 +25,23 @@ export class NotificacionService {
       res => {return res},
       catchError(e =>{
         console.error(e.error.message);
-        swal.fire('Error al crear un horario.', 'No se pueden crear horarios a espacios publicados', 'error');
+        swal.fire('Error al enviar una notificación.', `${e.error.mensaje}`, 'error');
+        return throwError(e);
+      })
+    )
+  }
+
+  enviarEmailBroadcast(subject, body){
+    return this.http.post(`${this.urlEndPoint}/enviarBroadcast`, {},{responseType: 'text',
+      params: {
+        'subject': subject,
+        'body': body
+      },
+    },).pipe(
+      res => {return res},
+      catchError(e =>{
+        console.error(e.error.message);
+        swal.fire('Error al enviar una notificación.', `${e.error.mensaje}`, 'error');
         return throwError(e);
       })
     )
