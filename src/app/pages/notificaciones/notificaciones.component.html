@@ -47,11 +47,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label><b>¿Como desea enviar la notificación?</b></label><br>
+                    <label><b>¿A quien desea enviar la notificación?</b></label><br>
                     <input type="radio" id="unicast" name="broadcast" value="1" formControlName="broadcast" (click)="selectRadio('UNICAST')">
-                    <label for="unicast">Unicast</label>
+                    <label for="unicast">Al usuario especificado</label>
                     <input type="radio" id="broadcast" name="broadcast" value="0" formControlName="broadcast" (click)="selectRadio('BROADCAST')"> 
-                    <label for="broadcast">Broadcast</label>
+                    <label for="broadcast">A todos los usuarios</label>
                 </div>
                 
                 <button class="btn btn-primary" [disabled]="form.invalid"> 
