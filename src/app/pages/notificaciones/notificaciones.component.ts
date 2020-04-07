@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, ControlContainer } from '@angular/forms';
 import { NotificacionService } from 'src/app/services/services.index';
 import { NgxSpinnerService } from "ngx-spinner";  
 
@@ -20,6 +20,8 @@ export class NotificacionesComponent implements OnInit {
 
   mensajeEnviado = false
 
+  radioOption
+
   constructor(private fb: FormBuilder,
     private notificacionService: NotificacionService,
     private spinnerService: NgxSpinnerService) { }
@@ -29,25 +31,61 @@ export class NotificacionesComponent implements OnInit {
     this.form = this.fb.group({
       to: new FormControl('', [Validators.required, Validators.email]),
       subject: new FormControl('', Validators.required),
-      body: new FormControl('', Validators.required)
+      body: new FormControl('', Validators.required),
+      broadcast: new FormControl('', Validators.required)
     })
 
   }
 
+  selectRadio(option){
+    this.radioOption = option
+  }
+
+  esBroadcast(name){
+    if(name === this.radioOption && this.radioOption == 'BROADCAST'){
+      this.form.get('to').setValue('')
+      this.form.get('to').clearValidators()
+      this.form.get('to').updateValueAndValidity()
+      return true;
+    }
+    this.form.get('to').setValidators(Validators.required)
+    return false;
+  }
+
   submit(){
 
-    this.mail.to = this.form.get('to').value
-    this.mail.subject = this.form.get('subject').value
-    this.mail.body = this.form.get('body').value
-    this.spinnerService.show();
+    if(this.form.get('broadcast').value == 1){
+      this.mail.to = this.form.get('to').value
+      this.mail.subject = this.form.get('subject').value
+      this.mail.body = this.form.get('body').value
+      this.spinnerService.show();
+  
+      this.notificacionService.enviarEmail(this.mail.to,
+        this.mail.subject, this.mail.body).subscribe(
+          res => {console.log('Mensaje enviado'),
+          this.spinnerService.hide(),
+          this.mensajeEnviado = true
+          this.form.reset()},
+          error => console.log(error)
+        )
+    }else{
+      this.mail.subject = this.form.get('subject').value
+      this.mail.body = this.form.get('body').value
+      this.spinnerService.show();
 
-    this.notificacionService.enviarEmail(this.mail.to,
-      this.mail.subject, this.mail.body).subscribe(
-        res => {console.log('Mensaje enviado'),
-        this.spinnerService.hide(),
-        this.mensajeEnviado = true},
-        error => console.log(error)
-      )
+      this.notificacionService.enviarEmailBroadcast(this.mail.subject,
+        this.mail.body).subscribe(
+          res => {
+            console.log('Mensaje enviado'),
+            this.spinnerService.hide()
+            this.mensajeEnviado = true
+            this.form.reset()
+          },
+          error => console.log(error)
+        )
+
+    }
+    
 
   }
 
