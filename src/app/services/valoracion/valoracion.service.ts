@@ -41,4 +41,8 @@ export class ValoracionService {
       })
     );
   }
+
+  borrarValoracion(valoracionId){
+    return this.http.delete(`${this.urlEndPoint}/${valoracionId}?username=${JSON.parse(localStorage.getItem('usuario')).userAccount.username}`)
+  }
 }
