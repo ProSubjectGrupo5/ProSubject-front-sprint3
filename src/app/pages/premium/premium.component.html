@@ -1,8 +1,10 @@
 <ngx-spinner></ngx-spinner>
 <div class="container">
-    <h2 *ngIf="!perfil.tarifaPremium" class="m-4 text-center">¿Aún no eres premium? Consigue las siguientes ventajas por tan sólo <b>7€/mes</b>:</h2>
-    <h2 *ngIf="perfil.tarifaPremium" class="m-4 text-center">¡Enhorabuena, ya eres premium! Amplíalo por tan sólo <b>7€/mes</b>:</h2>
-    <h2 *ngIf="perfil.tarifaPremium" class="m-4 text-center">Actualmente dispone de {{dias_premium}} días premium.</h2>
+    <h2 *ngIf="!perfil.tarifaPremium" class="m-4 text-center">¿Aún no eres premium? Consigue las siguientes ventajas por tan sólo <b>7'99€/mes</b>:</h2>
+    <div *ngIf="perfil.tarifaPremium && mensajePagado" class="alert alert-info">
+         <h3 class="m-4 text-center">¡Enhorabuena, ya eres premium! Ya tienes disponible todas las ventajas.</h3>
+    </div>
+    <h2 *ngIf="perfil.tarifaPremium && !mensajePagado" class="m-4 text-center">Actualmente dispone de {{dias_premium}} días premium.</h2>
     <div class="m-2">
         <div class="blog-card">
             <div class="meta">
@@ -26,10 +28,10 @@
             <div class="meta">
               <div class="photo" style="background-image: url(https://www.luismaram.com/wp-content/uploads/2016/05/visual.jpg)"></div>
               <ul class="details">
-                <li class="author"><a href="#">Se más llamativo</a></li>
+                <li class="author"><a>Se más llamativo</a></li>
                 <li class="tags">
                   <ul>
-                    <li><a href="#">Visibilidad</a></li>
+                    <li><a>Visibilidad</a></li>
                   </ul>
                 </li>
               </ul>

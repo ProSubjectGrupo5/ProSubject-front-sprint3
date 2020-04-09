@@ -139,6 +139,7 @@ export class HorariosComponent implements OnInit, AfterContentInit{
             })
         })
     } else {
+      localStorage.setItem('carrito', idHorario)
       this.router.navigate(['login'])
     }
   }

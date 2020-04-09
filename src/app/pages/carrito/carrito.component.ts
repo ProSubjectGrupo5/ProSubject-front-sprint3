@@ -40,7 +40,15 @@ export class CarritoComponent implements OnInit {
     this.carritoService.getCarritoPorIdAlumno(idAlumno).subscribe(
       res => {
         this.carrito = res
-        console.log(res)
+        if(localStorage.getItem('carrito')){
+          this.carritoService.addHorarioCarrito(this.carrito.id, localStorage.getItem('carrito')).subscribe(
+            res => {
+              localStorage.removeItem('carrito')
+              this.getCarrito(idAlumno)
+            },err => {
+              localStorage.removeItem('carrito')
+            })
+        }
       },
       error =>{
         this.error = error.error.mensaje;
