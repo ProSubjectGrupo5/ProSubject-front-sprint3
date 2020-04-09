@@ -43,10 +43,6 @@ export class BusquedaAsignaturaComponent implements OnInit {
     this.busquedaAsignaturaService.getUniversidades().subscribe(data=>{
       this.universidades = data;
     });
-
-
-    
-
   }
 
 
@@ -63,11 +59,21 @@ export class BusquedaAsignaturaComponent implements OnInit {
 
     }else{
       this.form = this.fb.group({
-        universidad: new FormControl({value:usuario.universidad.nombre, disabled:true}),
-        facultad: new FormControl({value:usuario.facultad.nombre, disabled:true}),
-        grado: new FormControl({value:usuario.grado.nombre, disabled:true}),
+        universidad: new FormControl(usuario.universidad.nombre),
+        facultad: new FormControl(usuario.facultad.nombre),
+        grado: new FormControl(usuario.grado.nombre),
         curso: new FormControl(null),
         asignatura: new FormControl(null)
+      });
+
+      this.facultadService.getFacultadesPorUniversidad(this.form.get('universidad').value).subscribe(res=>{
+        this.facultades = res;
+        this.gradoService.getGradosPorUniversidadYFacultad(this.form.get('universidad').value, this.form.get('facultad').value).subscribe(res=>{
+          this.grados = res;
+          this.cursoService.getCursosPorGrado(this.form.get('grado').value).subscribe(res=>{
+            this.cursos = res;
+          });
+        });
       });
     }
     
@@ -129,23 +135,9 @@ export class BusquedaAsignaturaComponent implements OnInit {
 
     });
 
-
-    if(this.breadcrumbsService.usuario !== null){
-
-      this.cursoService.getCursosPorGrado(this.form.get('grado').value).subscribe(res=>{
-        if(res.length > 0){
-          this.cursos = res;
-          //this.form.get('curso').enable();
-        }else{
-          this.form.get('curso').setValue(null);
-          //this.form.get('curso').disable();
-          this.cursos = [];
-        }
-      });
-
-    }else{
       
-      this.form.get('grado').valueChanges.subscribe(data=>{
+
+    this.form.get('grado').valueChanges.subscribe(data=>{
         if(data !== null && data !== ''){
           this.cursoService.getCursosPorGrado(this.form.get('grado').value).subscribe(res=>{
             if(res.length > 0){
@@ -162,15 +154,9 @@ export class BusquedaAsignaturaComponent implements OnInit {
           //this.form.get('curso').disable();
           this.cursos = [];
         }
-      });
+    });
 
-    }
     
-   
-
-  
-
-
     this.form.get('curso').valueChanges.subscribe(data=>{
 
         if(data !== null && data !== ''){
