@@ -18,7 +18,11 @@
                         </div>
                         <div class="col-6 col-lg-6 col-md-6">
                             <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'">
-
+                                <p><strong class="mb-4">Más información:</strong></p>
+                                <p>Expediente: {{perfil.expedienteValidado}}</p>
+                                <p>Valoración Media: <span *ngIf="perfil.valoracionMedia">{{perfil.valoracionMedia}}</span> <span *ngIf="!perfil.valoracionMedia"> - </span></p>
+                                <p *ngIf="!perfil.tarifaPremium">Cuenta no Premium</p>
+                                <p *ngIf="perfil.tarifaPremium">Eres Premium <img class="mr-4" src="assets/images/medal.png"  alt="Carrito" width="50px" height="50px"></p>
                             </div>
                             <div *ngIf="perfil.userAccount.autoridad === 'ALUMNO'">
                                 <p><strong class="mb-4">Realizando estudios en:</strong></p>
@@ -104,7 +108,7 @@
                             <input matInput type="text" name="telefono" placeholder="Introduzca su teléfono" class="form-control"
                             formControlName="telefono" [ngClass]="{'is-invalid': form.get('telefono').touched && form.get('telefono').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('telefono').touched && form.get('telefono').hasError('pattern')">
-                                El telefono introducido no es válido
+                                El teléfono introducido no es válido
                             </div>
                         </div>
                     </div>
@@ -199,7 +203,7 @@
 
                 <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'" class="border border-secondary p-2">
                     <div class="alert alert-info d-inline-block">
-                        *<b>Expediente:</b> Si cambia de expendiente, quedará a la espera de su nueva validación.
+                        <b>Expediente:</b> Si cambia de expendiente, quedará a la espera de su nueva validación.
                           Por tanto, no podrá realizar ninguna función como profesor.
                     </div>
                    <input class="col-12" type="file" id="file" (change)="fileInput($event.target.files)">

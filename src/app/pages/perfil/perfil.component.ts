@@ -139,12 +139,14 @@ export class PerfilComponent implements OnInit {
   private getPerfil() {
     if(JSON.parse(localStorage.getItem('usuario'))){
       this.perfil = JSON.parse(localStorage.getItem('usuario'));
-      this.facultadService.getFacultadesPorUniversidad(this.perfil.universidad.nombre).subscribe(
-        data => this.facultades = data
-      )
-      this.gradoService.getGradosPorUniversidadYFacultad(this.perfil.universidad.nombre,this.perfil.facultad.nombre).subscribe(
-        data => this.grados = data
-      )
+      if(this.perfil.userAccount.autoridad === 'ALUMNO') {
+        this.facultadService.getFacultadesPorUniversidad(this.perfil.universidad.nombre).subscribe(
+          data => this.facultades = data
+        )
+        this.gradoService.getGradosPorUniversidadYFacultad(this.perfil.universidad.nombre,this.perfil.facultad.nombre).subscribe(
+          data => this.grados = data
+        )
+      }
     }else{
       this.route.navigate(['/inicio']);
     }
@@ -153,6 +155,7 @@ export class PerfilComponent implements OnInit {
   public mostrarFormularioEditarPerfil() {
     this.editarPerfil = !this.editarPerfil;
     this.mostrarMensajeActualizarPerfil = false;
+    this.error = null
   }
 
   
