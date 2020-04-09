@@ -158,9 +158,22 @@ export class PerfilComponent implements OnInit {
   
   onSubmit(){
     if(this.perfil.userAccount.autoridad === 'ALUMNO') {
-      this.alumno.facultad = this.perfil['facultad']
-      this.alumno.universidad = this.perfil['universidad']
-      this.alumno.grado = this.perfil['grado'] 
+      for(let u of this.universidades){
+        if (u.nombre === this.form.get('universidad').value){
+          this.alumno.universidad = u;
+        }
+      }
+      for(let f of this.facultades){
+        if (f.nombre === this.form.get('facultad').value){
+          this.alumno.facultad = f;
+        }
+      }
+      for(let g of this.grados){
+        if (g.nombre === this.form.get('grado').value){
+          this.alumno.grado = g;
+        }
+      }
+
       this.alumno.id = this.perfil.id;
       this.alumno.nombre = this.form.get('nombre').value;
       this.alumno.apellido1 = this.form.get('apellido1').value;

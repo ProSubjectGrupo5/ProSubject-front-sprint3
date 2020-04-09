@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-lg-12 col-md-12">
+                        <div class="col-6 col-lg-6 col-md-6">
                             <h3 class="mb-0 text-truncated">{{perfil.nombre}}</h3>
                             <p class="lead">{{perfil.apellido1}} {{perfil.apellido2}}</p>
                             <p>{{perfil.email}}</p>
@@ -16,10 +16,17 @@
                                 <span class="badge badge-info tags mr-1">{{perfil.userAccount.autoridad}}</span>
                             </p>
                         </div>
-                       <!--<div class="col-md-12 col-lg-4 col-md-6 text-center">
-                            <img  src="https://image.flaticon.com/icons/png/512/1430/premium/1430952.png" alt="alumno" class="mx-auto rounded-circle img-fluid">
-                            <img *ngIf="perfil.userAccount.autoridad === 'PROFESOR'" src="https://library.kissclipart.com/20180902/riq/kissclipart-teacher-icon-png-clipart-computer-icons-teacher-b3ddbed8ad96e62f.png" alt="profesor" class="mx-auto rounded-circle img-fluid">
-                        </div>-->
+                        <div class="col-6 col-lg-6 col-md-6">
+                            <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'">
+
+                            </div>
+                            <div *ngIf="perfil.userAccount.autoridad === 'ALUMNO'">
+                                <p><strong class="mb-4">Realizando estudios en:</strong></p>
+                                <p>{{perfil.universidad.nombre}}</p>
+                                <p>{{perfil.facultad.nombre}}</p>
+                                <p>{{perfil.grado.nombre}}</p>
+                            </div>
+                        </div>
                         <div class="col-12 col-lg-4">
                             <button type="button" class="btn" (click)="mostrarFormularioEditarPerfil()">Editar</button>
                         </div>
