@@ -107,6 +107,16 @@ export class CrearValoracionComponent implements OnInit {
 
   }
 
+  borrarValoracion(id){
+    this.valoracionesService.borrarValoracion(id).subscribe(
+      res => {
+        console.log('Borrado')
+        this.getValoraciones()
+      },
+      error => console.log(error)
+    )
+  }
+
 }
 
 

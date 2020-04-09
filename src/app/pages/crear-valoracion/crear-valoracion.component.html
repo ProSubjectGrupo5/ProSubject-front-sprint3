@@ -8,7 +8,10 @@
 
             <div class="card-body text-dark" id="parentCard">
                 <strong class="h6 mt-4">Valoración: </strong><ngx-stars  [initialStars]="valoracion.puntuacion" title="Valoración: {{valoracion.puntuacion}}/5" [readonly]="true"></ngx-stars>
-                <strong class="h6">Comentario: </strong><strong>{{valoracion.comentario}}</strong>
+                <strong class="h6">Comentario: </strong><strong>{{valoracion.comentario}}</strong>   
+                <div *ngIf="alumnoId == valoracion.alumno.id" class="float-right">
+                    <button type="button" class="btn btn-danger" (click)="borrarValoracion(valoracion.id)">Borrar</button>
+                </div>
             </div>
 
         </div> 
@@ -33,7 +36,7 @@
                     </div>
                     
                     <button class="btn btn-primary" [disabled]="form.invalid"> 
-                        Guardar
+                        Publicar
                     </button>
                 </div>
             </form>
