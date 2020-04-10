@@ -41,7 +41,7 @@ export class CarritoComponent implements OnInit {
       res => {
         this.carrito = res
         if(localStorage.getItem('carrito')){
-          this.carritoService.addHorarioCarrito(this.carrito.id, localStorage.getItem('carrito')).subscribe(
+          this.carritoService.addHorarioCarrito(this.carrito.id, localStorage.getItem('carrito'), idAlumno).subscribe(
             res => {
               localStorage.removeItem('carrito')
               this.getCarrito(idAlumno)
