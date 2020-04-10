@@ -47,6 +47,7 @@ import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.co
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 import { TycComponent } from './tyc/tyc.component';
+import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-privacidad.component';
 
 
 
@@ -83,7 +84,9 @@ import { TycComponent } from './tyc/tyc.component';
 
         NotificacionesComponent,
 
-        TycComponent
+        TycComponent,
+
+        PoliticaPrivacidadComponent
         
 
     ],

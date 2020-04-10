@@ -31,6 +31,7 @@ import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.co
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 import { TycComponent } from './tyc/tyc.component';
+import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-privacidad.component';
 
 
 
@@ -72,6 +73,7 @@ const pagesRoutes: Routes = [
             {path:'notificaciones', component: NotificacionesComponent, data: {titulo: 'Notificaciones'}, canActivate: [AdministradorGuard]},
 
             {path:'terminos-y-condiciones', component: TycComponent, data: {titulo: 'Términos y condiciones'}},
+            {path:'politica-privacidad', component: PoliticaPrivacidadComponent, data: {titulo: 'Política de privacidad'}},
 
 
             { path: '', redirectTo: '/inicio', pathMatch: 'full' }
