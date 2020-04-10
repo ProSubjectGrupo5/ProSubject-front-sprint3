@@ -4,7 +4,7 @@
             <div class="jumbotron text-center h2 text-dark">
                 Registro
             </div>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" id="form">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -174,7 +174,7 @@
                                 <div class="col-md-6">
                                     <div class="custom-control custom-checkbox my-1 mr-sm-2 form-group">            
                                         <input formControlName="check" type="checkbox" class="custom-control-input" id="customControlInline">
-                                        <label class="custom-control-label" for="customControlInline">Aceptar <a routerLink="/terminos-y-condiciones">términos y condiciones.</a></label>    
+                                        <label class="custom-control-label" for="customControlInline">Aceptar <a routerLink="/terminos-y-condiciones">términos y condiciones</a> y <a routerLink="/politica-privacidad">política de privacidad.</a></label>    
                                     </div>
                                 </div>
                                 
