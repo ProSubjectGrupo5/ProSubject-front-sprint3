@@ -130,15 +130,17 @@ export class HorariosComponent implements OnInit, AfterContentInit{
     if(JSON.parse(localStorage.getItem('usuario'))){
       var carrito: any;
       this.mostrarMensaje=false;
-      this.carritoService.getCarritoPorIdAlumno(JSON.parse(localStorage.getItem('usuario')).id).subscribe(
+      var idAlumno: string = JSON.parse(localStorage.getItem('usuario')).id;
+      this.carritoService.getCarritoPorIdAlumno(idAlumno).subscribe(
         res => {
           carrito = res
-          this.carritoService.addHorarioCarrito(carrito.id, idHorario).subscribe(
+          this.carritoService.addHorarioCarrito(carrito.id, idHorario, idAlumno).subscribe(
             res => {
               this.mostrarMensaje=true;
             })
         })
     } else {
+      localStorage.setItem('carrito', idHorario)
       this.router.navigate(['login'])
     }
   }

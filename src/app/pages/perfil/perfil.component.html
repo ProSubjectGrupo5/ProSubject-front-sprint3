@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-lg-12 col-md-12">
+                        <div class="col-6 col-lg-6 col-md-6">
                             <h3 class="mb-0 text-truncated">{{perfil.nombre}}</h3>
                             <p class="lead">{{perfil.apellido1}} {{perfil.apellido2}}</p>
                             <p>{{perfil.email}}</p>
@@ -16,10 +16,21 @@
                                 <span class="badge badge-info tags mr-1">{{perfil.userAccount.autoridad}}</span>
                             </p>
                         </div>
-                       <!--<div class="col-md-12 col-lg-4 col-md-6 text-center">
-                            <img  src="https://image.flaticon.com/icons/png/512/1430/premium/1430952.png" alt="alumno" class="mx-auto rounded-circle img-fluid">
-                            <img *ngIf="perfil.userAccount.autoridad === 'PROFESOR'" src="https://library.kissclipart.com/20180902/riq/kissclipart-teacher-icon-png-clipart-computer-icons-teacher-b3ddbed8ad96e62f.png" alt="profesor" class="mx-auto rounded-circle img-fluid">
-                        </div>-->
+                        <div class="col-6 col-lg-6 col-md-6">
+                            <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'">
+                                <p><strong class="mb-4">Más información:</strong></p>
+                                <p>Expediente: {{perfil.expedienteValidado}}</p>
+                                <p>Valoración Media: <span *ngIf="perfil.valoracionMedia">{{perfil.valoracionMedia}}</span> <span *ngIf="!perfil.valoracionMedia"> - </span></p>
+                                <p *ngIf="!perfil.tarifaPremium">Cuenta no Premium</p>
+                                <p *ngIf="perfil.tarifaPremium">Eres Premium <img class="mr-4" src="assets/images/medal.png"  alt="Carrito" width="50px" height="50px"></p>
+                            </div>
+                            <div *ngIf="perfil.userAccount.autoridad === 'ALUMNO'">
+                                <p><strong class="mb-4">Realizando estudios en:</strong></p>
+                                <p>{{perfil.universidad.nombre}}</p>
+                                <p>{{perfil.facultad.nombre}}</p>
+                                <p>{{perfil.grado.nombre}}</p>
+                            </div>
+                        </div>
                         <div class="col-12 col-lg-4">
                             <button type="button" class="btn" (click)="mostrarFormularioEditarPerfil()">Editar</button>
                         </div>
@@ -97,7 +108,7 @@
                             <input matInput type="text" name="telefono" placeholder="Introduzca su teléfono" class="form-control"
                             formControlName="telefono" [ngClass]="{'is-invalid': form.get('telefono').touched && form.get('telefono').invalid}">
                             <div class="alert alert-danger" *ngIf="form.get('telefono').touched && form.get('telefono').hasError('pattern')">
-                                El telefono introducido no es válido
+                                El teléfono introducido no es válido
                             </div>
                         </div>
                     </div>
@@ -115,6 +126,44 @@
                             <div class="alert alert-danger" *ngIf="form.get('email').touched && form.get('email').hasError('email')">
                                 Introduce en email válido
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="perfil.userAccount.autoridad === 'ALUMNO'" class="row">
+                    <div class="col-md-4 mb-4">
+                        <label>Universidad</label>
+                        <select class="form-control" formControlName="universidad" [ngClass]="{'is-invalid': form.get('universidad').touched && form.get('universidad').invalid}">
+                            <option value="" (click)="getFacultades('empty')">------</option>
+                            <option *ngFor="let valor of universidades" 
+                            [value]="valor.nombre" (click)="getFacultades(valor)">{{valor.nombre}}</option>
+                        </select>
+                        <div class="alert alert-danger" *ngIf="form.get('universidad').touched && form.get('universidad').hasError('required')">
+                            Debes introducir una universidad
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <label>Facultades</label>
+                        <select class="form-control" formControlName="facultad" [ngClass]="{'is-invalid': form.get('facultad').touched && form.get('facultad').invalid}">
+                            <option value="" (click)="getGrados('empty')">------</option>
+                            <option *ngFor="let valor of facultades" 
+                            [value]="valor.nombre" (click)="getGrados(valor)">{{valor.nombre}}</option>
+                        </select>
+                        <div class="alert alert-danger" *ngIf="form.get('facultad').touched && form.get('facultad').hasError('required')">
+                            Debes introducir una facultad
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <label>Grado</label>
+                        <select class="form-control" formControlName="grado" [ngClass]="{'is-invalid': form.get('grado').touched && form.get('grado').invalid}">
+                            <option value="">------</option>
+                            <option *ngFor="let valor of grados" 
+                            [value]="valor.nombre">{{valor.nombre}}</option>
+                        </select>
+                        <div class="alert alert-danger" *ngIf="form.get('grado').touched && form.get('grado').hasError('required')">
+                            Debes introducir un grado
                         </div>
                     </div>
                 </div>
@@ -152,16 +201,17 @@
                     </div>
                 </div>
 
-                <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'">
+                <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'" class="border border-secondary p-2">
                     <div class="alert alert-info d-inline-block">
-                        * Si cambia de expendiente, quedará a la espera de su nueva validación.
+                        <b>Expediente:</b> Si cambia de expendiente, quedará a la espera de su nueva validación.
                           Por tanto, no podrá realizar ninguna función como profesor.
                     </div>
-                    <input class="col-12" type="file" id="file" (change)="fileInput($event.target.files)">
-                    <div class="alert alert-danger d-inline-block" *ngIf="error">
-                        {{error}}
-                    </div>
+                   <input class="col-12" type="file" id="file" (change)="fileInput($event.target.files)">
                     <div *ngIf="perfil.expendiente" class="col-12 mt-3"><b>Expediente actual:</b> <strong class="mr-2 ml-2">{{perfil.expendiente.fileName}}</strong> <a class = "btn btn-secondary" title="Descargar expediente" (click)="download(perfil.expendiente.id)"><i class="fas fa-file-pdf"></i></a></div>
+                </div>
+
+                <div class="alert alert-danger d-inline-block mt-3" *ngIf="error">
+                    {{error}}
                 </div>
             
                 <div class="row mt-4">

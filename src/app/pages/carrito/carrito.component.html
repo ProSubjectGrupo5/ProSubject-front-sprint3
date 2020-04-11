@@ -1,5 +1,10 @@
 <ngx-spinner></ngx-spinner>
 <div *ngIf="carrito" class="container">
+    <div class="alert alert-info">
+        Cuando supere la compra de más de 4 horarios recibirá un 10% de descuento en esa compra.
+        Una vez se le aplique el descuento en una compra su contador volverá a 0.<br>
+        <b>Comprados</b>: {{perfil.contadorDescuento - carrito.horario.length}} + <b>Carrito</b>: {{carrito.horario.length}} = {{perfil.contadorDescuento}} <small *ngIf="perfil.contadorDescuento > 4"> (Esta compra obtendría el descuento)</small>
+    </div>
    <div  *ngIf="carrito.precioMensual !== 0" class="card shopping-cart">
             <div class="card-header bg-dark text-light">
                 <img class="mr-2" alt="Carrito" src="assets/images/smart-cart.png" width="40px">

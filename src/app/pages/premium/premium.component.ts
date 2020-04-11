@@ -15,6 +15,7 @@ export class PremiumComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   perfil: any;
   dias_premium: string = '';
+  mensajePagado: boolean = false
 
   constructor(private route: Router, private spinnerService: NgxSpinnerService,
     private profesorService: ProfesorService) { }
@@ -22,6 +23,7 @@ export class PremiumComponent implements OnInit {
   ngOnInit() {
     this.paypal();
     this.getPerfil();
+    this.mensajePagado = false
   }
 
   private getPerfil() {
@@ -43,7 +45,7 @@ export class PremiumComponent implements OnInit {
                 description: 'Comprando Tarifa Premium',
                 amount: {
                   currency_code: 'EUR',
-                  value: 7
+                  value: 7.99
                 }
               }
             ]
@@ -53,6 +55,7 @@ export class PremiumComponent implements OnInit {
           this.spinnerService.show();
           const order = await actions.order.capture();
           this.comprarPremium()
+          this.mensajePagado = true
           console.log(order);
         },
         onError: err => {

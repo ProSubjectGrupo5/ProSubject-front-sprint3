@@ -1,8 +1,10 @@
 <ngx-spinner></ngx-spinner>
 <div class="container">
-    <h2 *ngIf="!perfil.tarifaPremium" class="m-4 text-center">¿Aún no eres premium? Consigue las siguientes ventajas por tan sólo <b>7€/mes</b>:</h2>
-    <h2 *ngIf="perfil.tarifaPremium" class="m-4 text-center">¡Enhorabuena, ya eres premium! Amplíalo por tan sólo <b>7€/mes</b>:</h2>
-    <h2 *ngIf="perfil.tarifaPremium" class="m-4 text-center">Actualmente dispone de {{dias_premium}} días premium.</h2>
+    <h2 *ngIf="!perfil.tarifaPremium" class="m-4 text-center">¿Aún no eres premium? Consigue la siguiente ventaja por tan sólo <b>7'99€/mes</b>:</h2>
+    <div *ngIf="perfil.tarifaPremium && mensajePagado" class="alert alert-info">
+         <h3 class="m-4 text-center">¡Enhorabuena, ya eres premium! Ya puedes disfrutar de un mejor posicionamiento.</h3>
+    </div>
+    <h2 *ngIf="perfil.tarifaPremium && !mensajePagado" class="m-4 text-center">Actualmente dispone de {{dias_premium}} días premium.</h2>
     <div class="m-2">
         <div class="blog-card">
             <div class="meta">
@@ -22,14 +24,14 @@
               <p> Con esta tarifa conseguirás estar entre los primeros en las búsquedas, con lo cual aumentan tus posibilidades de ser elegido como profesor para impartir las clases que hayas publicado.</p>
             </div>
           </div>
-          <div class="blog-card alt">
+          <!--<div class="blog-card alt">
             <div class="meta">
               <div class="photo" style="background-image: url(https://www.luismaram.com/wp-content/uploads/2016/05/visual.jpg)"></div>
               <ul class="details">
-                <li class="author"><a href="#">Se más llamativo</a></li>
+                <li class="author"><a>Se más llamativo</a></li>
                 <li class="tags">
                   <ul>
-                    <li><a href="#">Visibilidad</a></li>
+                    <li><a>Visibilidad</a></li>
                   </ul>
                 </li>
               </ul>
@@ -39,7 +41,7 @@
               <h2>Se más llamativo</h2>
               <p>Con esta tarifa conseguirás tener una mejor apariencia al ser mostrado, te permitirá ser más llamativo  e incrementar tus posibilidades de ser elegido como profesor para impartir las clases que hayas publicado.</p>
             </div>
-          </div>    
+          </div>-->
     </div>  
     <div class="d-flex justify-content-center">
         <div class="col-12 col-md-6 col-sm-12 col-lg-6" id="paypal"></div>

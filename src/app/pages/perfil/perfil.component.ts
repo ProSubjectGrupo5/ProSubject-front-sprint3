@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { confirmPasswordValidator } from '../registro/confirm-password-validator';
-import { AlumnoService, ProfesorService, FileService, AdminService } from 'src/app/services/services.index';
+import { AlumnoService, ProfesorService, FileService, AdminService, BusquedaAsignaturaService, FacultadService, GradoService } from 'src/app/services/services.index';
 import { saveAs } from "file-saver";
 import { validDNIValidator } from "../registro/dni-validator";
 
@@ -14,6 +14,10 @@ import { validDNIValidator } from "../registro/dni-validator";
 })
 export class PerfilComponent implements OnInit {
 
+  universidades:any[];
+  grados:any[];
+  facultades:any[];
+
   perfil: any;
   editarPerfil: boolean;
   mostrarMensajeActualizarPerfil: boolean;
@@ -21,34 +25,88 @@ export class PerfilComponent implements OnInit {
   fileToUpload: File = null;
 
   form:FormGroup;
-  usuario: any = {
+
+  admin: any = {
+    id:'',
     nombre:'',
     apellido1:'',
     apellido2:'',
     dni:'',
     email:'',
     telefono:'',
+    userAccount: {
+      id:'',
+      username:'',
+      password:'',
+      autoridad:''
+    }
+  }
+
+  profesor: any = {
+    id:'',
+    nombre:'',
+    apellido1:'',
+    apellido2:'',
+    dni:'',
+    email:'',
+    telefono:'',
+    tarifaPremium:'',
     expendiente: {
       id:'',
       fileName:'',
       fileType:'',
       data:''
     },
+    expedienteValidado:'',
+    valoracionMedia: '',
+    fechaPagoPremium:'',
+    userAccount: {
+      id:'',
+      username:'',
+      password:'',
+      autoridad:''
+    }
+  }
+
+  alumno: any = {
+    id: '',
+    nombre:'',
+    apellido1:'',
+    apellido2:'',
+    dni:'',
+    email:'',
+    telefono:'',
     userAccount: {
       id:'',
       username:'',
       password:'',
       autoridad:''
     },
-    tarifaPremium:'',
-    expedienteValidado:'',
-    valoracionMedia: ''
+    universidad: {
+      id:'',
+      nombre:'',
+    },
+    grado: {
+      id:'',
+      nombre:'',
+      facultad:'',
+      numerocursos:''
+    },
+    facultad: {
+      id:'',
+      nombre:'',
+      universidad:'',
+    },
+    contadorDescuento:''
   }
 
 
   constructor(private route: Router, private fb:FormBuilder,
     private alumnoService: AlumnoService, private profesorService: ProfesorService,
-    private fileService: FileService, private adminService: AdminService) { }
+    private fileService: FileService, private adminService: AdminService,
+    private facultadService:FacultadService,
+    private busquedaAsignaturaService:BusquedaAsignaturaService,
+    private gradoService:GradoService) { }
 
   ngOnInit() {
     this.getPerfil();
@@ -69,11 +127,27 @@ export class PerfilComponent implements OnInit {
         confirmPassword: new FormControl(this.perfil.userAccount.password),
       }, {validators: confirmPasswordValidator})
     })
+    if(this.perfil.userAccount.autoridad === 'ALUMNO') {
+      this.form.addControl('universidad', new FormControl(this.perfil.universidad.nombre, [Validators.required]));
+      this.form.addControl('facultad', new FormControl(this.perfil.facultad.nombre, [Validators.required]));
+      this.form.addControl('grado', new FormControl(this.perfil.grado.nombre, [Validators.required]));
+      this.busquedaAsignaturaService.getUniversidades().subscribe(
+        data => this.universidades = data
+      )
+    }
   }
 
   private getPerfil() {
     if(JSON.parse(localStorage.getItem('usuario'))){
       this.perfil = JSON.parse(localStorage.getItem('usuario'));
+      if(this.perfil.userAccount.autoridad === 'ALUMNO') {
+        this.facultadService.getFacultadesPorUniversidad(this.perfil.universidad.nombre).subscribe(
+          data => this.facultades = data
+        )
+        this.gradoService.getGradosPorUniversidadYFacultad(this.perfil.universidad.nombre,this.perfil.facultad.nombre).subscribe(
+          data => this.grados = data
+        )
+      }
     }else{
       this.route.navigate(['/inicio']);
     }
@@ -82,35 +156,82 @@ export class PerfilComponent implements OnInit {
   public mostrarFormularioEditarPerfil() {
     this.editarPerfil = !this.editarPerfil;
     this.mostrarMensajeActualizarPerfil = false;
+    this.error = null
   }
 
   
   onSubmit(){
+    if(this.perfil.userAccount.autoridad === 'ALUMNO') {
+      for(let u of this.universidades){
+        if (u.nombre === this.form.get('universidad').value){
+          this.alumno.universidad = u;
+        }
+      }
+      for(let f of this.facultades){
+        if (f.nombre === this.form.get('facultad').value){
+          this.alumno.facultad = f;
+        }
+      }
+      for(let g of this.grados){
+        if (g.nombre === this.form.get('grado').value){
+          this.alumno.grado = g;
+        }
+      }
+
+      this.alumno.id = this.perfil.id;
+      this.alumno.nombre = this.form.get('nombre').value;
+      this.alumno.apellido1 = this.form.get('apellido1').value;
+      this.alumno.apellido2 = this.form.get('apellido2').value;
+      this.alumno.dni = this.form.get('dni').value;
+      this.alumno.email = this.form.get('email').value;
+      this.alumno.telefono = this.form.get('telefono').value;
+      this.alumno.userAccount.id = this.perfil.userAccount.id
+      this.alumno.userAccount.username = this.form.get('useraccount').get('username').value;
+      this.alumno.userAccount.password = this.form.get('useraccount').get('password').value;
+      this.alumno.userAccount.autoridad = this.perfil.userAccount.autoridad;
+      this.alumno.contadorDescuento = this.perfil.contadorDescuento;
+    }
     if(this.perfil.userAccount.autoridad === 'PROFESOR') {
-      this.usuario.valoracionMedia = this.perfil['valoracionMedia']
+      this.profesor.valoracionMedia = this.perfil['valoracionMedia']
+      this.profesor.id = this.perfil.id;
+      this.profesor.nombre = this.form.get('nombre').value;
+      this.profesor.apellido1 = this.form.get('apellido1').value;
+      this.profesor.apellido2 = this.form.get('apellido2').value;
+      this.profesor.dni = this.form.get('dni').value;
+      this.profesor.email = this.form.get('email').value;
+      this.profesor.telefono = this.form.get('telefono').value;
+      this.profesor.userAccount.id = this.perfil.userAccount.id
+      this.profesor.userAccount.username = this.form.get('useraccount').get('username').value;
+      this.profesor.userAccount.password = this.form.get('useraccount').get('password').value;
+      this.profesor.userAccount.autoridad = this.perfil.userAccount.autoridad;
+      this.profesor.expedienteValidado = this.perfil.expedienteValidado
+      this.profesor.tarifaPremium = this.perfil.tarifaPremium
+      this.profesor.fechaPagoPremium = this.perfil.fechaPagoPremium
+
+      if(!this.fileToUpload) {
+        this.profesor.expendiente = this.perfil['expendiente']
+      } else {
+        this.profesor.expendiente = this.perfil['expendiente']
+        this.profesor.expendiente.id = -1
+      }
     }
-    if(!this.fileToUpload && this.perfil.userAccount.autoridad === 'PROFESOR') {
-      this.usuario.expendiente = this.perfil['expendiente']
-    } else if(this.fileToUpload && this.perfil.userAccount.autoridad === 'PROFESOR') {
-      this.usuario.expendiente = this.perfil['expendiente']
-      this.usuario.expendiente.id = -1
-    }
-    this.usuario.id = this.perfil.id;
-    this.usuario.nombre = this.form.get('nombre').value;
-    this.usuario.apellido1 = this.form.get('apellido1').value;
-    this.usuario.apellido2 = this.form.get('apellido2').value;
-    this.usuario.dni = this.form.get('dni').value;
-    this.usuario.email = this.form.get('email').value;
-    this.usuario.telefono = this.form.get('telefono').value;
-    this.usuario.userAccount.id = this.perfil.userAccount.id
-    this.usuario.userAccount.username = this.form.get('useraccount').get('username').value;
-    this.usuario.userAccount.password = this.form.get('useraccount').get('password').value;
-    this.usuario.userAccount.autoridad = this.perfil.userAccount.autoridad;
-    this.usuario.expedienteValidado = this.perfil.expedienteValidado
-    this.usuario.tarifaPremium = this.perfil.tarifaPremium
 
     if(this.perfil.userAccount.autoridad === 'ADMIN') {
-      this.adminService.editarAdmin(this.usuario, this.perfil.id).subscribe(
+      this.admin.id = this.perfil.id;
+      this.admin.nombre = this.form.get('nombre').value;
+      this.admin.apellido1 = this.form.get('apellido1').value;
+      this.admin.apellido2 = this.form.get('apellido2').value;
+      this.admin.dni = this.form.get('dni').value;
+      this.admin.email = this.form.get('email').value;
+      this.admin.telefono = this.form.get('telefono').value;
+      this.admin.userAccount.id = this.perfil.userAccount.id
+      this.admin.userAccount.username = this.form.get('useraccount').get('username').value;
+      this.admin.userAccount.password = this.form.get('useraccount').get('password').value;
+      this.admin.userAccount.autoridad = this.perfil.userAccount.autoridad;
+    }
+
+    if(this.perfil.userAccount.autoridad === 'ADMIN') {
+      this.adminService.editarAdmin(this.admin, this.perfil.id).subscribe(
         res => {
           this.editarPerfil=false;
           localStorage.setItem('usuario', JSON.stringify(res));
@@ -119,7 +240,7 @@ export class PerfilComponent implements OnInit {
         });
 
     } else if(this.perfil.userAccount.autoridad === 'ALUMNO'){
-      this.alumnoService.editarAlumno(this.usuario, this.perfil.id).subscribe(
+      this.alumnoService.editarAlumno(this.alumno, this.perfil.id).subscribe(
         res => {
           this.editarPerfil=false;
           localStorage.setItem('usuario', JSON.stringify(res));
@@ -129,7 +250,7 @@ export class PerfilComponent implements OnInit {
     }else{
 
       const formData: FormData = new FormData();
-      formData.append('profesor', JSON.stringify(this.usuario));
+      formData.append('profesor', JSON.stringify(this.profesor));
       if(this.fileToUpload) {
         formData.append('file', this.fileToUpload, this.fileToUpload.name);
       }
@@ -164,5 +285,35 @@ export class PerfilComponent implements OnInit {
     },
     error => console.log(error)
     )
+  }
+
+  getFacultades(valor:any){
+    if(valor !== 'empty') {
+      this.facultadService.getFacultadesPorUniversidad(valor.nombre).subscribe(
+        data => {
+          this.grados = []
+          this.facultades = data
+        }
+      )
+    } else {
+      this.facultades = []
+      this.grados = []
+    }
+    this.form.get('facultad').setValue('')
+    this.form.get('grado').setValue('')
+  }
+
+
+  getGrados(valor:any){
+    if(valor !== 'empty') {
+      this.gradoService.getGradosPorUniversidadYFacultad(this.form.get('universidad').value,valor.nombre).subscribe(
+        data => {
+          this.grados = data
+        }
+      )
+    } else {
+      this.grados = []
+    }
+    this.form.get('grado').setValue('')
   }
 }

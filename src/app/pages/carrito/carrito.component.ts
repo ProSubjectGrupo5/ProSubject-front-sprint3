@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CarritoService } from 'src/app/services/carrito/carrito.service';
 import { HorarioService } from 'src/app/services/horario/horario.service';
 import { NgxSpinnerService } from "ngx-spinner";  
+import { AlumnoService } from 'src/app/services/services.index';
 
 declare var paypal;
 
@@ -20,7 +21,8 @@ export class CarritoComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   
   constructor(private route: Router, private carritoService: CarritoService,
-    private horarioService: HorarioService, private spinnerService: NgxSpinnerService) { }
+    private horarioService: HorarioService, private spinnerService: NgxSpinnerService,
+    private alumnoService: AlumnoService) { }
 
   ngOnInit() {
     this.getPerfil();
@@ -29,8 +31,12 @@ export class CarritoComponent implements OnInit {
 
   private getPerfil() {
     if(JSON.parse(localStorage.getItem('usuario'))){
-      this.perfil = JSON.parse(localStorage.getItem('usuario'));
-      this.getCarrito(this.perfil.id)
+      this.alumnoService.getAlumnoPorId(JSON.parse(localStorage.getItem('usuario')).id).subscribe(
+        res => {
+          this.perfil = res;
+          this.getCarrito(this.perfil.id)
+        }
+      );
     }else{
       this.route.navigate(['/inicio']);
     }
@@ -40,17 +46,25 @@ export class CarritoComponent implements OnInit {
     this.carritoService.getCarritoPorIdAlumno(idAlumno).subscribe(
       res => {
         this.carrito = res
-        console.log(res)
+        if(localStorage.getItem('carrito')){
+          this.carritoService.addHorarioCarrito(this.carrito.id, localStorage.getItem('carrito'), idAlumno).subscribe(
+            res => {
+              localStorage.removeItem('carrito')
+              this.getCarrito(idAlumno)
+            },err => {
+              localStorage.removeItem('carrito')
+            })
+        }
       },
       error =>{
         this.error = error.error.mensaje;
       })
   }
 
-  eliminarHorario(idAlumno: string, idCarrito: string){
-    this.carritoService.deleteHorarioCarrito(idAlumno, idCarrito).subscribe(
+  eliminarHorario(idCarrito: string, idHorario: string){
+    this.carritoService.deleteHorarioCarrito(idCarrito, idHorario, this.perfil.id).subscribe(
       res => {
-        this.carrito = this.getCarrito(idAlumno);
+        this.carrito = this.getCarrito(this.perfil.id);
       })
   }
 

@@ -28,7 +28,11 @@ export class LoginComponent implements OnInit {
       this.loginService.usuarioLogueado = user;
       console.log(this.loginService.usuarioLogueado);
       localStorage.setItem('usuario', JSON.stringify(this.loginService.usuarioLogueado));
-      this.route.navigate(['inicio']);
+      if(localStorage.getItem('carrito')){
+        this.route.navigate(['carrito']);
+      } else {
+        this.route.navigate(['inicio']);
+      }   
     });
 
   }
