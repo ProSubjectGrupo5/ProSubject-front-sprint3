@@ -36,11 +36,12 @@ export class CarritoService {
     );
   }
 
-  deleteHorarioCarrito(idCarrito: string, idHorario){
+  deleteHorarioCarrito(idCarrito: string, idHorario, alumnoId: string ){
     let url:string = `${this.urlEndPoint}/borrarHorario`;
     const formData: FormData = new FormData();
     formData.append('carritoId', idCarrito)
     formData.append('horarioId', idHorario)
+    formData.append('alumnoId', alumnoId)
     return this.http.post(url, formData).pipe(
       map(response => response as any)
     )

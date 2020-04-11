@@ -96,7 +96,8 @@ export class PerfilComponent implements OnInit {
       id:'',
       nombre:'',
       universidad:'',
-    }
+    },
+    contadorDescuento:''
   }
 
 
@@ -188,6 +189,7 @@ export class PerfilComponent implements OnInit {
       this.alumno.userAccount.username = this.form.get('useraccount').get('username').value;
       this.alumno.userAccount.password = this.form.get('useraccount').get('password').value;
       this.alumno.userAccount.autoridad = this.perfil.userAccount.autoridad;
+      this.alumno.contadorDescuento = this.perfil.contadorDescuento;
     }
     if(this.perfil.userAccount.autoridad === 'PROFESOR') {
       this.profesor.valoracionMedia = this.perfil['valoracionMedia']
