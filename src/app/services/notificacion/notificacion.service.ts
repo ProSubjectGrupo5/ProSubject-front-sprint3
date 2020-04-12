@@ -24,8 +24,10 @@ export class NotificacionService {
     },).pipe(
       res => {return res},
       catchError(e =>{
-        console.error(e.error.message);
-        swal.fire('Error al enviar una notificación.', `${e.error.mensaje}`, 'error');
+        const error = e.error.split(':')
+        const mensajeError = error[1].substring(1, 25)
+        console.error(mensajeError);
+        swal.fire('Error al enviar una notificación.', `${mensajeError}`, 'error');
         return throwError(e);
       })
     )
@@ -40,8 +42,10 @@ export class NotificacionService {
     },).pipe(
       res => {return res},
       catchError(e =>{
-        console.error(e.error.message);
-        swal.fire('Error al enviar una notificación.', `${e.error.mensaje}`, 'error');
+        const error = e.error.split(':')
+        const mensajeError = error[1].substring(1, 25)
+        console.error(mensajeError);
+        swal.fire('Error al enviar una notificación.', `${mensajeError}`, 'error');
         return throwError(e);
       })
     )
