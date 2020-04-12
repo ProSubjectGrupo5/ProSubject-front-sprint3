@@ -41,7 +41,7 @@ export class UsuariosOlvidadosComponent implements OnInit {
       this.notificacionService.enviarEmail(email,"Eliminación de datos del sistema.","Los datos han sido eliminados correctamente del sistema.").subscribe(email=>{
         this.profesores.splice(i,1);
         Swal.close();
-        swal.fire('Operación realizada.', `${data.mensaje}`, 'success');
+        swal.fire('Operación realizada.', 'El profesor ha sido borrado con exito.', 'success');
       });
     });  
   }
@@ -59,7 +59,7 @@ export class UsuariosOlvidadosComponent implements OnInit {
       this.notificacionService.enviarEmail(email,"Eliminación de datos del sistema.","Los datos han sido eliminados correctamente del sistema.").subscribe(email=>{
         this.alumnos.splice(i,1);
         Swal.close();
-        swal.fire('Operación realizada.', `${data.mensaje}`, 'success');
+        swal.fire('Operación realizada.', 'El Alumno ha sido borrado con exito.', 'success');
       });
     });     
   }
