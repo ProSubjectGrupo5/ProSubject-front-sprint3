@@ -32,6 +32,7 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
 
 import { TycComponent } from './tyc/tyc.component';
 import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-privacidad.component';
+import { UsuariosOlvidadosComponent } from './usuarios-olvidados/usuarios-olvidados.component';
 
 
 
@@ -74,6 +75,7 @@ const pagesRoutes: Routes = [
 
             {path:'terminos-y-condiciones', component: TycComponent, data: {titulo: 'Términos y condiciones'}},
             {path:'politica-privacidad', component: PoliticaPrivacidadComponent, data: {titulo: 'Política de privacidad'}},
+            {path:'usuarios-olvidados', component: UsuariosOlvidadosComponent, data: {titulo: 'Usuarios a eliminar'}, canActivate: [AdministradorGuard]},
 
 
             { path: '', redirectTo: '/inicio', pathMatch: 'full' }

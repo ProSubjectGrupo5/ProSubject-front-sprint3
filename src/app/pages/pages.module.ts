@@ -48,6 +48,7 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
 
 import { TycComponent } from './tyc/tyc.component';
 import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-privacidad.component';
+import { UsuariosOlvidadosComponent } from './usuarios-olvidados/usuarios-olvidados.component';
 
 
 
@@ -86,7 +87,9 @@ import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-priv
 
         TycComponent,
 
-        PoliticaPrivacidadComponent
+        PoliticaPrivacidadComponent,
+
+        UsuariosOlvidadosComponent
         
 
     ],
