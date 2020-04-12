@@ -5,6 +5,8 @@ import { confirmPasswordValidator } from '../registro/confirm-password-validator
 import { AlumnoService, ProfesorService, FileService, AdminService, BusquedaAsignaturaService, FacultadService, GradoService } from 'src/app/services/services.index';
 import { saveAs } from "file-saver";
 import { validDNIValidator } from "../registro/dni-validator";
+import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -315,5 +317,37 @@ export class PerfilComponent implements OnInit {
       this.grados = []
     }
     this.form.get('grado').setValue('')
+  }
+
+
+
+  peticionParaSerOlvidado(){
+    /*
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text: 'Espere por favor...'   
+    });
+    Swal.showLoading();
+    */
+
+    if(JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR'){
+      this.profesorService.peticionDeOlvido(JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
+        console.log(data);
+        //Swal.close();
+        swal.fire('Petición realizada con exito.','Pronto se procederá a eliminar sus datos del sistema.', 'success');
+        this.route.navigateByUrl('inicio');
+      })
+
+    }else if(JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ALUMNO'){
+      this.alumnoService.peticionDeOlvido(JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
+        console.log(data);
+        //Swal.close();
+        swal.fire('Petición realizada con exito.','Pronto se procederá a eliminar sus datos del sistema.', 'success');
+        this.route.navigateByUrl('inicio');
+      });
+    }
+
+    
   }
 }

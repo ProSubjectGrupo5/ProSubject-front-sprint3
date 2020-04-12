@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-12">
+
+        <div class="row">
+
+            <div class="col-6">
+                <div id="accordion" class="col-md-10 mx-auto d-block">
+                    <h2>Profesores</h2>
+                    <div class="div" *ngFor="let profesor of profesores; let i=index">
+            
+                        <div class="card">
+                            <div class="card-header bg-dark h5">
+                                    <a class="text-white" href="#ListP-{{ i }}" data-toggle="collapse">
+                                        {{profesor.apellido1}} {{profesor.apellido2}}, {{profesor.nombre}}
+                                    </a>
+                            </div>
+            
+                            <div id="ListP-{{ i }}" class="collapse">
+                                <ul class="h5 mt-3">
+                                    <li><b>Nombre: </b> {{profesor.nombre}}</li>
+                                    <li><b>Apellidos: </b> {{profesor.apellido1}} {{profesor.apellido2}}</li>
+                                    <li><b>DNI: </b> {{profesor.dni}}</li>
+                                    <li><b>Teléfono: </b> {{profesor.telefono}}</li>
+                                    <li><b>Email: </b> {{profesor.email}}</li>
+                                </ul>
+                                <div class="text-center mb-3">
+                                    <button class="btn btn-danger" (click)="eliminarProfesor(profesor.id, i, profesor.email)">Eliminar</button>
+                                </div>
+                            </div>
+            
+                        </div>
+                        
+                    </div>
+            
+                </div>
+
+            </div>
+
+            <div class="col-6">
+                <div id="accordion" class="col-md-10 mx-auto d-block">
+                    <h2>Alumnos</h2>
+                    <div class="div" *ngFor="let alumno of alumnos; let i=index">
+            
+                        <div class="card">
+                            <div class="card-header bg-dark h5">
+                                    <a class="text-white" href="#ListA-{{ i }}" data-toggle="collapse">
+                                        {{alumno.apellido1}} {{alumno.apellido2}}, {{alumno.nombre}}
+                                    </a>
+                            </div>
+            
+                            <div id="ListA-{{ i }}" class="collapse">
+                                <ul class="h5 mt-3">
+                                    <li><b>Nombre: </b> {{alumno.nombre}}</li>
+                                    <li><b>Apellidos: </b> {{alumno.apellido1}} {{alumno.apellido2}}</li>
+                                    <li><b>DNI: </b> {{alumno.dni}}</li>
+                                    <li><b>Teléfono: </b> {{alumno.telefono}}</li>
+                                    <li><b>Email: </b> {{alumno.email}}</li>
+                                </ul>
+                                <div class="text-center mb-3">
+                                    <button class="btn btn-danger" (click)="eliminarAlumno(alumno.id, i,alumno.email)">Eliminar</button>
+                                </div>
+                            </div>
+            
+                        </div>
+                        
+                    </div>
+            
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
