@@ -16,10 +16,12 @@
                 </div>
 
                 <div class="container pt-3">
-                <i class="fas fa-envelope"></i> {{horario.espacio.profesor.email}} <br/>
-                <div class="container pt-1">
-                    <i class="fas fa-phone"></i> {{horario.espacio.profesor.telefono}}
-                </div>
+                    <i class="fas fa-envelope"></i> {{horario.espacio.profesor.email}} <br/>
+                    <div *ngIf="horario.espacio.profesor.telefono">
+                        <div class="container pt-1">
+                            <i class="fas fa-phone"></i> {{horario.espacio.profesor.telefono}}
+                        </div>
+                    </div>
                 </div>
             </div>
 

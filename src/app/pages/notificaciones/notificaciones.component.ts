@@ -66,7 +66,11 @@ export class NotificacionesComponent implements OnInit {
           this.spinnerService.hide(),
           this.mensajeEnviado = true
           this.form.reset()},
-          error => console.log(error)
+          error => {
+            console.log(error)
+            this.spinnerService.hide()
+ 
+          }
         )
     }else{
       this.mail.subject = this.form.get('subject').value
@@ -81,7 +85,11 @@ export class NotificacionesComponent implements OnInit {
             this.mensajeEnviado = true
             this.form.reset()
           },
-          error => console.log(error)
+          error => {
+            console.log(error)
+            this.spinnerService.hide()
+          }
+
         )
 
     }
