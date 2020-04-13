@@ -2,8 +2,10 @@
 <div *ngIf="mostrarMensaje" class="alert alert-info d-inline-block">
     Se ha añadido ese horario al carrito.
 </div>
+
+<div class="container">
 <div class="row">
-    <div class="col-md-6 mx-auto d-block" *ngFor="let horario of horarios">
+    <div class="col-md-12 mx-auto d-block" *ngFor="let horario of horarios">
         <div class="card text-center">
             <div class="card-header bg-dark text-white h5 f-flex justify-content-between align-items-center">
                 <strong>{{horario.dia}}</strong>
@@ -27,8 +29,18 @@
                                     </div>
                                 </li>
 
-                                <li class="list-group-item"><strong>Fecha límite de inscripción:</strong> {{horario.fechaInicio | date: 'dd-MM-yyyy'}}</li>
-                                <li class="list-group-item"><strong>Fecha de finalización del horario:</strong> {{horario.fechaFin | date: 'dd-MM-yyyy'}}</li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <strong>Fecha límite de inscripción:</strong> {{horario.fechaInicio | date: 'dd-MM-yyyy'}}
+                                        </div>
+    
+                                        <div class="col-md-6">
+                                            <strong>Fecha de finalización del horario:</strong> {{horario.fechaFin | date: 'dd-MM-yyyy'}}
+                                        </div>
+                                    </div>      
+                                </li>
+                                
                                 <li class="list-group-item">
                                     <div class="row">
                                         <div class="col-md-6 text-right">
@@ -70,5 +82,5 @@
 <button (click)="volverDetallesEspacio(espacioId)" class="btn btn-primary mr-1">Cancelar</button>
 
 
-
+</div>
 
