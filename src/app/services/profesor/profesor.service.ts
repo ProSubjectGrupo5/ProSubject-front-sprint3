@@ -82,4 +82,17 @@ export class ProfesorService {
     )
   }
 
+
+
+  peticionDeOlvido(id:number){
+    return this.http.put(`${this.urlEndPoint}/profesores/peticionBorrar/${id}`, {headers: this.httpHeaders}).pipe(
+      catchError(e =>{
+        console.error(e.error.mensaje);
+        swal.fire('Error al realizar la petición.', `${e.error.mensaje}`, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+
 }

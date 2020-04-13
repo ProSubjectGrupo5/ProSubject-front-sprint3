@@ -38,6 +38,7 @@ export class BreadcrumbsComponent implements OnInit {
           { titulo: 'Crear administrador', url: '/nuevo-admin' },
           { titulo: 'Validar profesor', url: '/validar-profesor' },
           { titulo: 'Notificaciones', url: '/notificaciones' },
+          { titulo: 'Usuarios a eliminar', url: '/usuarios-olvidados' }
 
 
         ];
