@@ -289,9 +289,9 @@ export class PerfilComponent implements OnInit {
     )
   }
 
-  getFacultades(valor:any){
-    if(valor !== 'empty') {
-      this.facultadService.getFacultadesPorUniversidad(valor.nombre).subscribe(
+  getFacultades(valor:string){
+    if(valor !== '') {
+      this.facultadService.getFacultadesPorUniversidad(valor).subscribe(
         data => {
           this.grados = []
           this.facultades = data
@@ -306,9 +306,9 @@ export class PerfilComponent implements OnInit {
   }
 
 
-  getGrados(valor:any){
-    if(valor !== 'empty') {
-      this.gradoService.getGradosPorUniversidadYFacultad(this.form.get('universidad').value,valor.nombre).subscribe(
+  getGrados(valor:string){
+    if(valor !== '') {
+      this.gradoService.getGradosPorUniversidadYFacultad(this.form.get('universidad').value,valor).subscribe(
         data => {
           this.grados = data
         }
