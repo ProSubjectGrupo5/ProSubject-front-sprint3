@@ -134,10 +134,10 @@
                 <div *ngIf="perfil.userAccount.autoridad === 'ALUMNO'" class="row">
                     <div class="col-md-4 mb-4">
                         <label>Universidad</label>
-                        <select class="form-control" formControlName="universidad" [ngClass]="{'is-invalid': form.get('universidad').touched && form.get('universidad').invalid}">
-                            <option value="" (click)="getFacultades('empty')">------</option>
+                        <select class="form-control" formControlName="universidad" [ngClass]="{'is-invalid': form.get('universidad').touched && form.get('universidad').invalid}" (ngModelChange)="getFacultades($event)">
+                            <option value="">------</option>
                             <option *ngFor="let valor of universidades" 
-                            [value]="valor.nombre" (click)="getFacultades(valor)">{{valor.nombre}}</option>
+                            [value]="valor.nombre">{{valor.nombre}}</option>
                         </select>
                         <div class="alert alert-danger" *ngIf="form.get('universidad').touched && form.get('universidad').hasError('required')">
                             Debes introducir una universidad
@@ -146,10 +146,10 @@
 
                     <div class="col-md-4 mb-4">
                         <label>Facultades</label>
-                        <select class="form-control" formControlName="facultad" [ngClass]="{'is-invalid': form.get('facultad').touched && form.get('facultad').invalid}">
-                            <option value="" (click)="getGrados('empty')">------</option>
+                        <select class="form-control" formControlName="facultad" [ngClass]="{'is-invalid': form.get('facultad').touched && form.get('facultad').invalid}" (ngModelChange)="getGrados($event)">
+                            <option value="">------</option>
                             <option *ngFor="let valor of facultades" 
-                            [value]="valor.nombre" (click)="getGrados(valor)">{{valor.nombre}}</option>
+                            [value]="valor.nombre">{{valor.nombre}}</option>
                         </select>
                         <div class="alert alert-danger" *ngIf="form.get('facultad').touched && form.get('facultad').hasError('required')">
                             Debes introducir una facultad
