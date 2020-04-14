@@ -48,8 +48,8 @@ export class NotificacionesComponent implements OnInit {
       this.form.get('to').updateValueAndValidity()
       return true;
     }
-    this.form.get('to').setValidators(Validators.required)
-    this.form.get('to').setValidators(Validators.email)
+    
+    this.form.get('to').setValidators([Validators.required,Validators.email])
 
     return false;
   }

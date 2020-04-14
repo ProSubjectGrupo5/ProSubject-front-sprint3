@@ -44,11 +44,20 @@ export class FileService {
 
   getDatosAlumno(idAlumno){
     return this.http.get(`${this.urlEndPoint}/pdfAlumno/${idAlumno}`,
-    {responseType: 'blob', headers: this.httpHeaders});
+    {responseType: 'blob', headers: this.httpHeaders}).pipe(
+      catchError(e =>{
+        swal.fire('Error al intentar obtener tus datos.', `${e.error.message}`, 'error');
+        return throwError(e);
+      }));
+    
   }
 
   getDatosProfesor(idProfesor){
     return this.http.get(`${this.urlEndPoint}/pdfProfesor/${idProfesor}`,
-    {responseType: 'blob', headers: this.httpHeaders});
+    {responseType: 'blob', headers: this.httpHeaders}).pipe(
+      catchError(e =>{
+        swal.fire('Error al intentar obtener tus datos.', `${e.error.message}`, 'error');
+        return throwError(e);
+      }));
   }
 }
