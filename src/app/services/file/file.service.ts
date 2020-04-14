@@ -41,4 +41,14 @@ export class FileService {
       })
     );
   }
+
+  getDatosAlumno(idAlumno){
+    return this.http.get(`${this.urlEndPoint}/pdfAlumno/${idAlumno}`,
+    {responseType: 'blob', headers: this.httpHeaders});
+  }
+
+  getDatosProfesor(idProfesor){
+    return this.http.get(`${this.urlEndPoint}/pdfProfesor/${idProfesor}`,
+    {responseType: 'blob', headers: this.httpHeaders});
+  }
 }

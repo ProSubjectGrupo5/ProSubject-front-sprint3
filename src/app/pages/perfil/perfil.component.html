@@ -32,8 +32,16 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary" (click)="mostrarFormularioEditarPerfil()">Editar</button>
-                            <button type="button" class="btn btn-primary ml-1" (click)="peticionParaSerOlvidado()">Petición de olvido</button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" (click)="mostrarFormularioEditarPerfil()">Editar</button>
+                                <div *ngIf="perfil.userAccount.autoridad === 'PROFESOR'">
+                                    <button type="button" class="btn btn-primary ml-1" (click)="obtenerDatosProfesor(perfil.id, perfil.nombre)">Obtener mis datos</button>
+                                </div>
+                                <div *ngIf="perfil.userAccount.autoridad === 'ALUMNO'">
+                                    <button type="button" class="btn btn-primary ml-1" (click)="obtenerDatosAlumno(perfil.id, perfil.nombre)">Obtener mis datos</button>
+                                </div>
+                                <button type="button" class="btn btn-primary ml-1" (click)="peticionParaSerOlvidado()">Petición de olvido</button>
+                            </div>
                         </div>
                         <!--/col-->
                     </div>

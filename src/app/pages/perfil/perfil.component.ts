@@ -350,4 +350,16 @@ export class PerfilComponent implements OnInit {
 
     
   }
+
+  obtenerDatosAlumno(id, nombre){
+    this.fileService.getDatosAlumno(id).subscribe(
+      res => saveAs(res , `Datos-${nombre}`)
+    )
+  }
+
+  obtenerDatosProfesor(id, nombre){
+    this.fileService.getDatosProfesor(id).subscribe(
+      res => saveAs(res , `Datos-${nombre}`)
+    )
+  }
 }
