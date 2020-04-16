@@ -46,7 +46,7 @@ export class FileService {
     return this.http.get(`${this.urlEndPoint}/pdfAlumno/${idAlumno}`,
     {responseType: 'blob', headers: this.httpHeaders}).pipe(
       catchError(e =>{
-        swal.fire('Error al intentar obtener tus datos.', `${e.error.message}`, 'error');
+        swal.fire('Error al intentar obtener tus datos.', '', 'error');
         return throwError(e);
       }));
     
@@ -56,7 +56,7 @@ export class FileService {
     return this.http.get(`${this.urlEndPoint}/pdfProfesor/${idProfesor}`,
     {responseType: 'blob', headers: this.httpHeaders}).pipe(
       catchError(e =>{
-        swal.fire('Error al intentar obtener tus datos.', `${e.error.message}`, 'error');
+        swal.fire('Error al intentar obtener tus datos.', '', 'error');
         return throwError(e);
       }));
   }
