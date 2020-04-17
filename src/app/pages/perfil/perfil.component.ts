@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { confirmPasswordValidator } from '../registro/confirm-password-validator';
-import { AlumnoService, ProfesorService, FileService, AdminService, BusquedaAsignaturaService, FacultadService, GradoService } from 'src/app/services/services.index';
+import { AlumnoService, ProfesorService, FileService, AdminService, BusquedaAsignaturaService, FacultadService, GradoService, NotificacionService } from 'src/app/services/services.index';
 import { saveAs } from "file-saver";
 import { validDNIValidator } from "../registro/dni-validator";
 import swal from 'sweetalert2';
@@ -108,7 +108,8 @@ export class PerfilComponent implements OnInit {
     private fileService: FileService, private adminService: AdminService,
     private facultadService:FacultadService,
     private busquedaAsignaturaService:BusquedaAsignaturaService,
-    private gradoService:GradoService) { }
+    private gradoService:GradoService,
+    private notificacionService:NotificacionService) { }
 
   ngOnInit() {
     this.getPerfil();
@@ -322,29 +323,32 @@ export class PerfilComponent implements OnInit {
 
 
   peticionParaSerOlvidado(){
-    /*
+    
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
       text: 'Espere por favor...'   
     });
     Swal.showLoading();
-    */
+    
 
     if(JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR'){
       this.profesorService.peticionDeOlvido(JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
-        console.log(data);
-        //Swal.close();
-        swal.fire('Petición realizada con exito.','Pronto se procederá a eliminar sus datos del sistema.', 'success');
-        this.route.navigateByUrl('inicio');
-      })
+        this.notificacionService.enviarEmail('prosubject.ispp@gmail.com',"Petición para ser olvidado del sistema.",`El/La profesor/profesora ${JSON.parse(localStorage.getItem('usuario')).nombre} ${JSON.parse(localStorage.getItem('usuario')).apellido1} ${JSON.parse(localStorage.getItem('usuario')).apellido2} desea ser olvidado/olvidada del sistema.`).subscribe(email=>{
+          Swal.close();
+          swal.fire('Petición realizada con exito.','Pronto se procederá a eliminar sus datos del sistema.', 'success');
+          this.route.navigateByUrl('inicio');
+        });
+        
+      });
 
     }else if(JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ALUMNO'){
       this.alumnoService.peticionDeOlvido(JSON.parse(localStorage.getItem('usuario')).id).subscribe(data=>{
-        console.log(data);
-        //Swal.close();
-        swal.fire('Petición realizada con exito.','Pronto se procederá a eliminar sus datos del sistema.', 'success');
-        this.route.navigateByUrl('inicio');
+        this.notificacionService.enviarEmail('prosubject.ispp@gmail.com',"Petición para ser olvidado del sistema.",`El/La alumno/alumna ${JSON.parse(localStorage.getItem('usuario')).nombre} ${JSON.parse(localStorage.getItem('usuario')).apellido1} ${JSON.parse(localStorage.getItem('usuario')).apellido2} desea ser olvidado/olvidada del sistema.`).subscribe(email=>{
+          Swal.close();
+          swal.fire('Petición realizada con exito.','Pronto se procederá a eliminar sus datos del sistema.', 'success');
+          this.route.navigateByUrl('inicio');
+        });
       });
     }
 

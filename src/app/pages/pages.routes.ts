@@ -47,7 +47,7 @@ const pagesRoutes: Routes = [
         children: [
             { path: 'busqueda-asignatura', component: BusquedaAsignaturaComponent, data:{titulo:'Busqueda de espacios'} },
             { path: 'inicio', component: HomeComponent, data:{titulo:'Inicio'} },
-            { path:'login', component:LoginComponent, data:{titulo:'Inicio sesión'}},
+            { path:'login', component:LoginComponent, data:{titulo:'Inicio de sesión'}},
             { path:'registro', component:RegistroComponent, data:{titulo:'Registro'}},
 
             {path:'perfil', component: PerfilComponent, data:{titulo:'Perfil'}},
