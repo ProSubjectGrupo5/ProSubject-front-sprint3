@@ -20,13 +20,13 @@ export class BreadcrumbsComponent implements OnInit {
       if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ALUMNO'){
         this.breadcrumbsService.usuario = JSON.parse(localStorage.getItem('usuario'));
         this.breadcrumbsService.menu = [
-          { titulo: 'Login', url: '/login' },
+          { titulo: 'Iniciar sesión', url: '/login' },
           { titulo: 'Busqueda de espacios', url: '/busqueda-asignatura' },
           { titulo: 'Mis clases', url: '/espacios-alumno'},
         ];
       }else if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'PROFESOR'){
         this.breadcrumbsService.menu = [
-          { titulo: 'Login', url: '/login' },
+          { titulo: 'Iniciar sesión', url: '/login' },
           { titulo: 'Creación de espacio', url: '/creacion-espacio'},
           { titulo: 'Mis espacios', url: '/espacios-profesor'},
           { titulo: 'Espacios editables', url: '/espacios-editable-profesor'},
@@ -34,7 +34,7 @@ export class BreadcrumbsComponent implements OnInit {
         ];
       }else if(JSON.parse(localStorage.getItem('usuario')) && JSON.parse(localStorage.getItem('usuario')).userAccount.autoridad === 'ADMIN'){
         this.breadcrumbsService.menu = [
-          { titulo: 'Login', url: '/login' },
+          { titulo: 'Iniciar sesión', url: '/login' },
           { titulo: 'Crear administrador', url: '/nuevo-admin' },
           { titulo: 'Validar profesor', url: '/validar-profesor' },
           { titulo: 'Notificaciones', url: '/notificaciones' },
@@ -44,7 +44,7 @@ export class BreadcrumbsComponent implements OnInit {
         ];
       }else{
         this.breadcrumbsService.menu = [
-          { titulo: 'Login', url: '/login' },
+          { titulo: 'Iniciar sesión', url: '/login' },
           { titulo: 'Busqueda de espacios', url: '/busqueda-asignatura' },
         ];
       }
