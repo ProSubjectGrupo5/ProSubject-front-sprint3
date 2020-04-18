@@ -54,7 +54,6 @@ export class CrearValoracionComponent implements OnInit {
         this.valoraciones = data
         this.alumnoId = JSON.parse(localStorage.getItem('usuario')).id
         this.haComentado = this.alumnoHaComentado(this.valoraciones, this.alumnoId);
-        console.log(this.haComentado)
       }
       
     )
@@ -112,6 +111,7 @@ export class CrearValoracionComponent implements OnInit {
       res => {
         console.log('Borrado')
         this.getValoraciones()
+        this.form.reset()
       },
       error => console.log(error)
     )
