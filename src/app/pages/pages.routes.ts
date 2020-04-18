@@ -12,7 +12,7 @@ import { HorariosComponent } from './horarios/horarios.component';
 
 import { RegistroComponent } from './registro/registro.component';
 
-import { ProfesorGuard, AlumnoGuard, AdministradorGuard, AlumnoProfesorGuard, ProfesorExpedienteGuard, ValoracionProfesorGuard, ValoracionAlumnoGuard } from '../services/services.index';
+import { ProfesorGuard, AlumnoGuard, AdministradorGuard, AlumnoProfesorGuard, ProfesorExpedienteGuard, ValoracionProfesorGuard, ValoracionAlumnoGuard, AlumnoAnonimoGuard } from '../services/services.index';
 import { NuevoAdminComponent } from './nuevo-admin/nuevo-admin.component';
 
 import { EspaciosEditablesProfesorComponent } from './espacios-editables-profesor/espacios-editables-profesor.component';
@@ -45,7 +45,7 @@ const pagesRoutes: Routes = [
         path: '',
         component: PagesComponent,
         children: [
-            { path: 'busqueda-asignatura', component: BusquedaAsignaturaComponent, data:{titulo:'Busqueda de espacios'} },
+            { path: 'busqueda-asignatura', component: BusquedaAsignaturaComponent, data:{titulo:'Búsqueda de espacios'}, canActivate: [AlumnoAnonimoGuard] },
             { path: 'inicio', component: HomeComponent, data:{titulo:'Inicio'} },
             { path:'login', component:LoginComponent, data:{titulo:'Inicio de sesión'}},
             { path:'registro', component:RegistroComponent, data:{titulo:'Registro'}},
@@ -55,8 +55,8 @@ const pagesRoutes: Routes = [
             {path:'premium', component: PremiumComponent, data:{titulo:'Premium'}, canActivate: [ProfesorGuard]},
 
             //----CRISTIAN----
-            {path:'creacion-espacio', component: CreacionEspacioComponent, data:{titulo:'Creacion de espacio'}, canActivate: [ProfesorGuard]},
-            {path:'detalles-espacio/:id', component: DetallesEspacioComponent, data:{titulo: 'Detalle del espacio'}},
+            {path:'creacion-espacio', component: CreacionEspacioComponent, data:{titulo:'Creación de espacio'}, canActivate: [ProfesorGuard]},
+            {path:'detalles-espacio/:id', component: DetallesEspacioComponent, data:{titulo: 'Detalle del espacio'}, canActivate: [AlumnoAnonimoGuard]},
             {path:'espacios-profesor', component: EspaciosProfesorComponent, data:{titulo: 'Mis espacios'}, canActivate: [ProfesorExpedienteGuard]},
             {path:'espacios-editable-profesor', component: EspaciosEditablesProfesorComponent, data:{titulo: 'Espacios editables'}, canActivate: [ProfesorGuard]},
             {path:'ver-horarios/:id', component: VerHorariosComponent, data:{titulo: 'Horarios'}, canActivate: [ProfesorGuard]},
@@ -64,7 +64,7 @@ const pagesRoutes: Routes = [
             {path:'crear-horarios/:id', component: CrearHorarioComponent, data:{titulo: 'Crear horario'}, canActivate: [ProfesorGuard]},
             {path:'editar-espacio/:id', component: EditarEspaciosComponent, data:{titulo: 'Editar espacio'}, canActivate: [ProfesorGuard]},
             {path:'espacios-alumno', component: EspaciosAlumnoComponent, data:{titulo: 'Mis clases'}, canActivate: [AlumnoGuard]},
-            {path:'horarios/:id', component: HorariosComponent, data: {titulo: 'Horarios'}},
+            {path:'horarios/:id', component: HorariosComponent, data: {titulo: 'Horarios'}, canActivate: [AlumnoGuard]},
             {path:'nuevo-admin', component: NuevoAdminComponent, data: {titulo: 'Crear administrador'}, canActivate: [AdministradorGuard]},
             {path:'foro/:id', component: ForoComponent, data: {titulo: 'Foro'}, canActivate: [AlumnoProfesorGuard]},
             {path:'validar-profesor', component: ValidarProfesorComponent, data:{titulo: 'Validar profesor'}, canActivate: [AdministradorGuard]},
