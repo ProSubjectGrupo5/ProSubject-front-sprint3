@@ -16,6 +16,7 @@ export class PremiumComponent implements OnInit {
   perfil: any;
   dias_premium: string = '';
   mensajePagado: boolean = false
+  mostrarBotonPaypal: boolean = false
 
   constructor(private route: Router, private spinnerService: NgxSpinnerService,
     private profesorService: ProfesorService) { }
@@ -71,6 +72,7 @@ export class PremiumComponent implements OnInit {
       res => {
         localStorage.setItem('usuario', JSON.stringify(res));
         this.perfil = res;
+        this.diasPremium();
         this.spinnerService.hide()
       }, err => {
         this.spinnerService.hide()
@@ -81,9 +83,11 @@ export class PremiumComponent implements OnInit {
     this.profesorService.diasPremium(this.perfil.id).subscribe(
       res => {
         this.dias_premium = '0';
+        this.mostrarBotonPaypal = true;
       }, err => {
         const m = err['error']['mensaje'].replace(/\D/g, "");
         this.dias_premium = m;
+        this.mostrarBotonPaypal = false;
       })
   }
 
