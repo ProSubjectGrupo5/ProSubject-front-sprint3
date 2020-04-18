@@ -1,3 +1,4 @@
+export { AlumnoAnonimoGuard } from './guards/alumno-anonimo.guard';
 
 export { WebSocketService } from './socket/web-socket.service';
 
@@ -50,6 +51,8 @@ export { ValoracionProfesorGuard } from './guards/valoracion-profesor.guard'
 export { ValoracionAlumnoGuard } from './guards/valoracion-alumno.guard'
 
 export { NotificacionService } from './notificacion/notificacion.service'
+
+
 
 
 

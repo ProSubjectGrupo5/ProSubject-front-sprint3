@@ -26,7 +26,8 @@ import {
     CarritoService,
     ValoracionProfesorGuard,
     ValoracionAlumnoGuard,
-    NotificacionService
+    NotificacionService,
+    AlumnoAnonimoGuard
     
  } from './services.index';
 import { ProfesorExpedienteGuard } from './guards/profesor.guard-expediente';
@@ -66,7 +67,8 @@ import { ProfesorExpedienteGuard } from './guards/profesor.guard-expediente';
     ProfesorExpedienteGuard,
     ValoracionProfesorGuard,
     ValoracionAlumnoGuard,
-    NotificacionService
+    NotificacionService,
+    AlumnoAnonimoGuard
   ],
   declarations: []
 })
