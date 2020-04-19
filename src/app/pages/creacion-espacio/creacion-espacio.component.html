@@ -234,9 +234,17 @@
                                 </div>
 
                             </div>
+
+                            <div class="alert alert-danger" *ngIf="form.get('horarios')?.controls[i].invalid && i != 0">
+                                Debe rellenar el nuevo horario o eliminarlo                            
+                            </div>
+
+
                             <div *ngIf="i != 0">
                             <button type="button" title="Eliminar horario" (click)="deleteHorario(i)"><i class="fas fa-trash-alt"></i></button>
                             </div>
+
+
 
                         </div>
                         <button type="button" class="btn btn-primary" title="Añadir nuevo horario" (click)="addNuevoHorario()">Añadir nuevo horario</button>
