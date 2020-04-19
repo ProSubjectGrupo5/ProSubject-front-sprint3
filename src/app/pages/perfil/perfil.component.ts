@@ -214,7 +214,7 @@ export class PerfilComponent implements OnInit {
       if(!this.fileToUpload) {
         this.profesor.expendiente = this.perfil['expendiente']
       } else {
-        this.profesor.expendiente = this.perfil['expendiente']
+        this.profesor.expendiente = JSON.parse(JSON.stringify(this.perfil['expendiente']))
         this.profesor.expendiente.id = -1
       }
     }
